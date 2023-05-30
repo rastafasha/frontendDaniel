@@ -1,0 +1,94 @@
+<div class="container-header">
+    <header class="header">
+        <div class="left">
+            <div class="logo">
+                <a routerLink="/">
+                    <img src="./assets/svg/logo.svg" alt="logo ">
+                </a>
+            </div>
+            <form id="custom-search-form" class="form-search form-horizontal pull-right">
+                <div class="input-append span12 search">
+                    <input type="text" class="search-query" placeholder="Search">
+                    <button type="submit" class="btn"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+
+
+        </div>
+        <div class="right">
+            <div class="write" *ngIf="!user">
+                <a routerLink="login">
+                    <img src="./assets/svg/editar.svg" alt="logo ">
+                </a>
+            </div>
+            <div class="notification" (click)="openModalNotification()">
+                <img src="./assets/svg/campana.svg" alt="logo ">
+            </div>
+            <div class="notification cart" (click)="openModalCart()">
+                <div class="cart--notification">{{cartItems.length}}</div>
+                <img src="./assets/svg/carrito-de-compras.svg" alt="logo ">
+            </div>
+            <div *ngIf="user">
+                <div class="user-header" (click)="openModal()">
+                    <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
+                    <!-- <div *ngIf="!profile.image && profile.image === 'undefined'">
+                  <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
+                </div>
+                <div *ngIf="profile.image">
+                    <img [src]="profile.image | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
+
+                </div> -->
+                </div>
+            </div>
+        </div>
+
+    </header>
+</div>
+<div class="clear"></div>
+
+<!-- inicio user modal -->
+<div *ngIf="user">
+    <div class="user-modal animated fadeInDown">
+        <p class="user-modal__title">User data</p>
+        <div class="user-modal__chekout-container">
+            <div class="user-modal__details-container">
+                <div class="user-data">
+                    <h1>Usuario: {{user.username}}</h1>
+                    <p><b>Email:</b> {{user.email}}</p>
+                    <p><b>Miembro desde:</b> {{user.created_at | date: 'dd/mm/YYYY'}}</p>
+                    <p><a [routerLink]="['/user-account', user.id]">Mi Perfil</a></p>
+                    <p><a (click)="logout()">Salir</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- fin user modal -->
+<!-- inicio notificacion modal -->
+<div class="notificacion-modal animated fadeInDown">
+    <p class="notificacion-modal__title">Notificacion Data</p>
+    <div class="notificacion-modal__chekout-container">
+        <div class="notificacion-modal__details-container">
+        </div>
+    </div>
+</div>
+<!-- fin notificacion modal -->
+<!-- inicio cart modal -->
+<div class="cart-modal animated fadeInDown">
+    <p class="cart-modal__title">Cart Data</p>
+    <div class="cart-modal__chekout-container">
+        <div class="cart-modal__details-container " *ngFor="let item of cartItems; index as i">
+            <img class="cart-modal__image" [src]="item.img | imagenPipe: 'productos'" alt="">
+            <div>
+                <p class="cart-modal__product">{{item.productName| slice: 0:10 }}...</p>
+                <p class="cart-modal__price">${{item.productPrice}} x{{item.quantity }} <span>${{item.quantity * item.productPrice| number: '1.1-2'}}</span> </p>
+            </div>
+            <img class="cart-modal__delete" (click)="deletItem(i)" src="./assets/svg/icon-delete.svg" alt="delete">
+        </div>
+        <div *ngIf="cartItems.length < 1">
+            <p class="cart-empty">Your cart is empty</p>
+        </div>
+    </div>
+</div>
+<!-- fin cart modal -->

@@ -1,0 +1,58 @@
+<div class="container mt-3 mb-3">
+    <div class="editor">
+        <h1>Perfil de Editor</h1>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="card shadow-small">
+                    <div class="card-body">
+                        <div class="tofolow">
+                            <div class="imagen">
+                                <img src="./assets/img/user2.jpg" alt="">
+                            </div>
+                            <div class="info">
+                                <h1>{{user.username}}</h1>
+                                <p><b>Email:</b> {{user.email}}</p>
+                                <p><b>Miembro desde:</b> {{user.created_at | date: 'dd/mm/YYYY'}}</p>
+                                <p><b>Plan:</b> {{user.role}}</p>
+                            </div>
+                            <div class="boton">
+                                <button class="btn btn-outline-dark borderradius">Follow</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Publicaciones</h2>
+                        <div *ngFor="let post of user.posts ">
+                            <!-- article -->
+                            <div class="home-article">
+                                <div class="article-info">
+                                    <h1><a [routerLink]="['/post', post.id]">{{post.title}}</a></h1>
+                                    <p>{{post.description}}</p>
+                                    <div class="image-article">
+                                        <a [routerLink]="['/post', post.id]">
+                                            <div *ngIf="!post.image">
+                                                <img class="img-responsive" src="./assets/img/no-image.jpg" alt=" {{post.title}}" style="width:100%" />
+                                            </div>
+                                            <div *ngIf="post.image">
+                                                <img class="img-responsive" [src]="post.image | imagenPipe: 'posts'" alt=" {{post.title}}" style="width:100%" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- article -->
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

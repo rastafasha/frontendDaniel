@@ -1,0 +1,33 @@
+<!-- <div class="card text-center mb-3 itemproduct">
+
+    <div class="card-body">
+        <h5 class="card-title">{{product.name}}</h5>
+        <h5 class="card-title">{{product.color}}</h5>
+        <h5 class="card-title">{{product.description}}</h5>
+        <p class="card-text">${{product.price}}</p>
+        <button href="#" class="btn btn-outline-success" (click)="addToCart()"> <i class="fa fa-cart"></i> add to cart</button>
+    </div>
+</div> -->
+<div class="card text-center mb-3 itemproduct">
+
+    <div class="db-wrapper">
+        <div class="db-pricing-eleven">
+            <div class="price">
+                <div *ngIf="product.price ">
+                    <sup>$</sup>{{product.price}}
+                </div>
+                <div *ngIf="!product.price ">
+                    <small>Gratis (sólo registrate)</small>
+                </div>
+            </div>
+            <div class="type">
+                {{product.name}}
+            </div>
+            <div [innerHtml]="product.description | safe: 'html'" class="description"></div>
+            <div class="pricing-footer">
+
+                <button href="#" class="btn btn-outline-success" (click)="addToCart()"> <i class="fa fa-cart"></i> add to cart</button>
+            </div>
+        </div>
+    </div>
+</div>

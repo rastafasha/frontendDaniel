@@ -1,0 +1,235 @@
+.card-img-top {
+    width: 170px;
+    height: 230px;
+    align-self: center;
+    padding-top: 10px;
+}
+
+.itemproduct {
+    width: auto;
+}
+
+.itemproduct .card-body {
+    padding: 0 20px px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.itemproduct .description {
+    height: 90px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    line-height: 16px;
+}
+
+@media(min-width:1024px) {
+    .itemproduct {
+        width: auto;
+        height: 425px;
+        overflow: hidden;
+    }
+    .itemproduct .imageprod {
+        display: flex;
+        width: auto;
+        height: 200px;
+        margin: auto;
+    }
+    .itemproduct .imageprod img {
+        display: flex;
+        width: auto;
+        height: 210px;
+        margin: auto;
+    }
+}
+
+@media(max-width:768px) {
+    .itemproduct {
+        width: auto;
+        height: auto;
+        overflow: hidden;
+    }
+    .itemproduct .imageprod {
+        display: flex;
+        width: auto;
+        height: 160px;
+        margin: auto;
+    }
+    .itemproduct .imageprod img {
+        display: flex;
+        width: auto;
+        height: 160px;
+        margin: auto;
+    }
+    .itemproduct .card-title {
+        padding: 0;
+        font-size: 18px;
+        font-weight: 500;
+        color: #012970;
+        font-family: "Poppins", sans-serif;
+    }
+}
+
+@media(max-width:480px) {
+    .itemproduct {
+        width: 84vw;
+        height: auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        border-radius: 10px;
+    }
+    .itemproduct .imageprod {
+        display: flex;
+        height: 110px;
+        margin: auto;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        width: 110px;
+        border-radius: 10px 0px 0px 10px;
+    }
+    .itemproduct .imageprod img {
+        display: flex;
+        width: auto;
+        height: 110px;
+        margin: auto;
+    }
+    .itemproduct .card-title {
+        padding: 0;
+        font-size: 18px;
+        font-weight: 500;
+        color: #012970;
+        font-family: "Poppins", sans-serif;
+        padding: 0;
+        margin: 0;
+    }
+    .itemproduct .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: start;
+        padding-top: 10px;
+    }
+}
+
+.subcripcion {}
+
+:root {
+    --vinotinto: #930b32;
+    --gris: #9ca3ad;
+    --gris-claro: #cfd5de;
+}
+
+
+/*============================================================
+PRICING STYLES
+==========================================================*/
+
+.db-padding-btm {
+    margin-bottom: 40px;
+}
+
+.db-button-color-square {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.50);
+    border: none;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+
+.db-button-color-square:hover {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.50);
+    border: none;
+}
+
+.db-pricing-eleven {
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    color: #fff;
+}
+
+.db-pricing-eleven ul {
+    list-style: none;
+    margin: 0;
+    text-align: center;
+    padding-left: 0px;
+}
+
+.db-pricing-eleven ul li {
+    padding: 10px 0px;
+    cursor: pointer;
+}
+
+.db-pricing-eleven ul li i {
+    margin-right: 5px;
+}
+
+.db-pricing-eleven .price {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    font-size: 60px;
+    font-weight: 900;
+    color: #FFFFFF;
+}
+
+.db-pricing-eleven .price small {
+    color: #B8B8B8;
+    display: block;
+    font-size: 12px;
+    margin-top: 22px;
+}
+
+.db-pricing-eleven .type {
+    background-color: var(--vinotinto);
+    padding: 20px 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 30px;
+}
+
+.db-pricing-eleven .pricing-footer {
+    padding: 20px;
+}
+
+.db-pricing-eleven .pricing-footer a {
+    border-radius: 40px;
+    color: var(--vinotinto);
+    border: 1px solid var(--vinotinto);
+    text-decoration: none;
+    background: var(--white);
+}
+
+.db-pricing-eleven .pricing-footer a:hover {
+    color: var(--white);
+    background: var(--vinotinto);
+    border: 1px solid var(--white);
+}
+
+.db-attached>.col-lg-4,
+.db-attached>.col-lg-3,
+.db-attached>.col-md-4,
+.db-attached>.col-md-3,
+.db-attached>.col-sm-4,
+.db-attached>.col-sm-3 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.db-pricing-eleven.popular {
+    margin-top: 10px;
+}
+
+.db-pricing-eleven.popular .price {
+    padding-top: 80px;
+}
+
+.payment-methods {
+    height: auto;
+    min-height: 200px;
+    padding: 20px;
+}

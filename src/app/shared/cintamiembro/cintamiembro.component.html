@@ -1,0 +1,27 @@
+<div *ngIf="!user.role || !user">
+    <div class="subcribe-bar">
+        <img src="./assets/svg/star.svg" alt="">
+        <p>Get unlimited access to all of Medium for less than $1/week.</p>
+        <p><a routerLink="subcripciones">Become a member</a></p>
+    </div>
+</div>
+
+<div *ngIf="user.role === 'GUEST' ">
+    <!-- <div> -->
+    <div class="subcribe-bar">
+        <img src="./assets/svg/star.svg" alt="">
+        <p>Get unlimited access to all of Medium for less than $1/week.</p>
+        <p><a routerLink="./subcripciones" (click)="gotoCursos()">Become a member</a></p>
+    </div>
+</div>
+
+<div *ngIf="user.role === 'ADMIN' || user.role === 'EDITOR' || user.role === 'SUPERADMIN' ">
+    <div class="subcribe-bar">
+        <img src="./assets/svg/star.svg" alt="">
+        <p *ngIf="user.role === 'MEMBER'">Welcome Member</p>
+        <p *ngIf="user.role === 'ADMIN'">Welcome Admin</p>
+        <p *ngIf="user.role === 'EDITOR' ">Welcome Editor</p>
+        <p *ngIf="user.role === 'SUPERADMIN' ">Welcome SuperAdmin</p>
+
+    </div>
+</div>

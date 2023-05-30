@@ -1,0 +1,66 @@
+<app-cintamiembro>
+</app-cintamiembro>
+
+
+<div class="container mt-3 mb-3">
+    <!-- left-side -->
+    <div class="contenido ">
+        <!-- article -->
+        <div class="article">
+            <div class="userinfo">
+                <div class="image-user">
+                    <a [routerLink]="['/editor', post.user_id]">
+                        <img src="./assets/img/user2.jpg" alt="">
+                    </a>
+                </div>
+                <p><span class="resaltado">{{post.users.username}}</span>&nbsp; in &nbsp;<span class="resaltado">ITNEXT</span>&nbsp; • &nbsp; <span class="resaltado">{{post.created_at | date:'mediumDate'}}</span></p>
+            </div>
+            <div class="article-options">
+                <div class="topic badge badge-pill badge-light mr-1">
+                    {{post.categories[0].name}}
+                </div>
+                <div class="time-story">
+                    5 min read • Based on you reading history
+                </div>
+                <div class="options-icons">
+                    <a href="#">
+                        <img src="./assets/svg/marcador.svg" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="./assets/svg/agregar.svg" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="./assets/svg/menu-puntos.svg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="article-info">
+                <div class="imagenpost">
+                    <div *ngIf="!post.image">
+                        <div class="no-image"></div>
+                        <!-- <img class="img-responsive" src="./assets/images/no-image.jpg" alt=" {{post.title}}" /> -->
+                    </div>
+                    <div *ngIf="post.image">
+                        <div class="got-image" style="background-image: url('{{imagenSerUrl}}posts/{{post.image}}')" title="{{post.title}}"></div>
+                        <!-- <img class="img-responsive" [src]="post.image | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
+                    </div>
+                </div>
+                <h1>{{post.title}}</h1>
+
+                <div *ngIf="user.role === 'ADMIN' || user.role === 'EDITOR' || user.role === 'SUPERADMIN' ">
+                    <div [innerHtml]="post.description | safe: 'html' "></div>
+                </div>
+                <div *ngIf="!user || user.role === 'GUEST'">
+                    <div class="nomember" [innerHtml]="post.description | safe: 'html' "></div>
+                    <button href="#" class="btn btn-outline-success" (click)="addToCart()"> <i class="fa fa-cart"></i> add to cart</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- article -->
+    </div>
+    <!-- end left-side -->
+    <!-- right side -->
+    <app-sidebar></app-sidebar>
+    <!-- endright side -->
+</div>

@@ -1,0 +1,111 @@
+<app-cintamiembro></app-cintamiembro>
+<hr>
+<div class="container mt-3 mb-3">
+    <div class="profile">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6">
+                <h2>Perfil de Usuario</h2>
+                <div class="card usercard">
+                    <div class="card-body">
+                        <div class="tofolow">
+                            <div class="imagen">
+                                <img src="./assets/img/user2.jpg" alt="">
+                            </div>
+                            <div class="info">
+                                <h1>{{user.profiles.nombre}} {{user.profiles.surname}}</h1>
+                                <p><b>Email:</b> {{user.email}}</p>
+                                <p><b>Miembro desde:</b> {{user.created_at | date: 'dd/mm/YYYY'}}</p>
+                                <p><b>Role:</b> {{user.role}}</p>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                                <p><b>pais:</b> {{user.profiles.pais}}</p>
+                                <p><b>ciudad:</b> {{user.profiles.ciudad}}</p>
+                                <p><b>estado:</b> {{user.profiles.estado}}</p>
+                                <p><b>direccion:</b> {{user.profiles.direccion}}</p>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                                <p><b>telhome:</b> {{user.profiles.telhome}}</p>
+                                <p><b>telmovil:</b> {{user.profiles.telmovil}}</p>
+                                <p><b>facebook:</b> {{user.profiles.facebook}}</p>
+                                <p><b>instagram:</b> {{user.profiles.instagram}}</p>
+                                <p><b>linkedin:</b> {{user.profiles.linkedin}}</p>
+                                <p><b>twitter:</b> {{user.profiles.twitter}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6">
+                <h2>Compras</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- whotofollow -->
+                        <div class="whotofollow">
+                            <!-- tofolow -->
+                            <div class="shopping">
+
+                                <div class="info">
+                                    <h1>Barack Obama</h1>
+                                    <p>Dad, husband, President,citizen</p>
+                                </div>
+                                <div class="boton">
+                                    <button class="btn btn-outline-dark borderradius">Ver</button>
+                                </div>
+                            </div>
+                            <!-- tofolow -->
+
+                            <p><a href="whotofolllow.html">See more suggestions</a></p>
+                        </div>
+                        <!-- whotofollow -->
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Favorites Articles</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6">
+                <h2>Following</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- whotofollow -->
+                        <div class="whotofollow">
+                            <!-- tofolow -->
+                            <div class="tofolow">
+
+                                <div class="imagen">
+                                    <a href="editor.html">
+                                        <img src="./assets/img/user2.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <h1>Barack Obama</h1>
+                                    <p>Dad, husband, President,citizen</p>
+                                </div>
+                                <div class="boton">
+                                    <button class="btn btn-outline-dark borderradius">Unfollow</button>
+                                </div>
+                            </div>
+                            <!-- tofolow -->
+
+                            <p><a href="whotofolllow.html">See more suggestions</a></p>
+                        </div>
+                        <!-- whotofollow -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

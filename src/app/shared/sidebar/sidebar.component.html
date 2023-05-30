@@ -1,0 +1,123 @@
+<div class="aside ">
+    <!-- cart -->
+    <!-- cart -->
+    <!-- staff-pic -->
+    <div class="staff-pic">
+        <div class="title-seccion">
+            <img src="./assets/svg/mundo.svg" alt="">
+            <h1>Staff Pic</h1>
+        </div>
+        <div class="clear"></div>
+        <div *ngFor="let post of postrecientes">
+            <!-- posted -->
+            <div class="posted">
+                <div class="userinfo">
+                    <div class="image-user">
+                        <a [routerLink]="['/editor', post.user_id]">
+                            <img src="./assets/img/user2.jpg" alt="">
+                        </a>
+                    </div>
+                    <p>{{post.users.username}}</p>
+                </div>
+                <h1><a [routerLink]="['/post', post.slug]">{{post.title}}</a></h1>
+            </div>
+            <!-- posted -->
+        </div>
+
+        <p><a routerLink="./staff-pics">See the full list</a></p>
+    </div>
+    <!-- staff-pic -->
+    <!-- boxmember -->
+    <!-- <div class="boxmember">
+        <h1>Writing on Daniels'Proyect</h1>
+        <ul>
+            <li><a href="#">New Writer FAQ</a></li>
+            <li><a href="#">Expert writing advice</a></li>
+            <li><a href="#">Grow your readership</a></li>
+        </ul>
+        <button class="btn btn-vinotinto">
+        Start Writing
+    </button>
+    </div> -->
+    <!-- boxmember -->
+    <!-- socialblock -->
+    <div class="socialblock">
+        <div class="tope">
+            <img src="./assets/svg/logo.svg" alt="">
+            <h1>+</h1>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-instagram"></i>
+        </div>
+        <h2>Discover Daniels'Proyect writers you already follow on our Social Networks.</h2>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-danger btn-vinotinto">Follows in &nbsp;<i class="fa fa-twitter"></i></button> &nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-outline-danger btn-vinotinto">Follows in &nbsp;<i class="fa fa-instagram"></i></button>
+        </div>
+
+    </div>
+    <!-- socialblock -->
+    <!-- recomended-topic -->
+    <div class="recomended-topic">
+        <div class="title-seccion">
+            <img src="./assets/svg/prismaticos.svg" alt="">
+            <h1>Recomended Topics</h1>
+
+        </div>
+        <div class="clear"></div>
+        <ul *ngFor="let category of categories">
+            <li class="topic badge badge-pill badge-light mr-1">
+                <a href="#">{{category.name}}</a>
+            </li>
+        </ul>
+        <div class="clear"></div>
+        <p><a routerLink="recommended-topics">See more topics</a></p>
+    </div>
+    <!-- recomended-topic -->
+    <!-- whotofollow -->
+    <div class="whotofollow">
+        <div class="title-seccion">
+            <img src="./assets/svg/agregar-usuario.svg" alt="">
+            <h1>Who to Follow</h1>
+        </div>
+        <div *ngFor="let editor of editors">
+            <!-- tofolow -->
+            <div class="tofolow">
+
+                <div class="imagen">
+                    <a [routerLink]="['/editor', editor.user_id]">
+                        <img src="./assets/img/user2.jpg" alt="">
+                    </a>
+                </div>
+                <div class="info">
+                    <h1>{{editor.username}}</h1>
+                    <p>Dad, husband, President,citizen</p>
+                </div>
+                <div class="boton">
+                    <button class="btn btn-outline-dark borderradius">Follow</button>
+                </div>
+            </div>
+            <!-- tofolow -->
+        </div>
+        <p><a routerLink="who-to-follow">See more suggestions</a></p>
+    </div>
+    <!-- whotofollow -->
+    <!-- readinglist -->
+    <div class="readinglist">
+        <div class="title-seccion">
+            <h1>Reading List</h1>
+        </div>
+        <h1>Click the <img src="./assets/svg/marcador.svg" alt=""> on any story to easily add to your reading list or a custom list that you can share.</h1>
+        <ul>
+            <li><a href="#">Help</a> </li>
+            <li><a href="#">Status</a> </li>
+            <li><a routerLink="who-to-follow">Writers</a> </li>
+            <li><a href="#">Blog</a> </li>
+            <li><a href="#">Carrers</a> </li>
+            <li><a href="#">Privacy Term</a> </li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Text to speech</a></li>
+        </ul>
+    </div>
+    <!-- readinglist -->
+</div>

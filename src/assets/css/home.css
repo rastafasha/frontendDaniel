@@ -1,0 +1,301 @@
+@charset "UTF-8";
+
+/* CSS Document */
+
+
+/*Author: Malcolm cordova @malcolmcordova mercadocreativo@gmail.com www.malcolmcordova.com*/
+
+.contenido {
+    width: 70%;
+    height: auto;
+    float: left;
+    padding: 0px 20px;
+    padding-bottom: 30px;
+    padding-top: 50px;
+}
+
+.contenido-full {
+    width: 100%;
+    height: auto;
+    float: left;
+    padding: 0px 20px;
+    padding-bottom: 30px;
+    padding-top: 50px;
+}
+
+.aside {
+    width: 30%;
+    border-left: 1px solid var(--gris);
+    height: auto;
+    float: left;
+    padding-top: 50px;
+    padding-left: 15px;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid var(--gris);
+    display: flex;
+    justify-content: center;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:hover {
+    color: var(--vinotinto);
+    background-color: transparent;
+    border-color: transparent transparent var(--vinotinto)
+}
+
+.nav-tabs .nav-link {
+    color: var(--gris)
+}
+
+.aside .staff-pic {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.title-seccion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title-seccion img {
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    filter: invert(10%) sepia(100%) saturate(2476%) hue-rotate(331deg) brightness(118%) contrast(119%);
+}
+
+.title-seccion h1 {
+    display: flex;
+    color: var(--vinotinto);
+    font-size: 1.5rem;
+}
+
+.staff-pic .posted {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.staff-pic .posted .userinfo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.staff-pic .posted .userinfo .image-user {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-right: 10px;
+    background-color: var(--gris);
+    padding: 3px;
+}
+
+.staff-pic .posted .userinfo .image-user img {
+    display: flex;
+    width: 100%;
+    height: auto;
+    border-radius: 100px;
+}
+
+.staff-pic .posted .userinfo p,
+.staff-pic .posted .userinfo p a {
+    display: flex;
+    color: var(--gris);
+}
+
+.staff-pic .posted h1,
+.staff-pic .posted h1 a {
+    display: flex;
+    color: var(--vinotinto);
+    font-size: 1.5rem;
+    padding: 0;
+    margin: 0;
+}
+
+.staff-pic p a {
+    display: flex;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+
+.boxmember {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    background-color: #e4f3fc;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.boxmember h1 {
+    display: flex;
+    font-size: 1.3rem;
+}
+
+.boxmember ul {
+    display: list-item;
+    list-style: none;
+}
+
+.boxmember ul li a {
+    font-size: 14px;
+}
+
+.socialblock {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.socialblock .tope {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.socialblock .tope img {
+    height: 30px;
+    margin-right: 5px;
+}
+
+.socialblock .tope h1 {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.socialblock .tope i {
+    font-size: 30px;
+    color: var(--vinotinto);
+}
+
+.socialblock h2 {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.recomended-topic {
+    margin-bottom: 20px;
+}
+
+.recomended-topic ul li {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.recomended-topic ul li a {
+    color: var(--black);
+}
+
+.whotofollow {
+    margin-bottom: 20px;
+}
+
+.whotofollow .tofolow {
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: 40px 210px 70px;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 80px;
+}
+
+.whotofollow .tofolow .imagen {
+    grid-area: 1 / 1 / 2 / 3;
+    width: 70px;
+}
+
+.whotofollow .tofolow .imagen img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+}
+
+.whotofollow .tofolow .info {
+    grid-area: 1 / 2 / 1 / 3;
+}
+
+.whotofollow .tofolow .info h1 {
+    color: var(--vinotinto);
+    font-size: 1.3rem;
+    padding: 0;
+    margin: 0;
+}
+
+.whotofollow .tofolow p {
+    color: var(--gris);
+    font-size: 1rem;
+}
+
+.whotofollow .tofolow .boton {
+    grid-area: 1 / 3 / 1 / 4;
+}
+
+.readinglist {
+    margin-bottom: 20px;
+}
+
+.readinglist h1 {
+    font-size: 18px;
+    color: var(--gris);
+}
+
+.readinglist h1 img {
+    width: 20px;
+    height: 20px;
+    filter: opacity(50%);
+}
+
+.readinglist ul {
+    list-style: none;
+}
+
+.readinglist ul li {
+    font-size: .9rem;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.readinglist ul li a {
+    color: var(--gris);
+}
+
+@media(max-width:1024px) {}
+
+@media(max-width:768px) {
+    .aside {
+        display: none !important;
+    }
+    .contenido {
+        width: 100%;
+        margin-top: 60px;
+        padding: 0px;
+        min-height: 100vh;
+        padding-bottom: 100px;
+    }
+}
+
+@media(max-width:420px) {
+    .contenido {
+        width: 100%;
+        margin-top: 60px;
+        padding: 0px;
+        min-height: 100vh;
+        padding-bottom: 100px;
+    }
+}

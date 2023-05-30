@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+/* CSS Document */
+
+
+/*Author: Malcolm cordova @malcolmcordova mercadocreativo@gmail.com www.malcolmcordova.com*/
+
+.navbarM a img {
+    width: 25px;
+    height: 25px;
+}
+
+@media(min-width:769px) {
+    .navbarM {
+        display: none;
+    }
+}
+
+@media(max-width:768px) {
+    .navbarM {
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+        background-color: #fff;
+        border-top: 1px solid var(--azuloscuro);
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        z-index: 9999;
+        height: 64px;
+    }
+    .navbarM a {
+        float: left;
+        display: inline-block;
+        color: var(--gris);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 11px;
+        width: calc(20%);
+    }
+    .navbarM a i {
+        font-size: 20px;
+        display: block;
+        text-align: center;
+    }
+    .navbarM a:hover {
+        background: var(--gris);
+        color: #fff;
+    }
+    .navbarM a.active {
+        background-color: var(--gris);
+        color: white;
+    }
+    .navbarM a img {
+        filter: invert(10%) sepia(100%) saturate(2476%) hue-rotate(331deg) brightness(118%) contrast(119%);
+    }
+    .navbarM a.active img {
+        filter: red;
+    }
+    .main {
+        padding: 16px;
+        margin-bottom: 30px;
+    }
+    .navbarMtop {
+        display: none;
+    }
+}

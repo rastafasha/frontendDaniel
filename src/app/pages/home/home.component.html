@@ -1,0 +1,32 @@
+<app-slidertop></app-slidertop>
+<app-cintamiembro></app-cintamiembro>
+
+<div class="container mt-3 mb-3">
+    <!-- left-side -->
+    <div class="contenido ">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">For You</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Featured</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <!-- articles -->
+            <div class="tab-pane fade show active mt-3" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <app-articles-home></app-articles-home>
+            </div>
+            <!-- articles -->
+            <!-- following -->
+            <div class="tab-pane fade mt-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <app-articles-follow></app-articles-follow>
+
+            </div>
+        </div>
+    </div>
+    <!-- end left-side -->
+    <!-- right side -->
+    <app-sidebar></app-sidebar>
+    <!-- endright side -->
+</div>

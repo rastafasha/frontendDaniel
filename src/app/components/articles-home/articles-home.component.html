@@ -1,0 +1,56 @@
+<!-- article -->
+<div class="home-article" *ngFor="let post of posts">
+    <div class="userinfo">
+        <div class="image-user">
+            <a routerLink="editor">
+                <img src="./assets/img/user2.jpg" alt="">
+            </a>
+        </div>
+        <p><span class="resaltado">{{post.users.username}}</span>&nbsp; in &nbsp;<span class="resaltado">ITNEXT</span>&nbsp; • &nbsp; <span class="resaltado">{{post.created_at | date:'mediumDate'}}</span></p>
+    </div>
+    <div class="article-info">
+        <h1><a [routerLink]="['/blog', post.slug]">{{post.title}}</a></h1>
+        <div class="introHome" [innerHtml]="post.description | safe: 'html' "></div>
+        <div class="image-article">
+            <a [routerLink]="['/blog', post.slug]">
+                <div *ngIf="!post.image">
+                    <div class="no-image"></div>
+                </div>
+                <div *ngIf="post.image">
+                    <div class="got-image" style="background-image: url('{{imagenSerUrl}}posts/{{post.image}}')" title="{{post.title}}"></div>
+                    <!-- <img class="img-responsive" [src]="post.image | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="article-options">
+        <div class="topic badge badge-pill badge-light mr-1">
+            {{post.categories[0].name}}
+        </div>
+        <!-- <div class="time-story">
+            <div *ngIf="post.isFeatured === 0">
+                5 min read • Based on you reading history
+            </div>
+            <div *ngIf="post.isFeatured === 1">
+                5 min read • Featured Article
+            </div>
+        </div> -->
+        <div class="options-icons">
+            <a href="#">
+                <img src="./assets/svg/marcador.svg" alt="">
+            </a>
+            <a href="#">
+                <img src="./assets/svg/agregar.svg" alt="">
+            </a>
+            <a href="#">
+                <img src="./assets/svg/menu-puntos.svg" alt="">
+            </a>
+        </div>
+    </div>
+</div>
+<!-- article -->
+<div class="boton-mas-articulos">
+    <button class="btn btn-vinotinto">
+      Cargar más
+  </button>
+</div>

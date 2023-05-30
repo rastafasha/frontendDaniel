@@ -1,0 +1,134 @@
+.profile .tofolow {
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: 90px 320px 70px;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding: 20px 0px;
+    margin-bottom: 20px;
+}
+
+.profile .tofolow .imagen {
+    grid-area: 1 / 1 / 2 / 3;
+    width: 70px;
+}
+
+.profile .tofolow .imagen img {
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+}
+
+.profile .tofolow .info {
+    grid-area: 1 / 2 / 1 / 3;
+}
+
+.profile .tofolow .info h1 {
+    color: var(--vinotinto);
+    font-size: 1.3rem;
+    padding: 0;
+    margin: 0;
+}
+
+.profile .tofolow p {
+    color: var(--gris);
+    font-size: 1rem;
+}
+
+.profile .tofolow .boton {
+    grid-area: 1 / 3 / 1 / 4;
+}
+
+.editor .home-article {
+    height: auto;
+    border-bottom: 1px solid var(--gris);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.profile .home-article .article-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 140px;
+}
+
+.profile .home-article .article-info h1 {
+    grid-area: 1 / 1 / 2 / 3;
+    padding: 0;
+    margin: 0;
+    color: var(--vinotinto);
+    font-size: 1.5rem;
+}
+
+.profile .home-article .article-info h1 a {
+    padding: 0;
+    margin: 0;
+    color: var(--vinotinto);
+    font-size: 1.5rem;
+}
+
+.profile .home-article .article-info p {
+    grid-area: 2 / 1 / 3 / 3;
+    padding: 0;
+    margin: 0;
+}
+
+.profile .home-article .article-info .image-article {
+    grid-area: 1 / 3 / 3 / 4;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.75);
+}
+
+.profile .home-article .article-info .image-article img {
+    width: 100px;
+    margin: auto;
+}
+
+.usercard {
+    padding: 20px 0px;
+    margin-bottom: 20px;
+}
+
+.profile .shopping {
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: 320px 70px;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding: 20px 0px;
+    margin-bottom: 20px;
+}
+
+.profile .shopping h1 {
+    color: var(--vinotinto);
+    font-size: 1.3rem;
+    padding: 0;
+    margin: 0;
+}
+
+@media (max-width:768px) {
+    .profile .card {
+        margin-bottom: 20px;
+    }
+    .profile .tofolow {
+        display: grid;
+        /* grid-template-columns: repeat(3, 1fr); */
+        grid-template-columns: 90px 140px 70px;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+    .profile {
+        width: 100%;
+        margin-top: 60px;
+        padding: 0px;
+        min-height: 100vh;
+        padding-bottom: 100px;
+    }
+}
