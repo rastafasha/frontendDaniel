@@ -1,0 +1,149 @@
+<!-- =======| Main |======= -->
+<div class="container animated fadeInUp" id="main" class="main" role="main" name="profile">
+
+    <div class="col-xs-12">
+        <div class="leftside">
+            <!-- Page Title -->
+            <div class="pagetitle">
+                <h1><i class="bx bxs-user-account"></i> {{title}}</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/"><i class="fa fa-home"></i> Inicio</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/payments">Pagos</a></li>
+                        <li class="breadcrumb-item active">{{title}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End Page Title -->
+            <div class="buton">
+                <button class="btn btn-outline-danger pull-right" href="javascript:void(0)"
+                    (click)="goBack()">Volver</button>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+
+        <section class="section dashboard">
+
+            <div class="card pagodetail">
+                <div class="col-xs-12 col-sm-6">
+                    <p><b>Referencia:</b> {{pago.referencia}}</p>
+                    <p><b>Nombre de la cuenta:</b>
+                        <a [routerLink]="['/user/', pago.usuario.uid]">{{pago.usuario.username}}</a>
+                        </p>
+                    <p><b>email de la cuenta:</b> {{pago.usuario.email}}</p>
+                    <p><b>Fecha | Hora:</b> {{pago.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
+                    <p><b>Status:</b>
+                        <span class="badge bg-success" *ngIf="pago.status === 'APPROVED'">Aprobado</span>
+                        <span class="badge bg-primary" *ngIf="pago.status === 'PENDING'">Pendiente</span>
+                        <span class="badge bg-danger" *ngIf="pago.status === 'REJECTED'">Rechazado</span>
+                    </p>
+
+                    <p><b>Validación:</b>
+                        <span class="badge bg-success" *ngIf="pago.validacion === 'APPROVED'">Aprobado</span>
+                        <span class="badge bg-primary" *ngIf="pago.validacion === 'PENDING'">Pendiente</span>
+                        <span class="badge bg-danger" *ngIf="pago.validacion === 'REJECTED'">Rechazado</span>
+                    </p>
+
+                    <p><b>Monto:</b> {{pago.monto}}</p>
+                    <div *ngIf="pago.blog">
+                        <p><b>blog:</b> {{pago.blog.name}}</p>
+                    </div>
+                    <div *ngIf="pago.plan">
+                        <p><b>plan:</b> {{pago.plan.name}}</p>
+                    </div>
+                    <!-- <p><b>ProductoId:</b> <a [routerLink]="['/dashboard/plan/', payment.plan._id]">
+                  {{payment.plan._id}}
+                </a></p> -->
+                    <!-- <p><b>ProductoId:</b> {{payment.plan.name}}</p> -->
+
+                    <div class="col-md-12" *ngIf="usuario.role === 'SUPERADMIN' || usuario.role === 'ADMIN'">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- <h4 class="card-title" *ngIf="paymentSeleccionado">{{title}}: {{planSeleccionado.name}}</h4> -->
+                                <h4 class="card-title">{{title}}</h4>
+                                <form class="form p-t-20 form-horizontal form-material" [formGroup]="paymentForm"
+                                    (submit)="updatePago()">
+                                    <div class="form-group" style="margin-bottom: 25px;">
+                                        <label for="exampleInputuname">Status<span class="required">*</span></label>
+                                        <div class="input-group">
+                                            <select name="" id="input" class="form-control" formControlName="status"
+                                                required="required">
+                                                <option value="">Seleccione</option>
+                                                <option value="APPROVED">Aprobado</option>
+                                                <option value="PENDING">Pendiente</option>
+                                                <option value="REJECTED">Rechazado</option>
+                                            </select>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 25px;">
+                                        <label for="exampleInputuname">Validación<span class="required">*</span></label>
+                                        <div class="input-group">
+                                            <select name="" id="input" class="form-control" formControlName="validacion"
+                                                required="required">
+                                                <option value="">Seleccione</option>
+                                                <option value="APPROVED">Aprobado</option>
+                                                <option value="PENDING">Pendiente</option>
+                                                <option value="REJECTED">Rechazado</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <button type="submit"
+                                        class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                                        <i class="fa fa-save"></i> Guardar cambios
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-xs-12 col-sm-6">
+                    
+
+                    <img [src]="pagoSeleccionado.img | imagenPipe: 'pagos'" style="width:100%; padding: 10px;
+                border: 1px solid #ccc;
+                margin-top: 30px;" class="shadow" alt="">
+                </div> -->
+
+                <div class="col-sm-6">
+                    <div class="col-xs-12">
+                        <div class="especificaciones" *ngIf="!pago">
+                            <h4>Debe Crear un pago para agregar la imagen</h4>
+
+                        </div>
+                        <div class="especificaciones" *ngIf="pago">
+                            <h4>Falto la imagen?:</h4>
+                            <h4>subir imagen aqui:</h4>
+                            <ul>
+                                <li>Peso máximo: 2 mb</li>
+                                <li>Formato permitido: jpg, .gif, .png</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" *ngIf="pago">
+                        <div class="text-center">
+                            <img *ngIf="!imgTemp " [src]="pago.img | imagenPipe: 'pagos'"
+                                class="img-responsive img-thumbnail" alt="">
+                                <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive">
+                        </div>
+                        <input type="file" (change)="cambiarImagen($event.target.files[0])">
+                        <br>
+                        <br>
+                        <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()"
+                            class="btn btn-success waves-effect waves-light m-r-10 btn-block">
+                            <i class="fa fa-save"></i> Cambiar imagen
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+</div>
+<!-- End #main-->

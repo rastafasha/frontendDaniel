@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
-import { AccountService } from 'src/app/services/account.service';
 @Component({
   selector: 'app-newpassword',
   templateUrl: './newpassword.component.html',
@@ -34,7 +34,7 @@ export class NewpasswordComponent implements OnInit {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private fb: FormBuilder,
-    private accountService: AccountService,
+    private usuarioService: UserService,
   ) {
     activatedRouter.queryParams.subscribe(params=>{
       this.resetToken = params['auth_token'];
@@ -71,7 +71,7 @@ passwordsIguales(pass1Name: string, pass2Name: string){
 
 newPassword(){
 
-  this.accountService.changePassword(this.passwordForm.value).subscribe(
+  this.usuarioService.change_password(this.passwordForm.value.email, this.passwordForm.value).subscribe(
     resp =>{
 
       Swal.fire('Exito!', `Contraseña Actualizada`, 'success');

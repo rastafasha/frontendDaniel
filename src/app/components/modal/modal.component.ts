@@ -17,7 +17,7 @@ export class ModalComponent implements OnInit {
 
   @Input() amount;
   @Input() items;
-  @Input() reference;
+  @Input() id;
   @Input() email;
   @Input() name;
   @Input() surname;
@@ -37,12 +37,12 @@ export class ModalComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService
   ) {
-    this.user = userService.user
+    this.user = userService.usuario
   }
 
   ngOnInit(): void {
     this.getUser();
-    this.procesarPagoPaypal(this.reference, this.email, this.name, this.surname,
+    this.procesarPagoPaypal(this.id, this.email, this.name, this.surname,
       this.status, this.amount, this.items,
       );
 
@@ -50,7 +50,7 @@ export class ModalComponent implements OnInit {
 
   closeModal(): void{
     this.activeModal.dismiss('Cross click');
-    this.router.navigateByUrl('/dashboard/historial-pagos');
+    this.router.navigateByUrl('/user/historial-pagos');
 
   }
 
@@ -59,35 +59,34 @@ export class ModalComponent implements OnInit {
   }
 
 
-  procesarPagoPaypal(reference: any, email: any, name: any, surname: any,
+  procesarPagoPaypal(id: any, email: any, name: any, surname: any,
     status: any, amount: any, items:any,
     ){debugger
     //crear
 
     let data = {
-      referencia: reference,
+      id: id,
       email,
       nombre: name,
       surname,
-      status: 'APPROVED',
+      status: status,
       metodo: 'Paypal',
       bank_name: 'Paypal',
       monto: amount,
-      currency_id: 1,
-      plan_id: '1',
-      user_id: this.user.id,
-      txn_id: 1,
+      blog: items.name,
+      usuario: this.user.uid,
       validacion: 'PENDING',
-      moneda_codigo: items[0].unit_amount.currency_code,
+
     }
     if(data){
-      this.paymentService.create(data)
-      .subscribe( (resp: any) =>{
-        // Swal.fire('Creado', `creado correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/historial-pagos`);
-        this.pagopaypal = resp;
-        console.log(this.pagopaypal);
-      })
+      // this.paymentService.create(data)
+      // .subscribe( (resp: any) =>{
+      //   // Swal.fire('Creado', `creado correctamente`, 'success');
+      //   this.router.navigateByUrl(`/dashboard/historial-pagos`);
+      //   this.pagopaypal = resp;
+      //   console.log(this.pagopaypal);
+      // })
+      console.log("arreglar aqui")
 
     }
 

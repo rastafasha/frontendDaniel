@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from 'src/app/services/account.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-passwordreset',
@@ -23,7 +23,7 @@ export class PasswordresetComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private accountService: AccountService,
+    private usuarioService: UserService ,
     private router: Router,
   ) { }
 
@@ -33,7 +33,7 @@ export class PasswordresetComponent implements OnInit {
 
   resetPassword(){
 
-  this.accountService.forgotPassword(this.resetpaswordForm.value).subscribe(
+  this.usuarioService.forgotPassword(this.resetpaswordForm.value).subscribe(
     resp =>{
       console.log(resp);
       Swal.fire('Exito!', `Favor revisa tu Correo`, 'success');

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+
+  constructor(
+    private userService: UserService
+  ) { 
+    this.user = this.userService.usuario
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    if(this.user){
+      this.refresh()
+    }
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
 }

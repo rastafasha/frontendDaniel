@@ -10,8 +10,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CintamiembroComponent implements OnInit {
   public user: User;
+  public userServer: User;
   error: string;
-  id: number;
+  uid: string;
   roleid:number;
   public identity: User;
 
@@ -22,11 +23,11 @@ export class CintamiembroComponent implements OnInit {
     private router: Router,
 
   ) {
-    this.user = userService.user;
+    this.user = userService.usuario;
   }
   ngOnInit(): void {
     this.getUser();
-    this.getUserServer();
+    // this.getUserServer();
   }
 
   // ngDoCheck(): void {
@@ -36,23 +37,27 @@ export class CintamiembroComponent implements OnInit {
   getUser(): void {
 
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.id = this.user.id;
-    // this.activatedRoute.params.subscribe( ({id}) => this.getUserProfile(id));
+    this.uid = this.user.uid;
+    // console.log(this.user);
+    // this.activatedRoute.params.subscribe( ({id}) => this.getUserServer(id));
   }
 
 
-  getUserServer(){
-    this.userService.getUserById(this.user.id).subscribe(
-      res =>{
-        this.user = res[0];
-        error => this.error = error
-        console.log(this.user);
-      }
-    );
-  }
+  // getUserServer(id){
+  //   this.userService.getUserById(this.user.uid).subscribe(
+  //     res =>{
+  //       this.user = res[0];
+  //       error => this.error = error
+  //       console.log(this.userServer);
+  //     }
+  //   );
+  // }
 
   gotoCursos(){
     this.router.navigateByUrl('/subcripciones');
+  }
+  irAlLogin(){
+    this.router.navigateByUrl('/login');
   }
 
 }

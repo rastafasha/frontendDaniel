@@ -1,0 +1,9 @@
+.contenido{
+    height: 100vh;
+}
+
+@media(max-width:768px){
+    .contenido{
+        height: auto;
+    }
+}

@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Post } from '../models/post';
-import { Category } from '../models/category';
+import { Observable } from 'rxjs';
 
 const baseUrl = environment.apiUrl;
 
@@ -12,76 +12,119 @@ const baseUrl = environment.apiUrl;
 })
 export class PostService {
 
-  public post: Post;
+  public blog: Post;
 
 
   constructor(private http: HttpClient) { }
 
   get token():string{
-    return localStorage.getItem('auth_token') || '';
+    return localStorage.getItem('token') || '';
   }
 
 
   get headers(){
     return{
       headers: {
-        'auth_token': this.token
+        'x-token': this.token
       }
     }
   }
 
 
   getPosts() {
-    const url = `${baseUrl}/posts`;
-    return this.http.get<any>(url)
+    const url = `${baseUrl}/blogs/`;
+    return this.http.get<any>(url,this.headers)
       .pipe(
-        map((resp:{ok: boolean, posts: Post}) => resp.posts)
+        map((resp:{ok: boolean, blogs: Post}) => resp.blogs)
       )
   }
 
-  getPost(post: Post) {
-    const url = `${baseUrl}/post/show/${post}`;
+  getPost(blog: any) {
+    const url = `${baseUrl}/blogs/${blog}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, post: Post}) => resp.post)
+        map((resp:{ok: boolean, blog: Post}) => resp.blog)
         );
   }
 
-  getRecentPosts() {
-    const url = `${baseUrl}/posts/recientes`;
-    return this.http.get<any>(url,this.headers)
+  getRecientes() {
+    const url = `${baseUrl}/blogs/recientes`;
+    return this.http.get<any>(url)
       .pipe(
-        map((resp:{ok: boolean, postrecientes: Post}) => resp.postrecientes)
+        map((resp:{ok: boolean, blogs: Post}) => resp.blogs)
       )
   }
 
-  getFeaturedPosts() {
-    const url = `${baseUrl}/posts/destacados`;
+  getDestacados() {
+    const url = `${baseUrl}/blogs/destacados`;
+    return this.http.get<any>(url, )
+      .pipe(
+        map((resp:{ok: boolean, blogs: Post}) => resp.blogs)
+      )
+  }
+
+  getBySlug(slug:string) {
+    const url = `${baseUrl}/blogs/find_by_slug/${slug}`;
     return this.http.get<any>(url,this.headers)
       .pipe(
-        map((resp:{ok: boolean, posts: Post}) => resp.posts)
+        map((resp:{ok: boolean, blogs: Post}) => resp.blogs)
+      )
+  }
+
+  getBlogBySlug(slug:string) {
+    const url = `${baseUrl}/blogs/find_by_slug/${slug}`;
+    return this.http.get<any>(url,this.headers)
+      .pipe(
+        map((resp:{ok: boolean, blog: Post}) => resp.blog)
+      )
+  }
+
+  getByUser(usuario:string) {
+    const url = `${baseUrl}/blogs/user_blog/${usuario}`;
+    return this.http.get<any>(url,this.headers)
+      .pipe(
+        map((resp:{ok: boolean, blogs: Post}) => resp.blogs)
+      )
+  }
+
+  getByCategoria(nombre:any) {
+    const url = `${baseUrl}/blogs/blog_categoria/${nombre}`;
+    return this.http.get<any>(url,this.headers)
+      .pipe(
+        map((resp:{ok: boolean, blogs: Post}) => resp.blogs)
       )
   }
 
 
-  getPostByCategory(name: Category) {
-    const url = `${baseUrl}/post/category/${name}`;
-    return this.http.get<any>(url)
-      .pipe(
-        map((resp:{ok: boolean, posts: Post}) => resp.posts)
-        );
+  createPost(blog:any) {
+    const url = `${baseUrl}/blogs/crear`;
+    return this.http.post(url, blog, this.headers);
   }
 
-  getPostBySlug(slug: Post) {
-    const url = `${baseUrl}/post/show/slug/${slug}`;
-    return this.http.get<any>(url)
-      .pipe(
-        map((resp:{ok: boolean, post: Post}) => resp.post)
-        );
+  updatePost(blog:Post) {
+    const url = `${baseUrl}/blogs/editar/${blog._id}`;
+    return this.http.put(url, blog, this.headers);
   }
 
+  activar(blog: Post):Observable<any> {
+    const url = `${baseUrl}/blogs/activar/${blog}`;
+    return this.http.get(url, this.headers);
 
-  deleteFoto(id) {
-    return this.http.delete(baseUrl + '/post/delete-foto/' + id);
+  }
+  desactivar(blog: Post):Observable<any> {
+    const url = `${baseUrl}/blogs/desactivar/${blog}`;
+    return this.http.get(url, this.headers);
+
+  }
+
+  deletePost(blog: any) {
+    const url = `${baseUrl}/blogs/borrar/${blog}`;
+    return this.http.delete(url, this.headers);
+  }
+
+  //pendiente
+  search(query=''){
+    return this.http.get(`${baseUrl}/blogs/search`, {params: {buscar: query}})
+
   }
 }

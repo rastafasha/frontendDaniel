@@ -13,8 +13,8 @@ const baseUrl = environment.apiUrl;
 })
 export class PaymentService {
 
-  public payments: Payment;
-  public payment: Payment;
+  public pagos: Payment;
+  public pago: Payment;
 
   info:any = {};
   cargada:boolean = false;
@@ -25,23 +25,15 @@ export class PaymentService {
   constructor(private http: HttpClient) { }
 
   get token():string{
-    return localStorage.getItem('auth_token');
+    return localStorage.getItem('token') || '';
   }
-
 
   get headers(){
     return{
       headers: {
-        'auth_token': this.token
+        'x-token': this.token
       }
     }
-  }
-
-  get status(): 'APPROVED' | 'PENDING' | 'REJECTED' {
-    return this.payment.status!;
-  }
-  get validacion(): 'APPROVED' | 'PENDING' | 'REJECTED' {
-    return this.payment.validacion!;
   }
 
 
@@ -50,62 +42,85 @@ export class PaymentService {
     const url = `${baseUrl}/pagos`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, payments: Payment}) => resp.payments)
+        map((resp:{ok: boolean, pagos: Payment}) => resp.pagos)
       )
   }
 
-  getPagoById(id): Observable<any> {
-    const url = `${baseUrl}/payment/show/${id}`;
+  getPagoById(_id:string){
+    const url = `${baseUrl}/pagos/${_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, payment: Payment}) => resp.payment)
+        map((resp:{ok: boolean, pago: Payment}) => resp.pago)
         );
   }
 
-  create(data:any): Observable<any> {
-    const url = `${baseUrl}/payment/store`;
-    return this.http.post(url, data, this.headers);
+  create(pago:Payment){
+    const url = `${baseUrl}/pagos/crear`;
+    return this.http.post(url, pago, this.headers);
   }
 
-  update(payment:Payment): Observable<any> {
-   const url = `${baseUrl}/payment/update/${payment.id}`;
-    return this.http.put(url, payment, this.headers);
+  update(pago:Payment){
+   const url = `${baseUrl}/pagos/editar/${pago._id}`;
+    return this.http.put(url, pago, this.headers);
   }
 
+  updateStatus(pago:Payment){
+    const url = `${baseUrl}/pagos/updateStatus/${pago._id}`;
+     return this.http.put(url, pago, this.headers);
+   }
 
-  deleteFoto(id) {
-    return this.http.delete(baseUrl + '/payment/delete-foto/' + id);
-  }
 
-
-  delete(id): Observable<any> {
-    const url = `${baseUrl}/payment/${id}`;
+  delete(_id:string){
+    const url = `${baseUrl}/pagos/borrar/${_id}`;
     return this.http.delete(url, this.headers);
   }
 
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
-  }
-
-  findByReference(title): Observable<any> {
-    return this.http.get(`${baseUrl}/pagos/?title=${title}`);
-  }
-
-  getPagosbyUser(id:number): Observable<any> {
-
-    const url = `${baseUrl}/pagos/pagosbyUser/${id}`;
+   getRecientes(){
+    const url = `${baseUrl}/pagos/recientes`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, payments: Payment}) => resp.payments)
+        map((resp:{ok: boolean, pagos: Payment}) => resp.pagos)
+      )
+  }
+
+  getPagosbyUser(usuario:string){
+
+    const url = `${baseUrl}/pagos/user_pago/${usuario}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, pagos: Payment[]}) => resp.pagos)
         );
   }
 
-   getRecientes(): Observable<any> {
-    const url = `${baseUrl}/payment/recientes`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, payments: Payment}) => resp.payments)
-      )
+
+  activar(pago: Payment):Observable<any> {
+    const url = `${baseUrl}/pagos/activar/${pago._id}`;
+    return this.http.get(url, this.headers);
+
+  }
+  desactivar(pago: Payment):Observable<any> {
+    const url = `${baseUrl}/pagos/desactivar/${pago._id}`;
+    return this.http.get(url, this.headers);
+
+  }
+
+
+
+  //pendiente
+
+  aprobar(payment: Payment):Observable<any> {
+    const url = `${baseUrl}/pagos/aprobar/${payment._id}`;
+    return this.http.get(url, this.headers);
+
+  }
+  rechazar(payment: Payment):Observable<any> {
+    const url = `${baseUrl}/pagos/rechazar/${payment._id}`;
+    return this.http.get(url, this.headers);
+
+  }
+
+  findByReference(title): Observable<any> {
+    return this.http.get(`${baseUrl}/payments/?title=${title}`);
   }
 
 

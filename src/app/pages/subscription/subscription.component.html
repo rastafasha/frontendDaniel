@@ -4,94 +4,29 @@
         <br>
         <hr>
         <div class="row db-padding-btm db-attached">
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngFor="let plan of planes">
                 <div class="db-wrapper">
-                    <div class="db-pricing-eleven db-bk-color-one">
+                    <div class="db-pricing-eleven" [style.background]="plan.color">
                         <div class="price">
-                            <sup>$</sup>0
-                            <small>Gratis (sólo registrate)</small>
+                            <div *ngIf="plan.price ">
+                                <sup>$</sup>{{plan.price}}
+                            </div>
+                            <div *ngIf="!plan.price ">
+                                <sup>$</sup>0
+                                <small>Gratis (sólo registrate)</small>
+                            </div>
                         </div>
                         <div class="type">
-                            BASIC PLAN
+                            {{plan.name}}
                         </div>
-                        <ul>
-
-                            <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                            <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                            <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
-                        </ul>
+                        <div [innerHtml]="plan.description | safe: 'html'" class="description"></div>
                         <div class="pricing-footer">
-
-                            <a href="registro-login.html" class="btn db-button-color-square btn-lg">Registrarme</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <div class="db-wrapper">
-                    <div class="db-pricing-eleven db-bk-color-two popular">
-                        <div class="price">
-                            <sup>$</sup>1
-                            <small>Semanal</small>
-                        </div>
-                        <div class="type">
-                            Reader Plan
-                        </div>
-                        <ul>
-
-                            <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                            <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                            <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
-                        </ul>
-                        <div class="pricing-footer">
-
-                            <a href="#" class="btn db-button-color-square btn-lg">Subscribirme</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <div class="db-wrapper">
-                    <div class="db-pricing-eleven db-bk-color-three">
-                        <div class="price">
-                            <sup>$</sup>24
-                            <small>mensual</small>
-                        </div>
-                        <div class="type">
-                            ADVANCE PLAN
-                        </div>
-                        <ul>
-
-                            <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                            <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                            <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
-                        </ul>
-                        <div class="pricing-footer">
-
-                            <a href="#" class="btn db-button-color-square btn-lg">Subscribirme</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <div class="db-wrapper">
-                    <div class="db-pricing-eleven db-bk-color-six">
-                        <div class="price">
-                            <sup>$</sup>59
-                            <small>Mensual</small>
-                        </div>
-                        <div class="type">
-                            Editor Plan
-                        </div>
-                        <ul>
-
-                            <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                            <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                            <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
-                        </ul>
-                        <div class="pricing-footer">
-
-                            <a href="#" class="btn db-button-color-square btn-lg">Subscribirme</a>
+                            <div *ngIf="plan.price ">
+                                <button href="#" class="btn db-button-color-square btn-lg" (click)="addToCart()"> <i class="fa fa-cart"></i> Subscribirme</button>
+                            </div>
+                            <div *ngIf="!plan.price ">
+                                <a routerLink="login" class="btn db-button-color-square">Registrarme</a>
+                            </div>
                         </div>
                     </div>
                 </div>

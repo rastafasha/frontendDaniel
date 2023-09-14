@@ -1,8 +1,7 @@
 import { Component, OnInit,Input, } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Profile } from 'src/app/models/profile';
 import { User } from 'src/app/models/user';
-import { AccountService } from 'src/app/services/account.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,6 +10,7 @@ import { CartItemModel } from 'src/app/models/cart-item-model';
 import { MessageService } from 'src/app/services/message.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Post } from 'src/app/models/post';
+import { environment } from 'src/environments/environment';
 // import { UsuarioService } from 'src/app/services/usuario.service';
 // import { Producto } from 'src/app/models/producto.model';
 
@@ -23,32 +23,36 @@ declare var jQuery: any;
 })
 export class HeaderComponent implements OnInit {
 
+  imageUrl = environment.apiUrlMedia;
+
   public profile: Profile;
   public user: User;
 
   error: string;
-  id: any;
+  id: any ;
   roleid:number;
+
+  role: User;
 
   @Input() cartItem: CartItemModel;
   cartItems: any[] = [];
   total= 0;
   value: string;
+  
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
     private activatedRoute: ActivatedRoute,
-    private accountService: AccountService,
     private messageService: MessageService,
     private storageService: StorageService,
   ) {
-    this.user = userService.user;
   }
 
   ngOnInit(): void {
+    
+      this.getUser();
     // this.getUserServer();
-    this.getUser();
     if(this.storageService.existCart()){
       this.cartItems = this.storageService.getCart();
     }
@@ -56,63 +60,63 @@ export class HeaderComponent implements OnInit {
     this.total = this.getTotal();
   }
 
-
-  openModal(){
-
-    var modalcart = document.getElementsByClassName("user-modal");
-      for (var i = 0; i<modalcart.length; i++) {
-         modalcart[i].classList.toggle("show");
-
-      }
-  }
-
-  openModalNotification(){
-
-    var modalcart = document.getElementsByClassName("notificacion-modal");
-      for (var i = 0; i<modalcart.length; i++) {
-         modalcart[i].classList.toggle("show");
-
-      }
-  }
-  openModalCart(){
-
-    var modalcart = document.getElementsByClassName("cart-modal");
-      for (var i = 0; i<modalcart.length; i++) {
-         modalcart[i].classList.toggle("show");
-
-      }
-  }
-
   getUser(): void {
 
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.id = this.user.id;
-    this.activatedRoute.params.subscribe( ({id}) => this.getUserServer(id));
+    if(!this.user || !this.user.role || this.user.role === null ){
+      // console.log('no hay role')
+    }
+
+    this.listar()
   }
 
-  getUserServer(id:number){
-    this.userService.getUserById(+id).subscribe(
+  getUserServer(){
+    this.userService.getUserById(this.user.uid).subscribe(
       res =>{
         this.user = res[0];
         error => this.error = error
-        console.log(this.user);
+        // console.log(this.user);
       }
     );
+
   }
 
   logout(): void {
-    this.accountService.logout();
+    this.userService.logout();
+    this.refresh();
+    
   }
 
+  refresh(): void {
+    window.location.reload();
+  }
+
+  listar(){
+
+    if(!this.user || !this.user.role || this.user.role === null || this.role === null){
+      console.log('no hay role')
+      // this.user.role = 'USER';
+    }else{
+      this.profileService.listarUsuario(this.user.uid).subscribe(
+        response =>{
+          this.profile = response[0];
+          // console.log('profileServer',this.profile);
+        }
+      );
+    }
+    
+    
+  }
 
   //cart
+
 
 
   getItem():void{
     this.messageService.getMessage().subscribe((product:Post)=>{
       let exists = false;
       this.cartItems.forEach(item =>{
-        if(item.productId === product.id){
+        if(item.productId === product._id){
           exists = true;
           item.quantity++;
         }
@@ -168,5 +172,33 @@ export class HeaderComponent implements OnInit {
     this.storageService.setCart(this.cartItems);
     this.ngOnInit();
   }
+
+
+  openModal(){
+    var modalcart = document.getElementsByClassName("user-modal");
+      for (var i = 0; i<modalcart.length; i++) {
+         modalcart[i].classList.toggle("show");
+
+      }
+  }
+
+  openModalNotification(){
+    var modalcart = document.getElementsByClassName("notificacion-modal");
+      for (var i = 0; i<modalcart.length; i++) {
+         modalcart[i].classList.toggle("show");
+
+      }
+  }
+  openModalCart(){
+    var modalcart = document.getElementsByClassName("cart-modal");
+      for (var i = 0; i<modalcart.length; i++) {
+         modalcart[i].classList.toggle("show");
+
+      }
+  }
+
+  // gotoCart(){
+  //   return this.router.navigateByUrl('/cart')
+  // }
 
 }

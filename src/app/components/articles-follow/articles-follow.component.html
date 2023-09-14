@@ -1,15 +1,15 @@
 <!-- article -->
 <div class="home-article" *ngFor="let post of posts">
     <div class="userinfo">
-        <div class="image-user">
+        <!-- <div class="image-user">
             <a routerLink="editor">
                 <img src="./assets/img/user2.jpg" alt="">
             </a>
-        </div>
-        <p><span class="resaltado">{{post.users.username}}</span>&nbsp; in &nbsp;<span class="resaltado">ITNEXT</span>&nbsp; • &nbsp; <span class="resaltado">{{post.created_at | date:'mediumDate'}}</span></p>
+        </div> -->
+        <p><span class="resaltado">{{post.usuario.username}}</span>&nbsp; in &nbsp;<span class="resaltado">ITNEXT</span>&nbsp; • &nbsp; <span class="resaltado">{{post.created_at | date:'mediumDate'}}</span></p>
     </div>
     <div class="article-info">
-        <h1><a [routerLink]="['/blog', post.slug]">{{post.title}}</a></h1>
+        <h1><a [routerLink]="['/blog', post.slug]">{{post.name}}</a></h1>
         <div class="introHome" [innerHtml]="post.description | safe: 'html' "></div>
         <div class="image-article">
             <a [routerLink]="['/blog', post.slug]">
@@ -28,12 +28,12 @@
             <a href="#">
                 <img src="./assets/svg/marcador.svg" alt="">
             </a>
-            <a href="#">
+            <!-- <a href="#">
                 <img src="./assets/svg/agregar.svg" alt="">
             </a>
             <a href="#">
                 <img src="./assets/svg/menu-puntos.svg" alt="">
-            </a>
+            </a> -->
         </div>
     </div>
 </div>

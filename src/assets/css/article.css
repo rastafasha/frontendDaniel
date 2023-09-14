@@ -83,7 +83,7 @@
 
 .article .article-options {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     flex-direction: row;
     margin-bottom: 20px;
@@ -156,7 +156,7 @@
 }
 
 .no-image {
-    background-image: url(./assets/images/no-image.jpg);
+    background-image: url(../img/no-image.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 400px;

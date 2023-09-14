@@ -9,7 +9,12 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { ModalComponent } from './modal/modal.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { CartComponent } from './cart/cart.component';
-
+import { FormsModule } from '@angular/forms';
+import { ModalCondicionesComponent } from './modal-condiciones/modal-condiciones.component';
+import { ModalplansComponent } from './modalplans/modalplans.component';
+import { ModalsubcripcionComponent } from './modalsubcripcion/modalsubcripcion.component';
+import { ModalbinanceComponent } from './modalbinance/modalbinance.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,11 @@ import { CartComponent } from './cart/cart.component';
     CartItemComponent,
     ProductItemComponent,
     ModalComponent,
-    CartComponent
+    CartComponent,
+    ModalCondicionesComponent,
+    ModalplansComponent,
+    ModalsubcripcionComponent,
+    ModalbinanceComponent
   ],
   exports: [
     ArticlesHomeComponent,
@@ -26,14 +35,18 @@ import { CartComponent } from './cart/cart.component';
     CartItemComponent,
     ProductItemComponent,
     ModalComponent,
-    CartComponent
+    CartComponent,
+    ModalCondicionesComponent,
+    ModalplansComponent,
+    ModalbinanceComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,
     PipesModule,
-    // NgxPayPalModule,
+    FormsModule,
+    NgxPayPalModule,
 
   ]
 })

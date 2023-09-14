@@ -2,27 +2,31 @@ import { environment } from "src/environments/environment";
 const base_url = environment.apiUrlMedia;
 
 export class Banner {
-  id: number;
-  title: string;
-  description: string;
-  target: string;
-  gotBoton: boolean;
-  botonName: string;
-  url: string;
-  image: string;
-  created_at: string;
-  updated_at: string;
-  status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';
+  constructor(
+
+    public titulo: string,
+    public description: string,
+    public target: string,
+    public gotBoton: boolean,
+    public botonName: string,
+    public url: string,
+    public status: boolean,
+    public createdAt: Date,
+    public updatedAt: Date,
+    public img?: string,
+    public _id?: string
+
+){}
 
 
   get imagenUrl(){
 
-    if(!this.image){
-      return `${base_url}banners/no-image.jpg`;
-    } else if(this.image.includes('https')){
-      return this.image;
-    } else if(this.image){
-      return `${base_url}banners/${this.image}`;
+    if(!this.img){
+      return `${base_url}/banners/no-image.jpg`;
+    } else if(this.img.includes('https')){
+      return this.img;
+    } else if(this.img){
+      return `${base_url}/banners/${this.img}`;
     }else {
       return `${base_url}/no-image.jpg`;
       // return `./assets/img/no-image.jpg`;

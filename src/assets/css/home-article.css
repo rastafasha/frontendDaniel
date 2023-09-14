@@ -17,7 +17,6 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: row;
-    margin-bottom: 20px;
 }
 
 .home-article .userinfo .image-user {
@@ -58,6 +57,9 @@
     margin: 0;
     color: var(--vinotinto);
     font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .home-article .article-info h1 a {
@@ -105,7 +107,7 @@
 
 .home-article .article-options {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: row;
     margin-top: 35px;

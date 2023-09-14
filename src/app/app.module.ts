@@ -14,6 +14,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
+import { PaypalsubcriptionModule } from './paypalsubcription/paypalsubcription.module';
+import { NgxPayPalModule } from 'ngx-paypal';
+
+
 
 @NgModule({
   declarations: [
@@ -28,6 +32,9 @@ import { AuthModule } from './auth/auth.module';
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
+    HttpClientModule,
+    PaypalsubcriptionModule,
+    NgxPayPalModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
@@ -37,11 +44,11 @@ import { AuthModule } from './auth/auth.module';
   ],
   providers: [
     // httpInterceptorProvidßers,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

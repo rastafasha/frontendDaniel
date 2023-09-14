@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Profile } from '../models/profile';
+import { User } from '../models/user';
+import { Observable } from 'rxjs';
 
 const baseUrl = environment.apiUrl;
 
@@ -12,59 +14,72 @@ const baseUrl = environment.apiUrl;
 export class ProfileService {
 
   public profile: Profile;
+  public user: User;
 
 
   constructor(private http: HttpClient) { }
 
   get token():string{
-    return localStorage.getItem('auth_token') || '';
+    return localStorage.getItem('token') || '';
   }
 
 
   get headers(){
     return{
       headers: {
-        'auth_token': this.token
+        'x-token': this.token
       }
     }
   }
 
 
   getProfiles() {
-    const url = `${baseUrl}/profiles`;
+    const url = `${baseUrl}/profile/all/`;
     return this.http.get<any>(url,this.headers)
       .pipe(
         map((resp:{ok: boolean, profiles: Profile}) => resp.profiles)
       )
   }
 
-  getProfile(profile: any) {
-    const url = `${baseUrl}/profile/show/${profile}`;
+  getProfile(_id: Profile) {
+    const url = `${baseUrl}/profile/${_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
         map((resp:{ok: boolean, profile: Profile}) => resp.profile)
         );
   }
 
+  getByUser(usuario:any) {
+    const url = `${baseUrl}/profile/user_profile/${usuario}`;
+    return this.http.get<any>(url,this.headers)
+      .pipe(
+        map((resp:{ok: boolean, profile: Profile}) => resp.profile)
+      )
+  }
 
-  createProfile(profile:any) {
-    const url = `${baseUrl}/profile/store`;
+  listarUsuario(id:string):Observable<any>{
+    const url = `${baseUrl}/profile/user_profile/${id}`;
+    return this.http.get<any>(url,this.headers)
+    .pipe(
+      map((resp:{ok: boolean, profile: Profile}) => resp.profile)
+    )
+
+  }
+
+
+  createProfile(profile:Profile) {
+    const url = `${baseUrl}/profile/crear`;
     return this.http.post(url, profile, this.headers);
   }
 
-  updateProfile(profile:Profile, id:number) {
-    // const url = `${baseUrl}/profile/update/${profile.id}`;
-    // return this.http.put(url, profile, this.headers);
-    return this.http.put<any>(baseUrl + '/profile/update/' + id, profile, this.headers)
-
+  updateProfile(profile:Profile) {
+    const url = `${baseUrl}/profile/editar/${profile._id}`;
+    return this.http.put(url, profile, this.headers);
   }
 
-  deleteProfile(profile: any) {
-    const url = `${baseUrl}/profile/destroy/${profile}`;
+  deleteProfile(_id: string) {
+    const url = `${baseUrl}/profiles/borrar/${_id}`;
     return this.http.delete(url, this.headers);
   }
 
-  deleteFoto(id) {
-    return this.http.delete(baseUrl + '/profile/delete-foto/' + id);
-  }
 }

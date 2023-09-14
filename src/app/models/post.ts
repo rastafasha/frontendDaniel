@@ -3,42 +3,32 @@ import { Category } from './category';
 import { User } from "./user";
 const base_url = environment.apiUrlMedia;
 export class Post {
+  constructor(
 
-  id?: number;
-  user_id: User;
-  title?: string = "";
-  description: string = "";
-  adicional: string = "";
-  isFeatured: boolean;
-  slug: string = "";
-  status?: 'PUBLISHED' | 'PENDING' | 'REJECTED';
-  image: string = "";
-  created_at?: any;
-  updated_at?: any;
-  price?: number;
+    public name: string,
+    public adicional: string,
+    public description: string,
+    public categoria: Category,
+    public price: number,
+    public slug: string,
+    public status: boolean,
+    public usuario: User,
+    public isFeatured: boolean,
+    public createdAt: Date,
+    public updatedAt: Date,
+    public img?: string,
+    public _id?: string
 
-  category_id: Category;
-  categories: Category;
-  name: Category;
-  users: User;
-
-
-  constructor(id, title, price, description  ){
-    this.id = id;
-    this.name = title;
-    this.price = price;
-    this.description = description;
-  }
-
+){}
 
   get imagenUrl(){
 
-    if(!this.image){
-      return `${base_url}posts/no-image.jpg`;
-    } else if(this.image.includes('https')){
-      return this.image;
-    } else if(this.image){
-      return `${base_url}posts/${this.image}`;
+    if(!this.img){
+      return `${base_url}/blogs/no-image.jpg`;
+    } else if(this.img.includes('https')){
+      return this.img;
+    } else if(this.img){
+      return `${base_url}/blogs/${this.img}`;
     }else {
       return `${base_url}/no-image.jpg`;
       // return `./assets/img/no-image.jpg`;

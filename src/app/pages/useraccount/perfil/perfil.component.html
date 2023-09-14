@@ -1,4 +1,4 @@
-<app-cintamiembro></app-cintamiembro>
+<!-- <app-cintamiembro></app-cintamiembro> -->
 <hr>
 <div class="container mt-3 mb-3">
     <div class="profile">
@@ -9,30 +9,39 @@
                     <div class="card-body">
                         <div class="tofolow">
                             <div class="imagen">
-                                <img src="./assets/img/user2.jpg" alt="">
+                                <!-- <img src="./assets/img/user2.jpg" alt=""> -->
+                                <div *ngIf="!profile">
+                                    <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                </div>
+                                <div *ngIf="profile">
+                                    <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
+            
+                                </div>
                             </div>
+
+                            
                             <div class="info">
-                                <h1>{{user.profiles.nombre}} {{user.profiles.surname}}</h1>
+                                <h1>{{profile.first_name}} {{profile.last_name}}</h1>
                                 <p><b>Email:</b> {{user.email}}</p>
-                                <p><b>Miembro desde:</b> {{user.created_at | date: 'dd/mm/YYYY'}}</p>
+                                <p><b>Miembro desde:</b> {{user.createdAt | date: 'dd/mm/YYYY'}}</p>
                                 <p><b>Role:</b> {{user.role}}</p>
                             </div>
 
                         </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-4">
-                                <p><b>pais:</b> {{user.profiles.pais}}</p>
-                                <p><b>ciudad:</b> {{user.profiles.ciudad}}</p>
-                                <p><b>estado:</b> {{user.profiles.estado}}</p>
-                                <p><b>direccion:</b> {{user.profiles.direccion}}</p>
+                                <p><b>pais:</b> {{profile.pais}}</p>
+                                <p><b>ciudad:</b> {{profile.ciudad}}</p>
+                                <p><b>estado:</b> {{profile.estado}}</p>
+                                <p><b>direccion:</b> {{profile.direccion}}</p>
                             </div>
                             <div class="col-xs-12 col-sm-4">
-                                <p><b>telhome:</b> {{user.profiles.telhome}}</p>
-                                <p><b>telmovil:</b> {{user.profiles.telmovil}}</p>
-                                <p><b>facebook:</b> {{user.profiles.facebook}}</p>
-                                <p><b>instagram:</b> {{user.profiles.instagram}}</p>
-                                <p><b>linkedin:</b> {{user.profiles.linkedin}}</p>
-                                <p><b>twitter:</b> {{user.profiles.twitter}}</p>
+                                <p><b>telhome:</b> {{profile.telhome}}</p>
+                                <p><b>telmovil:</b> {{profile.telmovil}}</p>
+                                <p><b>facebook:</b> {{profile.facebook}}</p>
+                                <p><b>instagram:</b> {{profile.instagram}}</p>
+                                <p><b>linkedin:</b> {{profile.linkedin}}</p>
+                                <p><b>twitter:</b> {{profile.twitter}}</p>
                             </div>
                         </div>
 
@@ -40,25 +49,39 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-6">
-                <h2>Compras</h2>
+                <h2>Mis Compras</h2>
                 <div class="card">
                     <div class="card-body">
                         <!-- whotofollow -->
-                        <div class="whotofollow">
+                        <div class="whotofollow" *ngFor="let userpayment of userPagos ">
                             <!-- tofolow -->
                             <div class="shopping">
-
-                                <div class="info">
-                                    <h1>Barack Obama</h1>
-                                    <p>Dad, husband, President,citizen</p>
+                                <div class="imagen">
+                                    <a [routerLink]="['/user-account/payment-detail', userpayment._id]">
+                                        <img [src]="userpayment.img | imagenPipe: 'pagos'" alt="" style="width: 100%;">
+                                    </a>
                                 </div>
-                                <div class="boton">
-                                    <button class="btn btn-outline-dark borderradius">Ver</button>
+                                <div class="info">
+                                    <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]">{{userpayment.referencia}}</a></h1>
+                                    <p>{{userpayment.monto | currency}}</p>
+                                    <p>{{userpayment.plan.name}}</p>
+                                    <p>{{userpayment.plan.price | currency}}</p>
+                                    
+                                    <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
+                                    <p><b>Status:</b>
+                                        <span class="badge bg-success" *ngIf="userpayment.status === 'APPROVED'">Aprobado</span>
+                                        <span class="badge bg-primary" *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger" *ngIf="userpayment.status === 'REJECTED'">Rechazado</span>
+                                    </p>
+                
+                                    <p><b>Validación:</b>
+                                        <span class="badge bg-success" *ngIf="userpayment.validacion === 'APPROVED'">Aprobado</span>
+                                        <span class="badge bg-primary" *ngIf="userpayment.validacion === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger" *ngIf="userpayment.validacion === 'REJECTED'">Rechazado</span>
+                                    </p>
                                 </div>
                             </div>
                             <!-- tofolow -->
-
-                            <p><a href="whotofolllow.html">See more suggestions</a></p>
                         </div>
                         <!-- whotofollow -->
 
@@ -76,30 +99,30 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-6">
-                <h2>Following</h2>
+                <h2>Blogs Comprados</h2>
                 <div class="card">
                     <div class="card-body">
                         <!-- whotofollow -->
-                        <div class="whotofollow">
+                        <div class="whotofollow" *ngFor="let blog of blogs ">
                             <!-- tofolow -->
                             <div class="tofolow">
 
                                 <div class="imagen">
-                                    <a href="editor.html">
-                                        <img src="./assets/img/user2.jpg" alt="">
+                                    <a [routerLink]="['/blog/', blog.slug]">
+                                        <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
                                     </a>
                                 </div>
                                 <div class="info">
-                                    <h1>Barack Obama</h1>
-                                    <p>Dad, husband, President,citizen</p>
+                                    <a [routerLink]="['/blog/', blog.slug]">
+                                        <h1>{{blog.name}}</h1>
+                                    </a>
+                                    <p>{{blog.description |slice: 0:45}}...</p>
                                 </div>
-                                <div class="boton">
+                                <!-- <div class="boton">
                                     <button class="btn btn-outline-dark borderradius">Unfollow</button>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- tofolow -->
-
-                            <p><a href="whotofolllow.html">See more suggestions</a></p>
                         </div>
                         <!-- whotofollow -->
 

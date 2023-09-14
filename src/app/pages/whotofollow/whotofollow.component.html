@@ -1,6 +1,6 @@
 <div class="container mt-3 mb-3">
     <!-- left-side -->
-    <div class="contenido">
+    <div class="contenido" >
         <!-- whotofollow -->
         <div class="whotofollow ">
             <div class="title-seccion">
@@ -9,365 +9,33 @@
             </div>
             <div class="columns">
                 <!-- tofolow -->
-                <div class="tofolow">
+                <div class="tofolow" *ngFor="let editor of editores">
                     <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
+                        <a [routerLink]="['/editor', editor.uid]">
+                            <div *ngIf="!editor.profiles">
+                                <img class="img-responsive" src="./assets/img/no-image.jpg" alt=" {{editor.username}}" />
+                            </div>
+                            <div *ngIf="editor.profiles">
+                                <img class="img-responsive" [src]="editor.profiles.img | imagenPipe: 'profiles'" alt=" {{editor.username}}" />
+                            </div>
                         </a>
                     </div>
                     <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
+                        <a [routerLink]="['/editor', editor.uid]">
+                            <h1>{{editor.username}}</h1>
                         </a>
+                        
+                        <!-- <p *ngIf="!editor.profiles.description">Alguien Increible</p>
+                        <p *ngIf="editor.profiles.description">{{editor.profiles.description}}</p> -->
                     </div>
+                    <!-- <div class="boton">
+                        <a href="#">
+                            <button class="btn btn-outline-dark borderradius">+info</button>
+                        </a>
+                    </div> -->
                 </div>
                 <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
-                <!-- tofolow -->
-                <div class="tofolow">
-                    <div class="imagen">
-                        <a href="editor.html">
-                            <img src="./assets/img/user2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="info">
-                        <h1>Barack Obama</h1>
-                        <p>Dad, husband, President,citizen</p>
-                    </div>
-                    <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">Follow</button>
-                        </a>
-                    </div>
-                </div>
-                <!-- tofolow -->
+               
 
 
 

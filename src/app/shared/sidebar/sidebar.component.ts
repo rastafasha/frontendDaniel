@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/models/category';
 import { Post } from 'src/app/models/post';
+import { Profile } from 'src/app/models/profile';
 import { User } from 'src/app/models/user';
 import { CategoryService } from 'src/app/services/category.service';
 import { PostService } from 'src/app/services/post.service';
+import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,13 +17,15 @@ export class SidebarComponent implements OnInit {
 
   categories: Category;
   postrecientes: Post;
-  editors: User;
+  editores: User;
+  profiles: Profile;
   error: string;
 
   constructor(
     private postService: PostService,
     private categoryService: CategoryService,
     private userService: UserService,
+    private profileService: ProfileService,
 
   ) { }
 
@@ -29,11 +33,12 @@ export class SidebarComponent implements OnInit {
     this.getPosts();
     this.getCategories();
     this.getEditors();
+    // this.getProfiles();
   }
 
   getPosts(): void {
     // return this.planesService.carga_info();
-    this.postService.getRecentPosts().subscribe(
+    this.postService.getRecientes().subscribe(
       res =>{
         this.postrecientes = res;
         error => this.error = error
@@ -54,14 +59,22 @@ export class SidebarComponent implements OnInit {
   }
 
   getEditors(): void {
-    // return this.planesService.carga_info();
-    this.userService.getAllEditors('EDITOR').subscribe(
+    this.userService.getAllEditors().subscribe(
       res =>{
-        this.editors = res;
+        this.editores = res;
         error => this.error = error
-        // console.log(this.editors);
+        // console.log(this.editores);
       }
     );
   }
 
+  getProfiles(): void {
+    this.profileService.getProfiles().subscribe(
+      res =>{
+        this.profiles = res;
+        error => this.error = error
+        // console.log(this.profiles);
+      }
+    );
+  }
 }

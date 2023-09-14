@@ -1,0 +1,50 @@
+<div class="container mt-3 mb-3">
+    <!-- left-side -->
+    <div class="container ">
+        <!-- buscador -->
+        <form class="form-horizontal">
+            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                <div class="input-group">
+                    <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                    <div class="input-group-append">
+                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- buscador -->
+        <!-- article -->
+        <div class="col-xs-12 col-sm-6" *ngFor="let post of posts">
+            <div class="home-article ">
+
+                <div class="article-info ">
+                    <h1><a [routerLink]="['/blog', post.slug]">{{post.name}}</a></h1>
+                    <div class="introHome" [innerHtml]="post.description | safe: 'html' "></div>
+                    <div class="image-article">
+                        <a [routerLink]="['/blog', post.slug]">
+                            <div *ngIf="!post">
+                                <div class="no-image"></div>
+                            </div>
+                            <div *ngIf="post">
+                                <div class="got-image" style="background-image: url('{{imagenSerUrl}}blogs/{{post.img}}')" title="{{post.name}}"></div>
+                                <!-- <img class="img-responsive" [src]="post.img | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="article-options">
+                    <div class="options-icons">
+                        <a href="#">
+                            <img src="./assets/svg/marcador.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- article -->
+        <div class="boton-mas-articulos">
+            <button class="btn btn-vinotinto">Cargar más</button>
+        </div>
+    </div>
+</div>

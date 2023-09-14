@@ -99,7 +99,7 @@
 .profile .shopping {
     display: grid;
     /* grid-template-columns: repeat(3, 1fr); */
-    grid-template-columns: 320px 70px;
+    grid-template-columns: 20% 80%;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     padding: 20px 0px;
@@ -111,6 +111,10 @@
     font-size: 1.3rem;
     padding: 0;
     margin: 0;
+}
+
+.shopping .info{
+    padding-left: 10px;
 }
 
 @media (max-width:768px) {

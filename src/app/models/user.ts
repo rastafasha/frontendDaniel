@@ -1,21 +1,28 @@
 import { Payment } from "./payment";
 import { Post } from "./post";
 import { Profile } from "./profile";
+
 export class User {
 
-    id: number;
-    // role_id: number = 3; // 3 = Rol miembro
-    username: string = "";
-    email: string = "";
-    password?: string = "";
-    first_name: string = "";
-    last_name: string = "";
-    token: string = "";
-    is_active: number = 0;
-    created_at: string = "";
-    role?: 'SUPERADMIN' | 'ADMIN' | 'MEMBER' | 'EDITOR' | 'GUEST';
-    payments: Payment;
-    profiles: Profile;
-    posts: Post;
+  public profile?: Profile;
+  public pago?: Payment;
+  public blog?: Post;
+
+  constructor(
+    public username: string,
+    public email: string,
+    public terminos: boolean,
+    public password?: string,
+    public google?: boolean,
+    public role?: 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER',
+    public uid?: string,
+    public createdAt?: Date,
+    public updatedAt?: Date,
+  ){}
 
 }
+
+export class Role {
+  id: number;
+  name: string;
+  }

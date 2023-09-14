@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Contact } from '../models/contact';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpBackend } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpBackend } from '@angular/common/http';
+import { Observable } from "rxjs";
+import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { Contact } from '../models/contact';
+import { CargarContacto } from '../auth/interfaces/cargar-mensajes.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,32 +25,49 @@ export class CmspageService {
       this.http = new HttpClient(handler);
   }
 
-  get status(): 'PENDING' | 'RESOLVED' {
-    return this.contact.status!;
+  get token():string{
+    return localStorage.getItem('token') || '';
   }
 
-
-  contactForm(formdata: Contact) {
-    return this.http.post<Contact>(this.ServerUrl + '/contact/form', formdata,  this.httpOptions)
-    .pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
+  get headers(){
+    return{
+      headers: {
+        'x-token': this.token
+      }
     }
-    // return an observable with a user-facing error message
-    this.errorData = {
-      errorTitle: 'Oops! Request for document failed',
-      errorDesc: 'Something bad happened. Please try again later.'
-    };
-    return throwError(this.errorData);
+  }
+
+  contactForm(data:any):Observable<any>{
+    const url = `${this.ServerUrl}/contactos`;
+    return this.http.post(url, data, this.headers);
+  }
+
+  listar():Observable<any>{
+    const url = `${this.ServerUrl}/contactos`;
+    return this.http.get(url, this.headers);
+  }
+
+  borrarMessage(_id:string){
+    const url = `${this.ServerUrl}/contactos/${_id}`;
+    return this.http.delete(url, this.headers);
+  }
+
+
+  cargarMensajes(desde: number = 0){
+
+    const url = `${this.ServerUrl}/contactos?desde=${desde}`;
+    return this.http.get<CargarContacto>(url, this.headers)
+      .pipe(
+        map( resp =>{
+          const contactos = resp.contactos.map(
+            contacto => new Contact());
+
+          return {
+            total: resp.total,
+            contactos
+
+          }
+        })
+      )
   }
 }

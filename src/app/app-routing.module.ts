@@ -8,27 +8,53 @@ import { SubscriptionComponent } from './pages/subscription/subscription.compone
 import { StaffpicsComponent } from './pages/staffpics/staffpics.component';
 import { WhotofollowComponent } from './pages/whotofollow/whotofollow.component';
 import { LoginComponent } from './auth/login/login.component';
+import { RegistroComponent } from './auth/registro/registro.component';
+import { ByCategoryComponent } from './pages/article/by-category/by-category.component';
+import { AllComponent } from './pages/article/all/all.component';
+import { GraciasComponent } from './paypalsubcription/gracias/gracias.component';
+import { FalloComponent } from './paypalsubcription/fallo/fallo.component';
+import { CancelPaymentComponent } from './paypalsubcription/cancel-payment/cancel-payment.component';
+import { ExecutePaymentComponent } from './paypalsubcription/execute-payment/execute-payment.component';
+import { AllPlansComponent } from './paypalsubcription/allplans/allplans.component';
+import { PaymentDetailsComponent } from './pages/useraccount/payment-details/payment-details.component';
+import { PasarelaSubcriptionComponent } from './paypalsubcription/pasarela-subcription/pasarela-subcription.component';
+import { CarritoComponent } from './pages/carrito/carrito.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: 'subcripciones', component: SubscriptionComponent },
+  
+  
   { path: 'staff-pics', component: StaffpicsComponent },
   { path: 'recommended-topics', component: WhotofollowComponent },
   { path: 'who-to-follow', component: WhotofollowComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
 
+  //blog
+  { path: 'blogs', component: AllComponent },
+  { path: 'blog/:slug', component: ArticleComponent },
+  { path: 'blog/category/:id', component: ByCategoryComponent },
+  
+  
   { path: 'editor/:id', component: EditorComponent },
+  
   { path: 'user-account', component: PerfilComponent },
   { path: 'user-account/:id', component: PerfilComponent },
-  //blog
-  // { path: 'article', component: ArticleComponent },
-  // { path: 'blog/:id', component: ArticleComponent },
-  { path: 'blog/:slug', component: ArticleComponent },
-  // { path: 'article/:name', component: ArticleComponent },
-  // { path: 'blog/category/:id', component: PostByCategoryComponent },
+  { path: 'user-account/payment-detail/:id', component: PaymentDetailsComponent },
+  { path: 'user/carrito', component: CartComponent },
+  
+
+  // { path: 'subcripciones', component: SubscriptionComponent },
+  { path: 'subcripciones', component: AllPlansComponent },
+  { path: 'pasarela-subcripcion/:id', component: PasarelaSubcriptionComponent },
+  //pasarela-subcripcion/P-1PJ18025B84179353MTF4PKQ
+  // { path: 'subscribir/:id', component: ArticleComponent },
+  { path: 'gracias', component: GraciasComponent },
+  { path: 'fallo', component: FalloComponent },
+  { path: 'cancel-payment', component: CancelPaymentComponent },
+  { path: 'execute-payment', component: ExecutePaymentComponent },
   { path: '**', component: HomeComponent },
-
-
 ];
 
 @NgModule({

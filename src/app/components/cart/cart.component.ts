@@ -23,7 +23,8 @@ import { Post } from 'src/app/models/post';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-
+  
+  imageUrl = environment.apiUrlMedia;
 
   @Input() cartItem: CartItemModel;
 
@@ -34,7 +35,7 @@ export class CartComponent implements OnInit {
 
   product:Plan;
 
-  public payPalConfig ? : IPayPalConfig;
+  public payPalConfig2 ? : IPayPalConfig;
 
 
 
@@ -58,14 +59,15 @@ export class CartComponent implements OnInit {
     }
     this.getItem();
     this.total = this.getTotal();
+    this.closeModalCart();
   }
 
 
   private initConfig(): void {
 
-    this.payPalConfig = {
+    this.payPalConfig2 = {
       currency: 'USD',
-      clientId: environment.clientSandboxId,
+      clientId: environment.paypalKey,
       // clientId: environment.clientId,
       // clientId: 'sb',
       createOrderOnClient: (data) => < ICreateOrderRequest > {
@@ -107,12 +109,12 @@ export class CartComponent implements OnInit {
             JSON.stringify(data));
             this.openModal(
               data.purchase_units[0].items,
+              data.purchase_units[0].payments.captures.status,
               data.purchase_units[0].amount.value,
               data.id,
               data.payer.email_address,
               data.payer.name.given_name,
               data.payer.name.surname,
-              data.status,
               data.purchase_units[0].items[0]
 
             );
@@ -141,7 +143,7 @@ export class CartComponent implements OnInit {
     this.messageService.getMessage().subscribe((product:Post)=>{
       let exists = false;
       this.cartItems.forEach(item =>{
-        if(item.productId === product.id){
+        if(item.productId === product._id){
           exists = true;
           item.quantity++;
         }
@@ -209,10 +211,6 @@ export class CartComponent implements OnInit {
 
 
 
-
-
-
-
   openModal(items, amount, reference, email, name, surname, status, planid): void{
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.items = items;
@@ -221,15 +219,18 @@ export class CartComponent implements OnInit {
     modalRef.componentInstance.email = email;
     modalRef.componentInstance.name = name;
     modalRef.componentInstance.surname = surname;
-    modalRef.componentInstance.status = status;
+    modalRef.componentInstance.payments = status;
     modalRef.componentInstance.items[0] = planid;
 
   }
 
+  closeModalCart(){
+    var modalcart = document.getElementsByClassName("cart-modal");
+      for (var i = 0; i<modalcart.length; i++) {
+         modalcart[i].classList.remove("show");
 
-
-
-
+      }
+  }
 
 
 }

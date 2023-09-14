@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import {environment} from 'src/environments/environment';
 import { MessageService } from 'src/app/services/message.service';
+import { Favorite } from 'src/app/models/favorite';
 
 @Component({
   selector: 'app-article',
@@ -15,12 +16,15 @@ import { MessageService } from 'src/app/services/message.service';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-
-  post: Post;
+  @Input() favoriteItem: Favorite;
+  product: Post;
+  blog: Post;
   error:string;
   slug:any;
-  id: number;
-  @Input() product: Post;
+  usuario:User;
+  uid: string;
+  role: User;
+  // @Input() product: Post;
 
   public user: User;
   public identity: User;
@@ -31,7 +35,9 @@ export class ArticleComponent implements OnInit {
     private postService: PostService,
     private userService: UserService,
     private messageService: MessageService
-  ) { }
+  ) { 
+    this.usuario = this.userService.usuario;
+  }
 
   ngOnInit() {
 
@@ -40,32 +46,32 @@ export class ArticleComponent implements OnInit {
     const slug = this.activatedRoute.snapshot.paramMap.get('slug');
 
     this.slug = slug;
-    this.postService.getPostBySlug(this.slug).subscribe(
+
+    this.getUser();
+
+    this.postService.getBlogBySlug(slug).subscribe(
       res => {
-        this.post = res[0];
-        console.log(this.post);
+        this.blog = res;
+        console.log(this.blog);
       }
     );
-      this.getUser();
-    this.getUserServer();
 
-  }
 
-  // ngDoCheck(): void {
-  //   this.identity = this.userService.user;
-  // }
-
+    }
+    
+      
   getUser(): void {
-
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.id = this.user.id;
-    // this.activatedRoute.params.subscribe( ({id}) => this.getUserProfile(id));
+    if(!this.user || !this.user.role || this.user.role === null || this.role === null){
+      console.log('no hay role')
+      // this.user.role = 'USER';
+    }
   }
 
   getUserServer(){
-    this.userService.getUserById(this.user.id).subscribe(
+    this.userService.getUserById(this.user.uid).subscribe(
       res =>{
-        this.user = res[0];
+        this.user = res;
         error => this.error = error
         console.log(this.user);
       }
@@ -75,6 +81,11 @@ export class ArticleComponent implements OnInit {
   addToCart(): void{
     console.log('sending...')
     this.messageService.sendMessage(this.product);
+  }
+
+  addToFavorites(){
+    console.log('sending...')
+    localStorage.setItem('favorite', JSON.stringify(this.favoriteItem));
   }
 
 

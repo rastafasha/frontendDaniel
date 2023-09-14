@@ -11,39 +11,68 @@ const baseUrl = environment.apiUrl;
 })
 export class CategoryService {
 
-  public category: Category;
+  public categoria: Category;
+  public categoriaslista: Category;
 
 
   constructor(private http: HttpClient) { }
 
   get token():string{
-    return localStorage.getItem('auth_token') || '';
+    return localStorage.getItem('token') || '';
   }
 
 
   get headers(){
     return{
       headers: {
-        'auth_token': this.token
+        'x-token': this.token
       }
     }
   }
 
 
   getCategories() {
-    const url = `${baseUrl}/categories`;
-    return this.http.get<any>(url,this.headers)
+    const url = `${baseUrl}/categorias`;
+    return this.http.get<any>(url,)
       .pipe(
-        map((resp:{ok: boolean, categories: Category}) => resp.categories)
+        map((resp:{ok: boolean, categorias: Category}) => resp.categorias)
       )
   }
 
-  getCategory(id:number) {
-    const url = `${baseUrl}/category/show/${id}`;
+  getCategoriesLista() {
+    const url = `${baseUrl}/categorias/lista`;
+    return this.http.get<any>(url,)
+      .pipe(
+        map((resp:{ok: boolean, categoriaslista: Category}) => resp.categoriaslista)
+      )
+  }
+
+  getCategory(_id: string) {
+    const url = `${baseUrl}/categorias/${_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, category: Category}) => resp.category)
+        map((resp:{ok: boolean, categoria: Category}) => resp.categoria)
         );
   }
 
+
+  createCategory(categoria: Category) {
+    const url = `${baseUrl}/categorias/crear`;
+    return this.http.post(url, categoria, this.headers);
+  }
+
+  updateCategory(categoria:Category) {
+    const url = `${baseUrl}/categorias/editar/${categoria._id}`;
+    return this.http.put(url, categoria, this.headers);
+  }
+
+  deleteCategory(_id: string) {
+    const url = `${baseUrl}/categorias/borrar/${_id}`;
+    return this.http.delete(url, this.headers);
+  }
+
+  findByName(categoria: Category) {
+    const url = `${baseUrl}/categorias/category_by_nombre/${categoria.nombre}`;
+    return this.http.get(url, this.headers);
+  }
 }

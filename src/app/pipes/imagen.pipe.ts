@@ -8,16 +8,16 @@ const base_url = environment.apiUrlMedia;
 })
 export class ImagenPipe implements PipeTransform {
 
-  transform(img: string, tipo: 'users'|'payments'|'posts'|'profiles'|'banners'): string {
+  transform(img: string, tipo: 'users'|'pagos'|'posts'|'profiles'|'banners'): string {
 
     if(!img){
-      return `${base_url}no-image.jpg`;
+      return `${base_url}/pagos/no-image.jpg`;
     } else if(img.includes('https')){
       return img;
     } else if(img){
       return `${base_url}${tipo}/${img}`;
     }else {
-      return `${base_url}no-image.jpg`;
+      return `${base_url}/pagos/no-image.jpg`;
     }
 
 

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { Profile } from 'src/app/models/profile';
 import { User } from 'src/app/models/user';
+import { PostService } from 'src/app/services/post.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -14,43 +15,60 @@ import { UserService } from 'src/app/services/user.service';
 export class EditorComponent implements OnInit {
 
   user:User;
+  userExiste:User;
   profile:Profile;
-  post: Post;
+  blogs: Post;
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
+    private postService: PostService,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe( ({id}) => this.getUser(id));
+    this.getUserExistente();
+    this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.listarBlogsUser(id));
+    
   }
 
-  getUser(id:number){
-    if (id !== null && id !== undefined) {
-      this.userService.getUserById(+id).subscribe(
-        res => {
-          this.user = res;
-          console.log(this.user);
+  getUserExistente(): void {
+
+    this.userExiste = JSON.parse(localStorage.getItem('user'));
+    if(!this.userExiste || !this.userExiste.role || this.userExiste.role === null){
+      console.log('no hay role')
+    }
+      
+  }
+
+
+  listar(id:string){
+    if(!id == null || !id == undefined || id){
+      this.profileService.listarUsuario(id).subscribe(
+        response =>{
+          this.profile = response[0];
+          // console.log('profileServer',this.profile);
         }
       );
+    }else{
+      console.log('no hay registro')
     }
-    // this.activatedRoute.params.subscribe( ({id}) => this.getProfile(id));
-
+    
   }
 
-  getProfile(id:number){
-    if (id !== null && id !== undefined) {
-      this.profileService.getProfile(+id).subscribe(
-        res => {
-          this.profile = res;
-          console.log(this.profile);
+
+  listarBlogsUser(id:string){
+    if(!id == null || !id == undefined || id){
+      this.postService.getByUser(id).subscribe(
+        response =>{
+          this.blogs = response[0];
+          // console.log('profileServer',this.profile);
         }
       );
+    }else{
+      console.log('no hay registro')
     }
-
-
+    
   }
-
 }

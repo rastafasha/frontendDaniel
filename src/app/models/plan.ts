@@ -1,20 +1,21 @@
+// import { Currencies } from "./currencies";
 
 export class Plan {
-  id: number;
-  name: string;
-  price: any;
-  color: string;
-  tiempo: string;
-  description: string;
-  currency_id: any ;
-  created_at: string;
-  updated_at: string;
-  status?: 'APPROVED' | 'PENDING' | 'REJECTED';
 
-
-
-  constructor(id, name, price, color, description  ){
-    this.id = id;
+  constructor(
+    
+    public name: string,
+    public price: number,
+    public color: string,
+    public description: string,
+    public adicional: string,
+    public tiempo: string,
+    public createdAt: Date,
+    public updatedAt: Date,
+    public status: boolean,
+    public _id?: string
+  ){
+    this._id = _id;
     this.name = name;
     this.price = price;
     this.color = color;

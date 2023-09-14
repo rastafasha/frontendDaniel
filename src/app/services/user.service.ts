@@ -1,120 +1,239 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
-import {map} from 'rxjs/operators';
-import { Observable} from 'rxjs';
+import { RegisterForm } from '../auth/interfaces/register-form.interface';
+import { LoginForm } from '../auth/interfaces/login-form.interface';
+import { CargarUsuario } from '../auth/interfaces/cargar-usuarios.interface';
+
+import {tap, map, catchError} from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
-
-//Eviroment
-import { environment } from '../../environments/environment';
-//Models
 import { User } from '../models/user';
 
-const baseUrl = environment.apiUrl;
+const base_url = environment.apiUrl;
+const userGoogle = environment.clientGoogle
+declare const gapi: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  public user: User;
-  public identity;
-  error:string;
+  public auth2: any;
+  public usuario: User;
 
   constructor(
     private http: HttpClient,
     private router: Router,
+    private ngZone: NgZone
     ) {
-    this.user;
+      // this.googleInit();
   }
-
 
   get token():string{
-    return localStorage.getItem('auth_token') || '';
+    return localStorage.getItem('token') || '';
   }
 
-  get role(): 'SUPERADMIN' | 'ADMIN' | 'MEMBER' | 'EDITOR' | 'GUEST' {
-    return this.user.role!;
+  get role(): 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER' {
+    return this.usuario.role;
   }
 
+  get uid():string{
+    return this.usuario.uid || '';
+  }
 
   get headers(){
     return{
       headers: {
-        'auth_token': this.token
-
+        'x-token': this.token
       }
     }
-
-  }
-
-  guardarLocalStorage( user:any, access_token: any){
-    // localStorage.setItem('token', JSON.stringify(token));
-  localStorage.setItem('user', JSON.stringify(user));
-  localStorage.setItem('auth_token', access_token.original.access_token);
-  }
-
-  getUserLocalStorage(): void {
-    return this.user = JSON.parse(localStorage.getItem('user'));
   }
 
 
-  getAll(): Observable<any> {
 
-    const url = `${baseUrl}/users`;
-    return this.http.get<any>(url, this.headers)
+  guardarLocalStorage(token: string, user: any){
+    localStorage.setItem('token', token);
+    // localStorage.setItem('user', user);
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+
+  googleInit(){
+
+    return new Promise<void>((resolve) =>{
+
+      gapi.load('auth2', () =>{
+        this.auth2 = gapi.auth2.init({
+          client_id: userGoogle,
+          cookiepolicy: 'single_host_origin',
+        });
+        resolve();
+      });
+    });
+
+
+  }
+
+
+  logout(){
+    this.refresh();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    // this.router.navigateByUrl('/home');
+    this.auth2.signOut().then(()=>{
+      this.ngZone.run(()=>{
+        this.refresh();
+        this.router.navigateByUrl('/home');
+      })
+    })
+    
+  }
+
+  refresh(): void {
+    window.location.reload();
+    this.router.navigateByUrl('/home');
+  }
+
+  validarToken(): Observable<boolean>{
+
+    return this.http.get(`${base_url}/auth/renew`, {
+      headers: {
+        'x-token': this.token
+      }
+    }).pipe(
+      map((resp: any) => {
+        const { username, email, google, role,  uid} = resp.usuario;
+
+        this.usuario = new User(username, email, google, role, uid);
+
+        this.guardarLocalStorage(resp.token, resp.user);
+        return true;
+      }),
+      catchError(error => of(false))
+    );
+  }
+
+  crearUsuario(formData: RegisterForm){
+    return this.http.post(`${base_url}/usuarios/crear`, formData)
+    .pipe(
+      tap((resp: any) => {
+        this.guardarLocalStorage(resp.token, resp.user);
+      })
+    )
+  }
+
+  crearEditor(formData: RegisterForm){
+    return this.http.post(`${base_url}/usuarios/crearEditor`, formData)
+    .pipe(
+      tap((resp: any) => {
+        this.guardarLocalStorage(resp.token, resp.user);
+      })
+    )
+  }
+
+  actualizarPerfil(data: {email: string, nombre: string, role: string}){
+
+    data = {
+      ...data,
+      role: this.usuario.role
+    }
+
+    return this.http.put(`${base_url}/usuarios/editar/${this.uid}`, data, this.headers);
+  }
+
+  update(user: User){
+    return this.http.put(`${base_url}/usuarios/editar/${user}`,this.headers);
+  }
+
+  login(formData){
+    return this.http.post(`${base_url}/auth/login`, formData)
+    .pipe(
+      tap((resp: any) => {
+        this.guardarLocalStorage(resp.token, resp.user);
+        // this.refresh();
+      })
+    )
+  }
+
+  loginGoogle(token){
+    return this.http.post(`${base_url}/auth/google`, {token})
+    .pipe(
+      tap((resp: any) => {
+        this.guardarLocalStorage(resp.token, resp.user);
+        this.refresh();
+      })
+    )
+  }
+
+  cargarUsuarios(desde: number = 0){
+
+    const url = `${base_url}/usuarios?desde=${desde}`;
+    return this.http.get<CargarUsuario>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, users: User}) => resp.users)
+        map( resp =>{
+          const usuarios = resp.usuarios.map(
+            user => new User(
+              user.username,
+              user.email,
+              user.terminos,
+              '',
+              user.google,
+              user.role,
+              user.uid
+            ));
+
+          return {
+            total: resp.total,
+            usuarios
+
+          }
+        })
       )
   }
 
-  getUserById(id:number): Observable<any> {
-
-    const url = `${baseUrl}/user/show/${id}`;
+  getUserById(_id: string)  {
+    const url = `${base_url}/usuarios/${_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, user: User}) => resp.user)
+        map((resp:{ok: boolean, usuario: User}) => resp.usuario)
         );
-
   }
-
-  getRecientes(): Observable<any> {
-    const url = `${baseUrl}/user/recientes/`;
+  getUsuarios()  {
+    const url = `${base_url}/usuarios/all`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, users: User}) => resp.users)
+        map((resp:{ok: boolean, usuarios: User}) => resp.usuarios)
+      )
+  }
+  getRecientes()  {
+    const url = `${base_url}/usuarios/recientes`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, usuarios: User}) => resp.usuarios)
+      )
+  }
+
+  getAllEditors()  {
+    const url = `${base_url}/usuarios/editores/`;
+    return this.http.get<any>(url)
+      .pipe(
+        map((resp:{ok: boolean, editores: User}) => resp.editores)
       )
   }
 
 
-  update(user: User) {
-    const url = `${baseUrl}/user/update/${user.id}`;
-    return this.http.put(url, user, this.headers);
-  }
-
-  deleteById(user:User): Observable<any> {
-    const url = `${baseUrl}/user/destroy/${user}`;
+  deleteById(usuario: User){
+    const url = `${base_url}/usuarios/delete/${usuario}`;
     return this.http.delete(url, this.headers)
   }
 
-  //soft deletes
 
-  indexdelete(): Observable<any> {
-    const url = `${baseUrl}/users/delete`;
-    return this.http.get(url, this.headers)
+  editarRole(usuario: User){
+    return this.http.put(`${base_url}/usuarios/editarRole/${usuario.uid}`, usuario, this.headers);
   }
-  userDeleteShow(id:number): Observable<any> {
-    const url = `${baseUrl}/user/delete/show/${id}`;
-    return this.http.get(url, this.headers)
-  }
-  userDeleteRestore(id:number): Observable<any> {
-    const url = `${baseUrl}/user/delete/restore/${id}`;
-    return this.http.put(url, this.headers)
-  }
-  userDeleteforce(id:number): Observable<any> {
-    const url = `${baseUrl}/user/destroy/force/${id}`;
-    return this.http.delete(url, this.headers)
-  }
+
 
   closeMenu(){
     var menuLateral = document.getElementsByClassName("sidebar");
@@ -124,38 +243,30 @@ export class UserService {
       }
   }
 
-  changePassword(data:User){
-    const url = `${baseUrl}/reset-password/`;
-    return this.http.post(url,  data, this.headers);
-  }
+  searchUsers(usuario:any):Observable<any>{
 
-
-
-
-  resetPassword(){
-    const url = `${baseUrl}/reset-password/`;
-    return this.http.post(url,  this.headers);
-  }
-
-  //editors
-
-  getAllEditors(role:string): Observable<any> {
-    const url = `${baseUrl}/users/editors/${role}`;
+    const url = `${base_url}/todo/coleccion/usuarios/${usuario}`;
     return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, users: User}) => resp.users)
-      )
   }
+  set_recovery_token(email):Observable<any>{
 
-  searchUsers(params: any){
-    const url = `${baseUrl}/users/${params}`;
+    const url = `${base_url}/usuarios/user_token/set/${email}`;
     return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, users: User}) => resp.users)
-      )
   }
 
 
+  verify_token(email,codigo):Observable<any>{
+    const url = `${base_url}/usuarios/user_verify/token/${email}/${codigo}`;
+    return this.http.get<any>(url, this.headers)
+  }
 
+  change_password(email,data):Observable<any>{debugger
+    const url = `${base_url}/usuarios/user_password/change/${email}/${data}`;
+    return this.http.put<any>(url, this.headers)
+  }
+  forgotPassword(data):Observable<any>{debugger
+    const url = `${base_url}/usuarios/user_password/change/${data}`;
+    return this.http.put<any>(url, this.headers)
+  }
 
 }

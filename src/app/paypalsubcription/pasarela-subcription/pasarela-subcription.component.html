@@ -1,0 +1,23 @@
+
+<div class="container">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <h1 style="text-align: center">
+        Subscription Plan: {{planpaypal.name}}
+      </h1>
+      <h2>{{planpaypal.payment_preferences.setup_fee.value}}</h2>
+      <p>{{planpaypal.fixed_price}}</p>
+      <p>{{planpaypal.billing_cycles[0].frequency.interval_unit}}</p>
+     
+      <ngx-paypal [config]="SubcriptionConfig"></ngx-paypal>
+    </div>
+    <!-- <div class="col-xs-12 col-sm-6 col-md-6">
+      <h1 style="text-align: center">
+        Subscription Plans(Basic <b>$9/month</b>, Advanced <b>$99/month</b>)
+      </h1>
+      <select class="form-control " [(ngModel)]="planId"   >
+        <option disabled  value="seleccione">SELECCIONAR</option>
+        <option *ngFor="let plan of planes" [value]="plan.id"  >{{plan.name}} | {{plan.id}} </option>
+    </select> 
+      <ngx-paypal [config]="SubcriptionConfig"></ngx-paypal>
+    </div> -->
+  </div>

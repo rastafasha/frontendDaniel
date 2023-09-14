@@ -22,51 +22,65 @@ export class PlanesService {
   constructor(private http: HttpClient) { }
 
   get token():string{
-    return localStorage.getItem('auth_token') || '';
+    return localStorage.getItem('token') || '';
   }
 
 
   get headers(){
     return{
       headers: {
-        'auth_token': this.token
+        'x-token': this.token
       }
     }
   }
 
-  get status(): 'APPROVED' | 'PENDING' | 'REJECTED' {
-    return this.plan.status!;
-  }
-
-  public carga_info(){
-    this.http.get( "assets/dataSimulada/plan.json " )
-      .subscribe( data =>{
-        //console.log( data.json() );
-        this.cargada = true;
-        this.info = data;
-      } )
-
-  }
-
-
-
-
 
   getPlanes()  {
-    const url = `${baseUrl}/planes`;
+    const url = `${baseUrl}/plans`;
     return this.http.get<any>(url, this.headers)
       .pipe(
         map((resp:{ok: boolean, plans: Plan}) => resp.plans)
       )
   }
 
-  getPlan(id: number) {
-    const url = `${baseUrl}/plan/show/${id}`;
+  getPlan(_id: string) {
+    const url = `${baseUrl}/plans/${_id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
         map((resp:{ok: boolean, plan: Plan}) => resp.plan)
         );
   }
+
+
+  createPlan(plan:Plan) {
+    const url = `${baseUrl}/plans/crear`;
+    return this.http.post(url, plan, this.headers);
+
+  }
+
+   updatePlan(plan: Plan) {
+    const url = `${baseUrl}/plans/editar/${plan._id}`;
+    return this.http.put(url, plan, this.headers);
+
+  }
+
+  deletePlan(_id: string) {
+    const url = `${baseUrl}/plans/borrar/${_id}`;
+    return this.http.delete(url, this.headers);
+  }
+
+  activar(plan: Plan):Observable<any> {
+    const url = `${baseUrl}/plans/activar/${plan}`;
+    return this.http.get(url, this.headers);
+
+  }
+  desactivar(plan: Plan):Observable<any> {
+    const url = `${baseUrl}/plans/desactivar/${plan}`;
+    return this.http.get(url, this.headers);
+
+  }
+
+
 
 
 }

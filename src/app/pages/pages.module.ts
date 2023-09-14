@@ -14,6 +14,10 @@ import { PipesModule } from '../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
 import { CarritoComponent } from './carrito/carrito.component';
 import { CondicionesComponent } from './condiciones/condiciones.component';
+import { ByCategoryComponent } from './article/by-category/by-category.component';
+import { AllComponent } from './article/all/all.component';
+import { FormsModule } from '@angular/forms';
+import { PaymentDetailsComponent } from './useraccount/payment-details/payment-details.component';
 
 
 
@@ -28,7 +32,25 @@ import { CondicionesComponent } from './condiciones/condiciones.component';
     SubscriptionComponent,
     WhotofollowComponent,
     CarritoComponent,
-    CondicionesComponent
+    CondicionesComponent,
+    ByCategoryComponent,
+    AllComponent,
+    PaymentDetailsComponent
+  ],
+  exports: [
+    HomeComponent,
+    ArticleComponent,
+    PerfilComponent,
+    EditorComponent,
+    StaffpicsComponent,
+    RecommendedTopicComponent,
+    SubscriptionComponent,
+    WhotofollowComponent,
+    CarritoComponent,
+    CondicionesComponent,
+    ByCategoryComponent,
+    AllComponent,
+    PaymentDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +58,7 @@ import { CondicionesComponent } from './condiciones/condiciones.component';
     PipesModule,
     RouterModule,
     ComponentsModule,
+    FormsModule
   ]
 })
 export class PagesModule { }

@@ -7,7 +7,7 @@ import { SlidertopComponent } from './slidertop/slidertop.component';
 import { RouterModule } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { PipesModule } from '../pipes/pipes.module';
-import { CintamiembroComponent } from './cintamiembro/cintamiembro.component';
+// import { CintamiembroComponent } from './cintamiembro/cintamiembro.component';
 
 
 
@@ -17,14 +17,14 @@ import { CintamiembroComponent } from './cintamiembro/cintamiembro.component';
     FooterComponent,
     SidebarComponent,
     SlidertopComponent,
-    CintamiembroComponent
+    // CintamiembroComponent
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
     SlidertopComponent,
-    CintamiembroComponent
+    // CintamiembroComponent
   ],
   imports: [
     CommonModule,

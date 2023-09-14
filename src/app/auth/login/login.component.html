@@ -1,67 +1,95 @@
-<div class="container mt-3 mb-3">
-    <div id="logreg-forms">
-        <form class="form-signin" [formGroup]="loginForm" id="loginform" (ngSubmit)="login()" autocapitalize="off">
-            <!-- Errors -->
-            <div *ngIf="errors?.email" class="alert alert-danger mt-3 ">
-                {{ errors?.email }}
-            </div>
-            <div *ngIf="errors?.password" class="alert alert-danger mt-3 ">
-                {{ errors?.password }}
-            </div>
-            <div *ngIf="errors?.error" class="alert alert-danger mt-3 ">
-                {{ errors?.error }}
-            </div>
-            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
-            <div class="social-login">
-                <button class="btn facebook-btn social-btn" type="button"><span><i class="fa fa-facebook-f"></i> Sign in with Facebook</span> </button>
-                <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google-plus-g"></i> Sign in with Google+</span> </button>
-            </div>
-            <p style="text-align:center"> OR </p>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" formControlName="email" required autofocus="">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" formControlName="password">
-            <div class="form-check rememb">
-                <input class="form-check-input" type="checkbox" formControlName="remember" id="remember">
-                <label class="form-check-label" for="remember">Recuerdame</label>
-            </div>
-            <button class="btn btn-success btn-block" type="submit" (click)="login()"><i class="fas fa-sign-in-alt"></i> Sign in</button>
-            <a routerLink="/password-reset" id="forgot_pswd">Forgot password?</a>
-            <hr>
-            <!-- <p>Don't have an account!</p>  -->
-            <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fa fa-user-plus"></i> Sign up New Account</button>
-        </form>
-
-        <form action="/reset/password/" class="form-reset">
-            <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-            <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
-            <a href="#" id="cancel_reset"><i class="fa fa-angle-left"></i> Back</a>
-        </form>
-
-        <form [formGroup]="registerForm" (ngSubmit)="crearUsuario()" autocapitalize="off" class="form-signup">
-            <div class="social-login">
-                <button class="btn facebook-btn social-btn" type="button"><span><i class="fa fa-facebook-f"></i> Sign up with Facebook</span> </button>
-            </div>
-            <div class="social-login">
-                <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google-plus-g"></i> Sign up with Google+</span> </button>
-            </div>
-
-            <p style="text-align:center">OR</p>
-
-            <input type="text" id="user-name" class="form-control" formControlName="username" placeholder="Username" required="" autofocus="">
-            <input type="email" id="user-email" class="form-control" formControlName="email" placeholder="Email address" required autofocus="">
-            <input type="password" id="user-pass" class="form-control" placeholder="Password" formControlName="password" required autofocus="">
-            <input type="password" id="user-repeatpass" class="form-control" placeholder="Repeat Password" formControlName="password2" required autofocus="">
-            <div class="row">
-                <div class="col text-danter">
-                    <p *ngIf="campoNoValido('username')"><span>*</span> El username es obligatorio</p>
-                    <p *ngIf="campoNoValido('email')"><span>*</span> El email es obligatorio y debe ser valido</p>
-                    <!-- <p *ngIf="aceptaTerminos()"><span>*</span> Debe aceptar los términos de uso</p> -->
-                    <p *ngIf="passwordNoValido()"><span>*</span> La Contraseña deben ser iguales </p>
+<div class="loginregister animated fadeIn">
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+        <div class="signup">
+            <form [formGroup]="loginForm" id="loginform" (ngSubmit)="login()" autocapitalize="off">
+                <label for="chk" aria-hidden="true"><h1>Login</h1></label>
+                <!-- Errors -->
+                <div *ngIf="errors?.email" class="alert alert-danger mt-3 ">
+                    {{ errors?.email }}
                 </div>
-            </div>
-            <button class="btn btn-primary btn-block" type="submit" (click)="crearUsuario()"><i class="fas fa-user-plus"></i> Sign Up</button>
-            <a href="#" id="cancel_signup"><i class="fa fa-angle-left"></i> Back</a>
-        </form>
-        <br>
+                <div *ngIf="errors?.password" class="alert alert-danger mt-3 ">
+                    {{ errors?.password }}
+                </div>
+                <div *ngIf="errors?.error" class="alert alert-danger mt-3 ">
+                    {{ errors?.error }}
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input type="text" id="email" formControlName="email" class="form-control" placeholder="Correo Electrónico" required>
 
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+
+                        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Contraseña" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-check rememb">
+                        <input class="form-check-input" type="checkbox" formControlName="remember" id="remember">
+                        <label class="form-check-label" for="remember">Recuerdame</label>
+                    </div>
+                    <br>
+                    <div class="col-sm-12 text-center">
+                        <a routerLink="/password-reset" id="to-recover" class="text-light ">
+                            <i class="fa fa-lock m-r-5"></i> Olvido Contraseña?</a>
+                        <br>
+                        <!-- <br> Don't have an account? <a routerLink="/registro" class="text-primary m-l-5"><b>Sign Up</b></a> -->
+                    </div>
+                </div>
+                <button (click)="login()">Entrar</button>
+                <br>
+                <p class="text-light text-center" style="display: flex;
+                flex-direction: column;"> No posee cuenta? </p>
+            </form>
+        </div>
+
+        <div class="login">
+            <form [formGroup]="registerForm" (ngSubmit)="crearUsuario()" autocapitalize="off" style="margin-top: 10px;">
+                <label for="chk" aria-hidden="true"><h1>Registro</h1></label>
+
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" formControlName="username" placeholder="username">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" formControlName="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="password" formControlName="password" placeholder="Contraseña">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="password" formControlName="confirmPassword" placeholder="Confirmar Contraseña">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="checkbox checkbox-primary p-t-0">
+                            <input id="checkbox-signup" formControlName="terminos" type="checkbox">
+                            <label for="checkbox-signup"> Acepto las <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#condiciones">Condiciones </a></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-danter">
+                        <p *ngIf="campoNoValido('username')"><span>*</span> El username es obligatorio</p>
+                        <p *ngIf="campoNoValido('email')"><span>*</span> El email es obligatorio y debe ser valido</p>
+                        <!-- <p *ngIf="aceptaTerminos()"><span>*</span> Debe aceptar los términos de uso</p> -->
+                        <p *ngIf="passwordNoValido()"><span>*</span> La Contraseña deben ser iguales </p>
+                    </div>
+                </div>
+                <button class="btn btn-outline-dann" (click)="crearUsuario()" style="color:var(--vinotinto)">Registrar</button>
+            </form>
+        </div>
     </div>
 </div>
+<app-modal-condiciones></app-modal-condiciones>

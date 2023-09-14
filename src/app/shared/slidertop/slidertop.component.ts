@@ -20,12 +20,12 @@ export class SlidertopComponent implements OnInit {
   }
 
   getBanner(): void {
-    // return this.planesService.carga_info();
+   
     this.bannerService.getBanners().subscribe(
       res =>{
         this.banners = res;
         error => this.error = error
-        // console.log(this.cursos);
+        // console.log(this.banners);
       }
     );
   }

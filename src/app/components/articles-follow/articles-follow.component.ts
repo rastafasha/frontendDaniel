@@ -27,7 +27,7 @@ export class ArticlesFollowComponent implements OnInit {
 
   getPosts(): void {
     // return this.planesService.carga_info();
-    this.postService.getFeaturedPosts().subscribe(
+    this.postService.getDestacados().subscribe(
       res =>{
         this.posts = res;
         error => this.error = error

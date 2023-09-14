@@ -1,6 +1,10 @@
 export class Category {
-  id: number;
-  name: string;
-  created_at?: any;
-  updated_at?: any;
+  constructor(
+
+    public nombre: string,
+    public createdAt: Date,
+    public updatedAt: Date,
+    public _id?: string
+
+){}
 }

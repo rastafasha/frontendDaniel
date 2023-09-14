@@ -1,12 +1,13 @@
-<div *ngIf="!user.role || !user">
+<div *ngIf="!user.role">
     <div class="subcribe-bar">
         <img src="./assets/svg/star.svg" alt="">
-        <p>Get unlimited access to all of Medium for less than $1/week.</p>
+        <p>Inicia sesión o registrate para ver el artículo.</p>
+        <p><a (click)="irAlLogin()">Inicio / Registro</a></p>
         <p><a routerLink="subcripciones">Become a member</a></p>
     </div>
 </div>
 
-<div *ngIf="user.role === 'GUEST' ">
+<div *ngIf="user.role === 'USER' ">
     <!-- <div> -->
     <div class="subcribe-bar">
         <img src="./assets/svg/star.svg" alt="">
