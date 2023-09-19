@@ -20,6 +20,7 @@ export class ModalsubcripcionComponent implements OnInit {
 
   
   // @Input() amount;
+  @Input() amount;
   @Input() orderID;
   @Input() payerID;
   @Input() subscriptionID;
@@ -55,8 +56,11 @@ export class ModalsubcripcionComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.activatedRoute.params.subscribe( ({id}) => this.getPlan(id));
-    this.procesarPagoPaypal(this.subscriptionID, this.email, this.name, 
-      this.status, this.payerID, this.orderID, this.plan_id
+    this.procesarPagoPaypal(
+      this.subscriptionID, this.email,
+      this.status, this.payerID, 
+      this.orderID, 
+      this.plan_id, this.amount
       );
 
   }
@@ -82,19 +86,23 @@ export class ModalsubcripcionComponent implements OnInit {
   }
 
 
-  procesarPagoPaypal(email:any, orderID: any, payerID: any, subscriptionID: any,
-    status: any, amount: any, plan_id
+  procesarPagoPaypal(
+    id, 
+    amount: any, 
+    email:any, orderID: any, 
+    payerID: any, subscriptionID: any,
+    status: any, 
     ){debugger
     //crear
 
     let data = {
-      email,
-      monto: this.planpaypal.fixed_price,
-      orderID,
-      payerID,
-      subscriptionID,
-      plan_id: this.planpaypal.id,
-      status: 'APPROVED',
+      payerID: payerID,
+      monto: amount,
+      orderID: id,
+      plan_id: id,
+      status: status,
+      email: email,
+      subscriptionID: id,
       usuario: this.user.uid,
 
     }

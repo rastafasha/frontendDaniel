@@ -34,6 +34,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
   // public planId: any;
   public configs = {};
   subcriptionG: subcriptionGenerated;
+  respuesta:any;
 
   error: string;
 
@@ -168,7 +169,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
       },
       onApprove: (data, actions) => {
         console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        
+        this.respuesta = data
         // actions.subscription.get().then((details) => {
         //   console.log("subscription details:", details);
         //   alert("Success to subscribe!");
@@ -177,13 +178,11 @@ export class PasarelaSubcriptionComponent implements OnInit {
           
         // });
 
-        this.openModal(
-          data.orderID,
-          data.payerID,
-          data.subscriptionID,
-          
-
-        );
+        // this.openModal(
+        //   data.orderID,
+        //   data.payerID,
+        //   data.subscriptionID,
+        // );
         
         // this.router.navigateByUrl(`/gracias`);
         
@@ -191,6 +190,14 @@ export class PasarelaSubcriptionComponent implements OnInit {
       onClientAuthorization: (data) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
         // this.showSuccess = true;
+        this.openModal(
+          data.id,
+          data.status,
+          data.payer.email_address,
+          data.payer.payer_id,
+          data.purchase_units[0].amount.value,
+          // this.respuesta.subscriptionID
+        );
         this.router.navigateByUrl(`/gracias`);
         
       },
@@ -233,15 +240,16 @@ export class PasarelaSubcriptionComponent implements OnInit {
     );
   }
 
-  openModal(orderID, payerID, subscriptionID): void{
+  openModal(amount, orderID, payerID, email, status): void{
     const modalRef = this.modalService.open(ModalsubcripcionComponent);
+    
     modalRef.componentInstance.orderID = orderID;
+    modalRef.componentInstance.amount = amount;
     modalRef.componentInstance.payerID = payerID;
-    modalRef.componentInstance.subscriptionID = subscriptionID;
-    // modalRef.componentInstance.email = email;
+    modalRef.componentInstance.email = email;
+    modalRef.componentInstance.status = status;
     // modalRef.componentInstance.name = name;
     // modalRef.componentInstance.surname = surname;
-    // modalRef.componentInstance.status = status;
 
   }
 
