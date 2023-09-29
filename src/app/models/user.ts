@@ -14,7 +14,7 @@ export class User {
     public terminos: boolean,
     public password?: string,
     public google?: boolean,
-    public role?: 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER',
+    public role?: 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER'|'MEMBER',
     public uid?: string,
     public createdAt?: Date,
     public updatedAt?: Date,

@@ -124,6 +124,19 @@
     color: White;
 }
 
+.favorite--notification {
+    background-color: var(--vinotinto);
+    width: 15px;
+    height: 12px;
+    border-radius: 16px;
+    position: absolute;
+    top: -2px;
+    right: -5px;
+    font-size: 0.6em;
+    text-align: center;
+    color: White;
+}
+
 .cart:hover {
     cursor: pointer;
 }

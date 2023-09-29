@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,7 +13,8 @@ export class HomeComponent implements OnInit {
   user: User;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { 
     this.user = this.userService.usuario
   }
@@ -22,6 +24,8 @@ export class HomeComponent implements OnInit {
     if(this.user){
       this.refresh()
     }
+
+
   }
 
   refresh(): void {

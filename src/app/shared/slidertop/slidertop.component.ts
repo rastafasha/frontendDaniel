@@ -21,7 +21,7 @@ export class SlidertopComponent implements OnInit {
 
   getBanner(): void {
    
-    this.bannerService.getBanners().subscribe(
+    this.bannerService.getBannerActivos().subscribe(
       res =>{
         this.banners = res;
         error => this.error = error

@@ -16,8 +16,9 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { CondicionesComponent } from './condiciones/condiciones.component';
 import { ByCategoryComponent } from './article/by-category/by-category.component';
 import { AllComponent } from './article/all/all.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentDetailsComponent } from './useraccount/payment-details/payment-details.component';
+import { ProfileComponent } from './useraccount/profile/profile.component';
 
 
 
@@ -35,7 +36,8 @@ import { PaymentDetailsComponent } from './useraccount/payment-details/payment-d
     CondicionesComponent,
     ByCategoryComponent,
     AllComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    ProfileComponent
   ],
   exports: [
     HomeComponent,
@@ -50,7 +52,8 @@ import { PaymentDetailsComponent } from './useraccount/payment-details/payment-d
     CondicionesComponent,
     ByCategoryComponent,
     AllComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +61,8 @@ import { PaymentDetailsComponent } from './useraccount/payment-details/payment-d
     PipesModule,
     RouterModule,
     ComponentsModule,
-    FormsModule
+    FormsModule, 
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

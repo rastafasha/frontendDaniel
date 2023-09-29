@@ -37,6 +37,13 @@ export class BannerService {
         map((resp:{ok: boolean, banners: Banner}) => resp.banners)
       )
   }
+  getBannerActivos()  {
+    const url = `${baseUrl}/banners/activos`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, banners: Banner}) => resp.banners)
+      )
+  }
 
   getBanner(_id: string) {
     const url = `${baseUrl}/banners/${_id}`;

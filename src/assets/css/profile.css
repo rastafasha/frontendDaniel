@@ -91,10 +91,7 @@
     margin: auto;
 }
 
-.usercard {
-    padding: 20px 0px;
-    margin-bottom: 20px;
-}
+
 
 .profile .shopping {
     display: grid;
@@ -102,19 +99,26 @@
     grid-template-columns: 20% 80%;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    padding: 20px 0px;
     margin-bottom: 20px;
 }
 
-.profile .shopping h1 {
+
+.profile .shopping h1,
+.profile .subcriptions h1 {
     color: var(--vinotinto);
     font-size: 1.3rem;
     padding: 0;
     margin: 0;
 }
 
-.shopping .info{
+.shopping .info,
+.subcriptions .info{
     padding-left: 10px;
+}
+
+.profile .subcriptions {
+    display: flex;
+    margin-bottom: 20px;
 }
 
 @media (max-width:768px) {
@@ -127,6 +131,7 @@
         grid-template-columns: 90px 140px 70px;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
+        height: auto;
     }
     .profile {
         width: 100%;

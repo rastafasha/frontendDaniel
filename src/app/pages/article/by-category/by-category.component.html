@@ -2,21 +2,50 @@
 
 <div class="container mt-3 mb-3">
     <!-- left-side -->
-    <div class="container ">
+    <div class="container " *ngIf="!usuario">
         <h2>Post por categoría:{{categoria.nombre}} </h2>
         <!-- article -->
         <div class="home-article col-xs-12 col-sm-6" *ngFor="let post of posts">
+                <div class="article-info">
+                    <h1>{{post.name}}</h1>
+                    <div class="introHome" [innerHtml]="post.introhome | safe: 'html' "></div>
+                    <div class="image-article">
+                        <div *ngIf="!post">
+                            <div class="no-image"></div>
+                        </div>
+                        <div *ngIf="post">
+                            <div class="got-image" style="background-image: url('{{imagenSerUrl}}blogs/{{post.img}}'); height: 150px;" title="{{post.title}}"></div>
+                            <!-- <img class="img-responsive" [src]="post.image | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="article-options">
+                    <div class="options-icons">
+                       
+                    </div>
+                </div>
+                <div class="boton-mas-articulos">
+                    <button class="btn btn-vinotinto" >Cargar más</button>
+                </div>
+            </div>
             
+        <!-- article -->
+        
+    </div>
+    <div class="container " *ngIf="usuario">
+        <h2>Post por categoría:{{categoria.nombre}} </h2>
+        <!-- article -->
+        <div class="home-article col-xs-12 col-sm-6" *ngFor="let post of posts">
                 <div class="article-info">
                     <h1><a [routerLink]="['/blog', post.slug]">{{post.name}}</a></h1>
-                    <div class="introHome" [innerHtml]="post.description | safe: 'html' "></div>
+                    <div class="introHome" [innerHtml]="post.introhome | safe: 'html' "></div>
                     <div class="image-article">
                         <a [routerLink]="['/blog', post.slug]">
-                            <div *ngIf="!post.image">
+                            <div *ngIf="!post.img">
                                 <div class="no-image"></div>
                             </div>
-                            <div *ngIf="post.image">
-                                <div class="got-image" style="background-image: url('{{imagenSerUrl}}posts/{{post.image}}')" title="{{post.title}}"></div>
+                            <div *ngIf="post.img">
+                                <div class="got-image-s" style="background-image: url('{{imagenSerUrl}}blogs/{{post.img}}')" title="{{post.title}}"></div>
                                 <!-- <img class="img-responsive" [src]="post.image | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
                             </div>
                         </a>
@@ -30,7 +59,7 @@
                     </div>
                 </div>
                 <div class="boton-mas-articulos">
-                    <button class="btn btn-vinotinto">Cargar más</button>
+                    <button class="btn btn-vinotinto" >Cargar más</button>
                 </div>
             </div>
             

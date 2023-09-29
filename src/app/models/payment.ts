@@ -9,8 +9,7 @@ export class Payment {
    constructor(
 
     public usuario: User,
-    public blog: Post,
-    public plan: Plan,
+    public blog: Post[],
     public monto: string,
     public referencia: string,
     public validacion: string,

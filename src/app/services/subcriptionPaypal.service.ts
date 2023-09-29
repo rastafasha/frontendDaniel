@@ -58,12 +58,22 @@ export class SubcriptionPaypalService {
         );
   }
 
+  getByUser(usuario:any) {
+    const url = `${baseUrl}/subcriptionpaypal/user_profile/${usuario}`;
+    return this.http.get<any>(url,this.headers)
+      .pipe(
+        map((resp:{ok: boolean, subcription: geSubcription}) => resp.subcription)
+      )
+  }
+
 
   createSubcription(subcription:any) {
     const url = `${baseUrl}/subcriptionpaypal/crear/`;
     return this.http.post(url, subcription, this.headers);
 
   }
+
+
 
   
 

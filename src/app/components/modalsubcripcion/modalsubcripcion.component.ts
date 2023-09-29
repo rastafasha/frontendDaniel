@@ -20,15 +20,15 @@ export class ModalsubcripcionComponent implements OnInit {
 
   
   // @Input() amount;
-  @Input() amount;
   @Input() orderID;
-  @Input() payerID;
-  @Input() subscriptionID;
+  @Input() status;
   @Input() email;
+  @Input() amount;
+  @Input() payerID;
+  // @Input() subscriptionID;
   @Input() name;
   @Input() surname;
-  @Input() status;
-  @Input() plan_id;
+  @Input() paypalplanId;
 
 
 
@@ -54,29 +54,26 @@ export class ModalsubcripcionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUser();
     this.activatedRoute.params.subscribe( ({id}) => this.getPlan(id));
+    this.getUser();
     this.procesarPagoPaypal(
-      this.subscriptionID, this.email,
-      this.status, this.payerID, 
       this.orderID, 
-      this.plan_id, this.amount
+      this.status,
+       this.email,
+       this.payerID, 
+       this.amount,
+      this.paypalplanId, 
+      // this.subscriptionID
       );
 
   }
 
   closeModal(): void{
     this.activeModal.dismiss('Cross click');
-    // this.router.navigateByUrl('/user/historial-pagos');
 
   }
-
-  getUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-  }
-
-  getPlan(id): void {
-    this.payPalService.getPlanPaypal(id).subscribe(
+  getPlan(paypalplanId): void {
+    this.payPalService.getPlanPaypal(paypalplanId).subscribe(
       res =>{
         this.planpaypal = res;
         error => this.error = error;
@@ -85,24 +82,29 @@ export class ModalsubcripcionComponent implements OnInit {
     );
   }
 
+  getUser(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
+  }
+
+
 
   procesarPagoPaypal(
-    id, 
-    amount: any, 
-    email:any, orderID: any, 
-    payerID: any, subscriptionID: any,
-    status: any, 
-    ){debugger
+    orderID: any, 
+    status: any,
+    email:any, 
+    payerID: any, 
+    amount: any,
+    paypalplanId:any 
+    ){
     //crear
 
     let data = {
-      payerID: payerID,
+      orderID,
+      status,
+      email,
       monto: amount,
-      orderID: id,
-      plan_id: id,
-      status: status,
-      email: email,
-      subscriptionID: id,
+      payerID,
+      plan_id: paypalplanId,
       usuario: this.user.uid,
 
     }
@@ -111,14 +113,25 @@ export class ModalsubcripcionComponent implements OnInit {
         subcriptionCreated =>{ 
           console.log(subcriptionCreated);
           Swal.fire('Gracias!', `gracias por subscribirte`, 'success');
-          // this.getPlanes();
-          
+          this.cambiarRole();
         
       });
 
     }
 
   }
+
+  cambiarRole(){
+    if(this.user.role === 'USER'){
+      this.userService.cambiarMembresia(this.user).subscribe(
+        resp =>{ console.log(resp);
+          // Swal.fire('Actualizado', `actualizado rol correctamente`, 'success');
+        }
+      )
+    }
+    
+  }
+
 
 
 }

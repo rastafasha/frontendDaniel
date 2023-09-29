@@ -49,7 +49,7 @@ export class AllPlansComponent implements OnInit {
       res =>{
         this.planPaypals = res.plans;
         error => this.error = error
-        console.log(this.planPaypals);
+        // console.log(this.planPaypals);
       }
     );
   }
@@ -68,7 +68,7 @@ export class AllPlansComponent implements OnInit {
       res =>{
         this.products = res.products;
         error => this.error = error
-        console.log(this.products);
+        // console.log(this.products);
       }
     );
   }
@@ -88,56 +88,10 @@ export class AllPlansComponent implements OnInit {
     this.profileService.listarUsuario(this.user.uid).subscribe(
       response =>{
         this.profile = response[0];
-        console.log('profileServer',this.profile);
+        // console.log('profileServer',this.profile);
       }
     );
     
-  }
-
-  generateSubcription(plan:any){
-    const subcription ={
-      name: this.profile.first_name,
-      surname: this.profile.last_name, 
-      email_address: this.user.email, 
-      plan_id:plan,
-      
-    }
-
-    this.paypalSubcription.generateSubcriptionPaypal(subcription).subscribe(
-      subcriptionG =>{ 
-        console.log(this.subcriptionG);
-        // this.router.navigateByUrl(`https://www.sandbox.paypal.com/webapps/billing/subscriptions?ba_token=$token`);
-        // Swal.fire('Actualizado', `actualizado rol correctamente`, 'success');
-        this.saveSubcription(this.subcriptionG);
-
-        
-        
-      
-    });
-
-  }
-  saveSubcription(subcriptionG){debugger
-
-    let subcription = this.subcriptionG
-
-    const subcriptioninfo ={
-      name: this.profile.first_name,
-      surname: this.profile.last_name, 
-      email_address: this.user.email, 
-      idSubcription:subcription.id,
-      links:subcription.links,
-      status:subcription.status,
-      create_time:subcription.create_time,
-    }
-    this.subcriptionService.createSubcription(subcriptioninfo).subscribe(
-      subcriptionCreated =>{ 
-        console.log(subcriptionCreated);
-        Swal.fire('Gracias!', `gracias por subscribirte`, 'success');
-        // this.getPlanes();
-        
-      
-    });
-
   }
 
 

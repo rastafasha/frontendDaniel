@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ declare const gapi: any;
   templateUrl: './login.component.html',
   styleUrls: [ './login.component.css' ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit{
 
   errors:any = null;
   roles: string[] = [];
@@ -58,6 +58,10 @@ ngOnInit(){
   window.scrollTo(0, 0);
 
 }
+
+
+
+
 login(){
 
   this.usuarioService.login(this.loginForm.value).subscribe(

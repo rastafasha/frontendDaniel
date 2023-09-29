@@ -25,25 +25,20 @@ declare var paypal;
 export class PasarelaSubcriptionComponent implements OnInit {
 
   @ViewChild('paypal') paypalElement: ElementRef;
+  @ViewChild("advanced") advancedSubscription?: NgxPaypalComponent;
 
   private plans = [];
   public planes: planPaypalSubcription;
   public plan: planPaypalSubcription;
   public planpaypal: planPaypalSubcription;
   public planId: planPaypalSubcription;
-  // public planId: any;
   public configs = {};
   subcriptionG: subcriptionGenerated;
   respuesta:any;
 
   error: string;
 
-  // @ViewChild("PLAN mensual") basicSubscription?: NgxPaypalComponent;
-  @ViewChild("advanced") advancedSubscription?: NgxPaypalComponent;
-
   public SubcriptionConfig ? : IPayPalConfig;
-
-  // public payPalConfig?: IPayPalConfig;
 
   constructor(
     private modalService: NgbModal,
@@ -56,11 +51,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
   }
 
   ngOnInit() { 
-    this.getPlanes();   
-    // this.getPlan();
-    // this.iniciarPaypal();
-    // const planId = this.activatedRoute.snapshot.paramMap.get('id');
-    // this.activatedRoute.params.subscribe( ({id}) => this.iniciarPaypal(id));
+    this.getPlanes();
     this.activatedRoute.params.subscribe( ({id}) => this.getPlan(id));
     this.activatedRoute.params.subscribe( ({id}) => this.initConfig(id));
 
@@ -69,15 +60,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
   }
 
   iniciarPaypal(){
-
-    // const plan_id = id;
-
-
-    let advancedSubscription = this.planpaypal.name
-
-    // this.planes.map((planes) => {
-    //   this.configs[planes.name] = this.getConfig(plan_id);
-    // });
+    let advancedSubscription = this.planpaypal.name;
     this.payPalScriptService.registerPayPalScript(
       {
         clientId: environment.paypalKey,
@@ -96,58 +79,6 @@ export class PasarelaSubcriptionComponent implements OnInit {
     );
   }
   
-  // getConfig(plan_id: string): IPayPalConfig {
-    
-  //   // plan_id = 'P-1LF63986GX4401134MT6KMLQ'
-  //   return {
-  //     clientId: environment.paypalKey,
-  //     currency: "USD",
-  //     vault: "true",
-  //     style: {
-  //       label: "paypal",
-  //       layout: "vertical",
-  //       // size: "small",
-  //       shape: "pill",
-  //       color: "silver",
-  //       tagline: false,
-  //     },
-  //     createSubscription: function (actions:any) {
-        
-  //       return actions.subscription.create({
-  //         plan_id
-  //       });
-  //     },
-      
-  //     onApprove: function (data, actions) {
-  //       console.log("subscription data:", data);
-  //       actions.subscription.get().then((details) => {
-  //         console.log("subscription details:", details);
-  //         alert("Success to subscribe!");
-  //       });
-
-  //       this.openModal(
-  //         data.orderID,
-  //         data.payerID,
-  //         data.subscriptionID
-
-  //       );
-  //     },
-  //     onCancel: (data, actions) => {
-  //       console.log("OnCancel", data, actions);
-  //       this.router.navigateByUrl(`/cancel-payment`);
-  //     },
-  //     onError: (err) => {
-  //       console.log("OnError", err);
-  //       this.router.navigateByUrl(`/cancel-payment`);
-  //     },
-  //     onClick: (data, actions) => {
-  //       console.log("Clicked:", data, actions);
-  //     },
-  //   };
-
-    
-  //   }
-
 
     private initConfig(id): void {
       const plan_id = id;
@@ -173,9 +104,6 @@ export class PasarelaSubcriptionComponent implements OnInit {
         // actions.subscription.get().then((details) => {
         //   console.log("subscription details:", details);
         //   alert("Success to subscribe!");
-
-        
-          
         // });
 
         // this.openModal(
@@ -196,7 +124,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
           data.payer.email_address,
           data.payer.payer_id,
           data.purchase_units[0].amount.value,
-          // this.respuesta.subscriptionID
+          this.paypalplanId
         );
         this.router.navigateByUrl(`/gracias`);
         
@@ -214,18 +142,18 @@ export class PasarelaSubcriptionComponent implements OnInit {
       },
     };
     }
+  
+    paypalplanId(id: string, status: string, email_address: string, payer_id: string, value: string, subscriptionID: any, paypalplanId: any) {
+      throw new Error('Method not implemented.');
+    }
 
-
-    
-
-    
 
     getPlanes(): void {
     this.payPalService.getPlanPaypals().subscribe(
       res =>{
         this.planes = res.plans;
         error => this.error = error
-        console.log(this.planes);
+        // console.log(this.planes);
       }
     );
   }
@@ -235,27 +163,22 @@ export class PasarelaSubcriptionComponent implements OnInit {
       res =>{
         this.planpaypal = res;
         error => this.error = error;
-        console.log(this.planpaypal);
+        // console.log(this.planpaypal);
       }
     );
   }
 
-  openModal(amount, orderID, payerID, email, status): void{
+  openModal(orderID, status, email, payerID, amount, paypalplanId): void{
     const modalRef = this.modalService.open(ModalsubcripcionComponent);
-    
     modalRef.componentInstance.orderID = orderID;
-    modalRef.componentInstance.amount = amount;
-    modalRef.componentInstance.payerID = payerID;
-    modalRef.componentInstance.email = email;
     modalRef.componentInstance.status = status;
-    // modalRef.componentInstance.name = name;
-    // modalRef.componentInstance.surname = surname;
-
+    modalRef.componentInstance.email = email;
+    modalRef.componentInstance.payerID = payerID;
+    modalRef.componentInstance.amount = amount;
+    modalRef.componentInstance.paypalplanId = this.planpaypal.id;
   }
-
-    
   
-  }
+}
 
 
 

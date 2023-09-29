@@ -159,14 +159,24 @@
     background-image: url(../img/no-image.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 400px;
+    height: 150px;
 }
 
 .got-image {
     background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: top;
     height: 400px;
+    width: 100%;
+}
+
+.got-image-s{
+    background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    height: 150px;
     width: 100%;
 }
 

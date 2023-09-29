@@ -1,6 +1,7 @@
 import { environment } from "src/environments/environment";
 import { Post } from "./post";
 import { User } from "./user";
+import { subcriptionPaypal } from "./subcriptionPaypal";
 const base_url = environment.apiUrlMedia;
 export class Profile {
 
@@ -27,6 +28,7 @@ export class Profile {
     public createdAt: Date,
     public updatedAt: Date,
     public usuario?: User,
+    public subcription?: subcriptionPaypal,
     public img?: string,
     public _id?: string
 

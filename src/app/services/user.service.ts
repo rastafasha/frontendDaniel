@@ -28,14 +28,14 @@ export class UserService {
     private router: Router,
     private ngZone: NgZone
     ) {
-      // this.googleInit();
+      this.googleInit();
   }
 
   get token():string{
     return localStorage.getItem('token') || '';
   }
 
-  get role(): 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER' {
+  get role(): 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER'|'MEMBER' {
     return this.usuario.role;
   }
 
@@ -81,11 +81,11 @@ export class UserService {
     this.refresh();
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    // this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/home');
     this.auth2.signOut().then(()=>{
       this.ngZone.run(()=>{
         this.refresh();
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/');
       })
     })
     
@@ -232,6 +232,9 @@ export class UserService {
 
   editarRole(usuario: User){
     return this.http.put(`${base_url}/usuarios/editarRole/${usuario.uid}`, usuario, this.headers);
+  }
+  cambiarMembresia(usuario: User){
+    return this.http.put(`${base_url}/usuarios/activarMiembro/${usuario.uid}`, usuario, this.headers);
   }
 
 

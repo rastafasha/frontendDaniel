@@ -8,6 +8,7 @@ export class Post {
     public name: string,
     public adicional: string,
     public description: string,
+    public introhome: string,
     public categoria: Category,
     public price: number,
     public slug: string,

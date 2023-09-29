@@ -168,6 +168,7 @@ button:hover {
     height: 500px;
     display: flex;
     position: absolute;
+    left: 0;
     width: 100%;
     background: #eee;
     border-radius: 60% / 10%;
@@ -195,13 +196,21 @@ button:hover {
 }
 
 .rememb {
-    width: 100%;
+    width: 40%;
+    height: 30px;
     display: flex;
     flex-direction: row;
     color: #fff;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    margin: auto;
+}
+.rememb .form-check-input{
+    display: flex;
+}
+.rememb .form-check-label{
+    display: flex;
 }
 
 #chk:checked~.login {
@@ -265,11 +274,23 @@ button:hover {
     }
 }
 
-@media(max-width:375px) {
+@media(max-width:420px) {
     #chk:checked~.login {
         transform: translateY(-370px);
     }
     .login {
         height: 580px;
+    }
+
+    .main {
+        height: 57vh;
+    }
+}
+
+@media(max-width:375px) {
+
+    .main {
+        width: 350px;
+        height: 71vh;
     }
 }

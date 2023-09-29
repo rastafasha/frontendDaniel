@@ -20,6 +20,7 @@ import { PaymentDetailsComponent } from './pages/useraccount/payment-details/pay
 import { PasarelaSubcriptionComponent } from './paypalsubcription/pasarela-subcription/pasarela-subcription.component';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { CartComponent } from './components/cart/cart.component';
+import { ProfileComponent } from './pages/useraccount/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -41,6 +42,7 @@ const routes: Routes = [
   
   { path: 'user-account', component: PerfilComponent },
   { path: 'user-account/:id', component: PerfilComponent },
+  { path: 'user-account/edit/:id', component: ProfileComponent },
   { path: 'user-account/payment-detail/:id', component: PaymentDetailsComponent },
   { path: 'user/carrito', component: CartComponent },
   

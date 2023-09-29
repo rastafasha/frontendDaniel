@@ -54,7 +54,7 @@ export class PaymentService {
         );
   }
 
-  create(pago:Payment){
+  create(pago:any){
     const url = `${baseUrl}/pagos/crear`;
     return this.http.post(url, pago, this.headers);
   }
@@ -88,7 +88,7 @@ export class PaymentService {
     const url = `${baseUrl}/pagos/user_pago/${usuario}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, pagos: Payment[]}) => resp.pagos)
+        map((resp:{ok: boolean, pagos: Payment}) => resp.pagos)
         );
   }
 

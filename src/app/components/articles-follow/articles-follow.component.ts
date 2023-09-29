@@ -14,7 +14,7 @@ export class ArticlesFollowComponent implements OnInit {
   posts: Post;
   slug: Post;
   error: string;
-  imagenSerUrl = environment.apiUrlMedia;
+  imageUrl = environment.apiUrlMedia;
 
   constructor(
     private postService: PostService,
@@ -31,7 +31,7 @@ export class ArticlesFollowComponent implements OnInit {
       res =>{
         this.posts = res;
         error => this.error = error
-        console.log(this.posts);
+        // console.log(this.posts);
       }
     );
   }

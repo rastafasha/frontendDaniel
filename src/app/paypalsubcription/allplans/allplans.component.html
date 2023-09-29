@@ -4,32 +4,6 @@
         <br>
         <hr>
         <div class="row db-padding-btm db-attached" >
-            <!-- <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <div class="db-wrapper" >
-                    <div class="db-pricing-eleven">
-                        <div class="price">
-                            <sup>$</sup>{{planPaypal.payment_preferences.setup_fee.value}}
-                            <div *ngIf="!planPaypal.payment_preferences.setup_fee.value">
-                                <sup>$</sup>0
-                                <small>Gratis (sólo registrate)</small>
-                            </div>
-                        </div>
-                        <div class="type">
-                            {{planPaypal.name}}
-                            <p>Frecuencia: {{planPaypal.billing_cycles[0].frequency.interval_unit}}</p>
-                        </div>
-                        <div class="pricing-footer">
-                            <button href="#" class="btn db-button-color-square btn-lg" (click)="generateSubcription(planPaypal.id)"> <i class="fa fa-cart"></i> Subscribirme</button>
-                            <div *ngIf="plan.price ">
-                                <button href="#" class="btn db-button-color-square btn-lg" (click)="generateSubcription()"> <i class="fa fa-cart"></i> Subscribirme</button>
-                            </div>
-                            <div *ngIf="!plan.price ">
-                                <a routerLink="login" class="btn db-button-color-square">Registrarme</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngFor="let plan of planPaypals">
                 <div class="db-wrapper" *ngIf="plan.status === 'ACTIVE'" >
                     <div class="db-pricing-eleven">
@@ -40,26 +14,12 @@
                         </div>
                         <div class="pricing-footer">
                             <button  class="btn db-button-color-square btn-lg" [routerLink]="['/pasarela-subcripcion', plan.id]"> <i class="fa fa-cart"></i> Info</button>
-                            
-                            <!-- <button  class="btn db-button-color-square btn-lg" data-toggle="modal" [attr.data-target]="'#' + plan.id"> <i class="fa fa-cart"></i> Info</button> -->
-                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <hr>
-        <!-- <div class="payment-methods">
-            <h1>Metodos de Pago</h1>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <h2>Paypal</h2>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <h2>Binance</h2>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>
 

@@ -9,6 +9,8 @@ import { UserService } from 'src/app/services/user.service';
 import {environment} from 'src/environments/environment';
 import { MessageService } from 'src/app/services/message.service';
 import { Favorite } from 'src/app/models/favorite';
+import { FavoriteService } from 'src/app/services/favorite.service';
+import { Favorito } from 'src/app/models/favoriter-item-model';
 
 @Component({
   selector: 'app-article',
@@ -16,7 +18,7 @@ import { Favorite } from 'src/app/models/favorite';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-  @Input() favoriteItem: Favorite;
+  // @Input() favoriteItem: Favorite;
   product: Post;
   blog: Post;
   error:string;
@@ -28,13 +30,15 @@ export class ArticleComponent implements OnInit {
 
   public user: User;
   public identity: User;
+  favoriteItem: Favorito;
 
   imagenSerUrl = environment.apiUrlMedia;
   constructor(
     private activatedRoute: ActivatedRoute,
     private postService: PostService,
     private userService: UserService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private favoriteService: FavoriteService,
   ) { 
     this.usuario = this.userService.usuario;
   }
@@ -52,7 +56,7 @@ export class ArticleComponent implements OnInit {
     this.postService.getBlogBySlug(slug).subscribe(
       res => {
         this.blog = res;
-        console.log(this.blog);
+        // console.log(this.blog);
       }
     );
 
@@ -63,7 +67,7 @@ export class ArticleComponent implements OnInit {
   getUser(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
     if(!this.user || !this.user.role || this.user.role === null || this.role === null){
-      console.log('no hay role')
+      // console.log('no hay role')
       // this.user.role = 'USER';
     }
   }
@@ -73,7 +77,7 @@ export class ArticleComponent implements OnInit {
       res =>{
         this.user = res;
         error => this.error = error
-        console.log(this.user);
+        // console.log(this.user);
       }
     );
   }
@@ -84,8 +88,17 @@ export class ArticleComponent implements OnInit {
   }
 
   addToFavorites(){
-    console.log('sending...')
-    localStorage.setItem('favorite', JSON.stringify(this.favoriteItem));
+    const data = {
+      // ...this.product,
+      blog: this.product._id,
+      usuario: this.usuario.uid,
+    }
+    
+
+    this.favoriteService.createFavorite(data ).subscribe((res:any)=>{
+      this.favoriteItem = res;
+      // console.log(this.favoriteItem);
+    });
   }
 
 

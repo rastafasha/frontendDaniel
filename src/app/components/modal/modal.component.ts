@@ -15,13 +15,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalComponent implements OnInit {
 
-  @Input() amount;
-  @Input() items;
   @Input() id;
+  @Input() status;
   @Input() email;
   @Input() name;
   @Input() surname;
-  @Input() status;
+  @Input() amount;
+  @Input() items;
 
 
 
@@ -42,15 +42,21 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    this.procesarPagoPaypal(this.id, this.email, this.name, this.surname,
-      this.status, this.amount, this.items,
+    this.procesarPagoPaypal(
+      this.id, 
+      this.status, 
+      this.email, 
+      this.name, 
+      this.surname,
+      this.amount, 
+      this.items,
       );
 
   }
 
   closeModal(): void{
     this.activeModal.dismiss('Cross click');
-    this.router.navigateByUrl('/user/historial-pagos');
+    this.router.navigateByUrl('/user-account');
 
   }
 
@@ -59,34 +65,37 @@ export class ModalComponent implements OnInit {
   }
 
 
-  procesarPagoPaypal(id: any, email: any, name: any, surname: any,
-    status: any, amount: any, items:any,
-    ){debugger
+  procesarPagoPaypal(
+    id: any, 
+    status: any, 
+    email: any, 
+    name: any, 
+    surname: any,
+    amount: any, 
+    items:any,
+    ){
     //crear
 
     let data = {
-      id: id,
+      referencia: id,
+      status: status,
       email,
       nombre: name,
       surname,
-      status: status,
-      metodo: 'Paypal',
-      bank_name: 'Paypal',
       monto: amount,
-      blog: items.name,
+      blog: items,
       usuario: this.user.uid,
-      validacion: 'PENDING',
+      validacion: 'APROVED',
 
     }
     if(data){
-      // this.paymentService.create(data)
-      // .subscribe( (resp: any) =>{
-      //   // Swal.fire('Creado', `creado correctamente`, 'success');
-      //   this.router.navigateByUrl(`/dashboard/historial-pagos`);
-      //   this.pagopaypal = resp;
-      //   console.log(this.pagopaypal);
-      // })
-      console.log("arreglar aqui")
+      this.paymentService.create(data)
+      .subscribe( (resp: any) =>{
+        // Swal.fire('Creado', `creado correctamente`, 'success');
+        // this.router.navigateByUrl(`/user-account`);
+        this.pagopaypal = resp;
+        // console.log(this.pagopaypal);
+      })
 
     }
 

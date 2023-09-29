@@ -1,0 +1,20 @@
+.listfavoritos{
+    height: 20vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.gridfavoritos{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+}
+.infodato{
+    grid-area: 1 / 0 / 0 / 0;
+}
+
+.miscompras{
+    grid-area: 1 / 2 / 1 / 2;
+}

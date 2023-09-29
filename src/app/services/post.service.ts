@@ -38,6 +38,13 @@ export class PostService {
         map((resp:{ok: boolean, blogs: Post}) => resp.blogs)
       )
   }
+  getPostActivos() {
+    const url = `${baseUrl}/blogs/activos/`;
+    return this.http.get<any>(url,this.headers)
+      .pipe(
+        map((resp:{ok: boolean, blogs: Post}) => resp.blogs)
+      )
+  }
 
   getPost(blog: any) {
     const url = `${baseUrl}/blogs/${blog}`;

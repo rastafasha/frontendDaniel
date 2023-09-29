@@ -11,6 +11,10 @@ import { MessageService } from 'src/app/services/message.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Post } from 'src/app/models/post';
 import { environment } from 'src/environments/environment';
+import { FavoriteItemModel, Favorito } from 'src/app/models/favoriter-item-model';
+import { FavoriteService } from 'src/app/services/favorite.service';
+import { MessageFavoriteService } from 'src/app/services/messageFavorite.service';
+
 // import { UsuarioService } from 'src/app/services/usuario.service';
 // import { Producto } from 'src/app/models/producto.model';
 
@@ -36,6 +40,8 @@ export class HeaderComponent implements OnInit {
 
   @Input() cartItem: CartItemModel;
   cartItems: any[] = [];
+  @Input() favoriteItem: FavoriteItemModel;
+  favoriteItems: any[] = [];
   total= 0;
   value: string;
   
@@ -45,7 +51,10 @@ export class HeaderComponent implements OnInit {
     private profileService: ProfileService,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
+    private messageFavoriteService: MessageFavoriteService,
     private storageService: StorageService,
+    private favoriteService: FavoriteService,
+    private router: Router,
   ) {
   }
 
@@ -56,15 +65,28 @@ export class HeaderComponent implements OnInit {
     if(this.storageService.existCart()){
       this.cartItems = this.storageService.getCart();
     }
+
     this.getItem();
     this.total = this.getTotal();
+    
+    if(this.favoriteService.existFavorite()){
+      this.favoriteItems = this.favoriteService.getFavorite();
+    }
+    
+    this.getFavoriteItem();
+
+    if(!this.profile || !this.profile.usuario){
+      // this.router.navigateByUrl('/subcripciones')
+   }
+
+   
   }
 
   getUser(): void {
 
     this.user = JSON.parse(localStorage.getItem('user'));
     if(!this.user || !this.user.role || this.user.role === null ){
-      // console.log('no hay role')
+      //  this.router.navigateByUrl('/login')
     }
 
     this.listar()
@@ -89,12 +111,13 @@ export class HeaderComponent implements OnInit {
 
   refresh(): void {
     window.location.reload();
+    this.router.navigateByUrl('/home');
   }
 
   listar(){
 
     if(!this.user || !this.user.role || this.user.role === null || this.role === null){
-      console.log('no hay role')
+      // console.log('no hay role')
       // this.user.role = 'USER';
     }else{
       this.profileService.listarUsuario(this.user.uid).subscribe(
@@ -104,14 +127,13 @@ export class HeaderComponent implements OnInit {
         }
       );
     }
+
+   
     
     
   }
 
   //cart
-
-
-
   getItem():void{
     this.messageService.getMessage().subscribe((product:Post)=>{
       let exists = false;
@@ -131,8 +153,6 @@ export class HeaderComponent implements OnInit {
 
     });
   }
-
-
   getItemsList(): any[]{
 
     const items: any[] = [];
@@ -151,8 +171,6 @@ export class HeaderComponent implements OnInit {
     });
     return items;
   }
-
-
   getTotal():number{
     let total =  0;
     this.cartItems.forEach(item => {
@@ -173,7 +191,7 @@ export class HeaderComponent implements OnInit {
     this.ngOnInit();
   }
 
-
+  //modales
   openModal(){
     var modalcart = document.getElementsByClassName("user-modal");
       for (var i = 0; i<modalcart.length; i++) {
@@ -189,6 +207,7 @@ export class HeaderComponent implements OnInit {
 
       }
   }
+
   openModalCart(){
     var modalcart = document.getElementsByClassName("cart-modal");
       for (var i = 0; i<modalcart.length; i++) {
@@ -196,9 +215,66 @@ export class HeaderComponent implements OnInit {
 
       }
   }
+  openModalFavorites(){
+    var modalfavorite = document.getElementsByClassName("favorite-modal");
+      for (var i = 0; i<modalfavorite.length; i++) {
+        modalfavorite[i].classList.toggle("show");
+
+      }
+  }
 
   // gotoCart(){
   //   return this.router.navigateByUrl('/cart')
   // }
+
+  //favorites
+
+  getFavoriteItem():void{
+    this.messageFavoriteService.getMessage().subscribe((product:Post)=>{
+      let existsFav = false;
+      this.favoriteItems.forEach(itemFav =>{
+        if(itemFav.productId === product._id){
+          existsFav = true;
+          itemFav.quantity++;
+        }
+      });
+      if(!existsFav){
+        const favoriteItem = new FavoriteItemModel(product);
+        this.favoriteItems.push(favoriteItem);
+
+      }
+      this.favoriteService.setFavorite(this.favoriteItems);
+    });
+  }
+
+  getFavoriteItemsList(): any[]{
+
+    const itemFavss: any[] = [];
+    let itemFav = {};
+    this.favoriteItems.forEach((it: FavoriteItemModel)=>{
+      itemFav = {
+        name: it.productName,
+        quantity: it.quantity,
+        category: it.category,
+        img: it.img,
+      };
+      itemFavss.push(itemFav);
+    });
+    return itemFavss;
+  }
+
+  deletFavoriteItem(i:number):void{
+    if(this.favoriteItems[i].quantity > 1){
+      this.favoriteItems[i].quantity--;
+
+    }else{
+      this.favoriteItems.splice(i, 1);
+    }
+    this.favoriteService.setFavorite(this.favoriteItems);
+    this.favoriteService.deleteFavorito(this.favoriteItem);
+    this.ngOnInit();
+  }
+
+
 
 }

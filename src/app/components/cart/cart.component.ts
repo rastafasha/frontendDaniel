@@ -104,18 +104,18 @@ export class CartComponent implements OnInit {
           });
 
       },
-        onClientAuthorization: (data) => {
+        onClientAuthorization: (data) => {debugger
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point',
             JSON.stringify(data));
             this.openModal(
-              data.purchase_units[0].items,
-              data.purchase_units[0].payments.captures.status,
-              data.purchase_units[0].amount.value,
               data.id,
+              data.status,
               data.payer.email_address,
-              data.payer.name.given_name,
               data.payer.name.surname,
-              data.purchase_units[0].items[0]
+              data.payer.name.given_name,
+              data.purchase_units[0].items,
+              data.purchase_units[0].amount.value,
+              // data.purchase_units[0].items[0]
 
             );
             this.emptyCart();
@@ -208,19 +208,19 @@ export class CartComponent implements OnInit {
     this.total = this.getTotal();
     this.storageService.setCart(this.cartItems);
   }
+  openModal(id, status, email, name, surname, items, amount): void{
 
 
 
-  openModal(items, amount, reference, email, name, surname, status, planid): void{
     const modalRef = this.modalService.open(ModalComponent);
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.status = status;
+    modalRef.componentInstance.email = email;
+    modalRef.componentInstance.surname = surname;
+    modalRef.componentInstance.name = name;
     modalRef.componentInstance.items = items;
     modalRef.componentInstance.amount = amount;
-    modalRef.componentInstance.reference = reference;
-    modalRef.componentInstance.email = email;
-    modalRef.componentInstance.name = name;
-    modalRef.componentInstance.surname = surname;
-    modalRef.componentInstance.payments = status;
-    modalRef.componentInstance.items[0] = planid;
+    // modalRef.componentInstance.items[0] = planid;
 
   }
 

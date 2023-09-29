@@ -1,0 +1,50 @@
+.card{
+    border-radius: 14px;
+}
+.card h2{
+    border-bottom: 1px solid var(--vinotinto);
+    margin-bottom: 10px;
+}
+
+.gridperfil{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+}
+.infodato{
+    grid-area: 1 / 0 / 0 / 0;
+}
+
+.miscompras{
+    grid-area: 1 / 2 / 1 / 2;
+}
+
+.missubcripciones{
+    grid-area: 1 / 3 / 3 / 4;
+}
+
+.misblog{
+    grid-area: 3 / 2 / 2 / 4;
+}
+.favorites{
+    grid-area: 3 / 2 / 0 / 1;
+}
+.blogcomrados{
+    grid-area: 2 / 2 / 4 / 4;
+}
+
+.card-headerrr{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media(max-width:768px){
+    .gridperfil{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+

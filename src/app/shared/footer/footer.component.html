@@ -1,19 +1,19 @@
 <!---menu movil footer-->
-<div class="navbarM ">
+<div class="navbarM" *ngIf="user">
     <a routerLink="/">
         <img src="./assets/svg/hogar.svg" alt="">
         <p>Home</p>
     </a>
     <a routerLink="staff-pics" class="modal-footer-staff">
-        <img src="./assets/svg/mundo.svg" alt="">
-        <p>Staff pic</p>
+        <img src="./assets/svg/marcador.svg" alt="">
+        <p>Favoritos</p>
     </a>
     <a routerLink="recommended-topics" class="modal-footer-topics">
         <img src="./assets/svg/prismaticos.svg" alt="">
-        <p>Topics</p>
+        <p>Categorias</p>
     </a>
-    <a routerLink="who-to-follow" class="modal-footer-follow">
-        <img src="./assets/svg/agregar-usuario.svg" alt="">
-        <p>To follow</p>
+    <a routerLink="blogs" class="modal-footer-follow">
+        <img src="./assets/svg/busqueda.svg" alt="">
+        <p>Blogs</p>
     </a>
 </div>

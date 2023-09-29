@@ -29,13 +29,17 @@
                 <div class="cart--notification">{{cartItems.length}}</div>
                 <img src="./assets/svg/carrito-de-compras.svg" alt="logo ">
             </div>
+            <!-- <div class="notification cart" (click)="openModalFavorites()">
+                <div class="favorite--notification">{{favoriteItems.length}}</div>
+                <img src="./assets/svg/marcador.svg" alt="logo ">
+            </div> -->
             <div *ngIf="user">
                 <div class="user-header" (click)="openModal()">
                     <!-- <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar"> -->
-                    <div *ngIf="!user">
+                    <div *ngIf="!profile">
                         <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
                     </div>
-                    <div *ngIf="user">
+                    <div *ngIf="profile">
                         <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                     </div>
@@ -50,21 +54,21 @@
 <!-- inicio user modal -->
 <div *ngIf="user">
     <div class="user-modal animated fadeInDown">
-        <p class="user-modal__title">User data</p>
+        <p class="user-modal__title">Hola de nuevo!</p>
         <div class="user-modal__chekout-container">
             <div class="user-modal__details-container">
-                <div *ngIf="!user">
+                <div *ngIf="!profile">
                     <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
                 </div>
-                <div *ngIf="user">
+                <div *ngIf="profile">
                     <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
 
                 </div>
                 <div class="user-data">
-                    <h1>Usuario: {{user.username}}</h1>
-                    <p><b>Email:</b> {{user.email}}</p>
+                    <h1>{{user.username}}</h1>
+                    <p>{{user.email}}</p>
                     <p><a [routerLink]="['/user-account', user.uid]">Mi Perfil</a></p>
-                    <p><a (click)="logout()">Salir</a></p>
+                    <p><a (click)="logout()" class="pointer">Salir</a></p>
                 </div>
             </div>
         </div>
@@ -73,17 +77,17 @@
 
 <!-- fin user modal -->
 <!-- inicio notificacion modal -->
-<div class="notificacion-modal animated fadeInDown">
+<!-- <div class="notificacion-modal animated fadeInDown">
     <p class="notificacion-modal__title">Notificacion Data</p>
     <div class="notificacion-modal__chekout-container">
         <div class="notificacion-modal__details-container">
         </div>
     </div>
-</div>
+</div> -->
 <!-- fin notificacion modal -->
 <!-- inicio cart modal -->
 <div class="cart-modal animated fadeInDown">
-    <p class="cart-modal__title">Cart Data</p>
+    <p class="cart-modal__title">Mi Carrito</p>
     <div class="cart-modal__chekout-container">
         <div class="cart-modal__details-container " *ngFor="let item of cartItems; index as i">
             <img class="cart-modal__image" src="{{imageUrl}}blogs/{{item.img}}" alt="">
@@ -101,4 +105,26 @@
         </div>
     </div>
 </div>
+<!-- fin cart modal -->
+
+<!-- inicio favorite modal -->
+<!-- <div class="favorite-modal animated fadeInDown">
+    <p class="favorite-modal__title">Favorite Data</p>
+    <div class="favorite-modal__chekout-container">
+        <div class="favorite-modal__details-container " *ngFor="let itemFav of favoriteItems; index as i">
+            <img class="favorite-modal__image" src="{{imageUrl}}blogs/{{itemfav.img}}" alt="">
+            <div>
+                <p class="favorite-modal__product">{{itemfav.productName| slice: 0:10 }}...</p>
+                <p class="cart-modal__price">${{item.productPrice}} x{{item.quantity }} <span>${{item.quantity * item.productPrice| number: '1.1-2'}}</span> </p>
+            </div>
+            <img class="favorite-modal__delete" (click)="deletFavoriteItem(i)" src="./assets/svg/icon-delete.svg" alt="delete">
+        </div>
+        <div *ngIf="favoriteItems.length < 1">
+            <p class="favorite-empty">Your favorite is empty</p>
+        </div>
+        <div *ngIf="favoriteItems.length > 0">
+            <p class="favorite--button" [routerLink]="['/user-account', user.uid]" >Go to profile</p>
+        </div>
+    </div>
+</div> -->
 <!-- fin cart modal -->

@@ -15,7 +15,8 @@
 @import url('normalize.css');
 @import url('header.css');
 @import url('user-modal.css');
-@import url('notificacion-modal.css');
+/* @import url('notificacion-modal.css'); */
+@import url('favorite-modal.css');
 @import url('cart-modal.css');
 @import url('slider-home.css');
 @import url('home.css');
@@ -39,7 +40,7 @@
     --letra: #402029;
     --letra: #402029;
     --font: 'Source Sans Pro', sans-serif;
-    --font-size-article: 14px;
+    --font-size-article: 1em;
     --font-size-title-article: 28px;
     --font-size-title-section-side: 22px;
     --font-size-user: 20px;
@@ -70,8 +71,8 @@ p {
     font-size: 14px !important;
 }
 
-a {
-    color: var(--black);
+a, h4 a {
+    color: var(--vinotinto);
     text-decoration: none;
 }
 
@@ -81,7 +82,7 @@ b {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 2.2em;
     font-weight: 600;
     color: var(--black);
     margin: 0;
@@ -89,7 +90,7 @@ h1 {
 }
 
 h2 {
-    font-size: 32px;
+    font-size: 1.8em;
     font-weight: 500;
     color: var(--black);
     margin: 0;
@@ -97,7 +98,7 @@ h2 {
 }
 
 h3 {
-    font-size: 24px;
+    font-size: 1.6em;
     font-weight: 500;
     color: var(--black);
     margin: 0;
@@ -105,11 +106,14 @@ h3 {
 }
 
 h4 {
-    font-size: 20px;
+    font-size: 1.3em;
     font-weight: 500;
     color: var(--black);
     margin: 0;
     padding: 0;
+}
+.pointer{
+    cursor: pointer;
 }
 
 .clear {
