@@ -15,6 +15,7 @@ import { ModalplansComponent } from './modalplans/modalplans.component';
 import { ModalsubcripcionComponent } from './modalsubcripcion/modalsubcripcion.component';
 import { ModalbinanceComponent } from './modalbinance/modalbinance.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { SideadvertisingComponent } from './sideadvertising/sideadvertising.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
     ModalCondicionesComponent,
     ModalplansComponent,
     ModalsubcripcionComponent,
-    ModalbinanceComponent
+    ModalbinanceComponent,
+    SideadvertisingComponent
   ],
   exports: [
     ArticlesHomeComponent,
@@ -38,7 +40,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
     CartComponent,
     ModalCondicionesComponent,
     ModalplansComponent,
-    ModalbinanceComponent
+    ModalbinanceComponent,
+    SideadvertisingComponent
   ],
   imports: [
     CommonModule,

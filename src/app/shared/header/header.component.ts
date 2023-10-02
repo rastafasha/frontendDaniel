@@ -44,6 +44,8 @@ export class HeaderComponent implements OnInit {
   favoriteItems: any[] = [];
   total= 0;
   value: string;
+
+  disabled: boolean;
   
 
   constructor(
@@ -59,6 +61,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.disabled = true;
     
       this.getUser();
     // this.getUserServer();
@@ -78,9 +81,12 @@ export class HeaderComponent implements OnInit {
     if(!this.profile || !this.profile.usuario){
       // this.router.navigateByUrl('/subcripciones')
    }
+   
 
    
   }
+
+  
 
   getUser(): void {
 
@@ -88,6 +94,9 @@ export class HeaderComponent implements OnInit {
     if(!this.user || !this.user.role || this.user.role === null ){
       //  this.router.navigateByUrl('/login')
     }
+    if(this.user ){
+      // this.router.navigateByUrl('/home')
+   }
 
     this.listar()
   }
@@ -105,13 +114,13 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.userService.logout();
-    this.refresh();
+    this.router.navigateByUrl('/home');
     
   }
 
   refresh(): void {
     window.location.reload();
-    this.router.navigateByUrl('/home');
+    
   }
 
   listar(){
@@ -245,6 +254,8 @@ export class HeaderComponent implements OnInit {
       }
       this.favoriteService.setFavorite(this.favoriteItems);
     });
+
+    // this.notificacion();
   }
 
   getFavoriteItemsList(): any[]{
@@ -275,6 +286,6 @@ export class HeaderComponent implements OnInit {
     this.ngOnInit();
   }
 
-
+  
 
 }

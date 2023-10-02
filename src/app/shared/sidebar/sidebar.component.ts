@@ -47,7 +47,7 @@ export class SidebarComponent implements OnInit {
     this.getCategories();
     this.getEditors();
     this.getUser();
-    this.listarfavoritessUser();
+    
     // this.getProfiles();
   }
 
@@ -57,7 +57,9 @@ export class SidebarComponent implements OnInit {
     if(!this.usuario || !this.usuario.role || this.usuario.role === null ){
       // console.log('no hay role')
     }
-
+    if(this.usuario){
+      this.listarfavoritessUser();
+    }
   }
 
   listarfavoritessUser(){
@@ -65,8 +67,6 @@ export class SidebarComponent implements OnInit {
       response =>{
         this.favoritos = response;
         this.blogs = response.blog;
-        // console.log('favoritos', this.favoritos);
-        // console.log('favoritos', this.blogs);
       }
     );
     

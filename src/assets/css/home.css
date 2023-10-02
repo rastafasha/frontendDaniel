@@ -26,6 +26,7 @@
 .aside {
     width: 30%;
     border-left: 1px solid var(--gris);
+    min-height: 100vh;
     height: auto;
     float: left;
     padding-top: 50px;

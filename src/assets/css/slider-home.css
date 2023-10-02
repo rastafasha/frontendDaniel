@@ -22,7 +22,7 @@
 .inf {
     width: 100%;
     position: absolute;
-    z-index: 99;
+    z-index: 1;
     top: 0%;
     left: 15%;
     display: flex;

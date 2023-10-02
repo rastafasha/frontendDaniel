@@ -7,6 +7,7 @@ import { SlidertopComponent } from './slidertop/slidertop.component';
 import { RouterModule } from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import { PipesModule } from '../pipes/pipes.module';
+import { ComponentsModule } from '../components/components.module';
 // import { CintamiembroComponent } from './cintamiembro/cintamiembro.component';
 
 
@@ -31,6 +32,7 @@ import { PipesModule } from '../pipes/pipes.module';
     RouterModule,
     HttpClientModule,
     PipesModule,
+    ComponentsModule
   ]
 })
 export class SharedModule { }

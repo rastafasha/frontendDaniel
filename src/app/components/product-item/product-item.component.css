@@ -233,3 +233,39 @@ PRICING STYLES
     min-height: 200px;
     padding: 20px;
 }
+
+
+/* notificaciones */
+
+.notificacion{
+    width: 150px;
+    height: auto;
+    padding: 15px;
+    border: 1px solid green;
+    background-color:rgba(8, 136, 53, 0.46);
+    border-radius: 12px;
+    position: fixed;
+    z-index: 999;
+    right: 15px;
+    top: 75px;
+    display: none;
+}
+
+.notificacion p{
+   
+    color: #f2f2f2;
+    font-size: .7rem;
+    text-align: center;
+}
+
+.notificacion-show{
+    display: block; 
+}
+
+.cerrar{
+    display: flex;
+    float: right;
+    color: #fff;
+    cursor: pointer;
+}
+

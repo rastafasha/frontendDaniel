@@ -29,6 +29,9 @@ export class ProductItemComponent implements OnInit {
 
   imageUrl = environment.apiUrlMedia;
 
+  favoritos:any=[]=[];
+  blogs:any=[]=[];
+
   constructor(
     private messageService: MessageService,
     private messageFavoriteService: MessageFavoriteService,
@@ -57,9 +60,11 @@ export class ProductItemComponent implements OnInit {
     if(!this.usuario || !this.usuario.role || this.usuario.role === null ){
       // console.log('no hay role')
     }
-    
-    this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.getUserSubcription(id));
+    if(this.usuario){
+
+      this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
+      this.activatedRoute.params.subscribe( ({id}) => this.getUserSubcription(id));
+    }
   }
 
   getUserSubcription(id:string){
@@ -84,20 +89,57 @@ export class ProductItemComponent implements OnInit {
   }
 
   agregarLista(){
-    // console.log('sending...')
-    // this.messageFavoriteService.sendMessage(this.product);
-
+    
     const data = {
-      // ...this.product,
       blog: this.product._id,
       usuario: this.usuario.uid,
     }
     
-
     this.favoriteService.createFavorite(data ).subscribe((res:any)=>{
       this.favoriteItem = res;
       // console.log(this.favoriteItem);
+      console.log('sending...', this.product.name)
+      this.notificacion();
+      
     });
   }
+
+  notificacion(){
+
+    setTimeout( function() {
+
+      var notificacioncuadro = document.getElementsByClassName("notificacion");
+        for (var i = 0; i<notificacioncuadro.length; i++) {
+          notificacioncuadro[i].classList.add("notificacion-show");
+        }
+    },1200 );
+  }
+
+  notificacionCerrar(){
+
+    setTimeout( function() {
+
+      var notificacioncuadro = document.getElementsByClassName("notificacion");
+        for (var i = 0; i<notificacioncuadro.length; i++) {
+          notificacioncuadro[i].classList.remove("notificacion-show");
+        }
+    } );
+    this.ngOnInit();
+  }
+
+  refresh(): void {
+    window.location.reload();
+  }
+
+  listarfavoritessUser(){
+    this.favoriteService.listarUsuarioFavorites(this.usuario.uid).subscribe(
+      response =>{
+        this.favoritos = response;
+        this.blogs = response.blog;
+      }
+    );
+    
+  }
+
 
 }

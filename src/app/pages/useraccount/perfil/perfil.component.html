@@ -78,36 +78,42 @@
                     <div class="card-body">
                         <h2>Mis Compras</h2>
                         <!-- whotofollow -->
-                        <div class="whotofollow" *ngFor="let userpayment of pagos ">
-                            <!-- tofolow -->
-                            <div class="shopping">
-                                <div class="imagen">
-                                    <a [routerLink]="['/user-account/payment-detail', userpayment._id]">
-                                        <img [src]="userpayment.img | imagenPipe: 'pagos'" alt="" style="width: 100%;">
-                                    </a>
-                                </div>
-                                <div class="info">
-                                    <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]" class="cursor">{{userpayment.referencia}}</a></h1>
-                                    <p>{{userpayment.monto | currency}}</p>
-                                    <p>{{userpayment.blog.name}}</p>
+                        <div class="listfavoritos">
+                            <div class="whotofollow" *ngFor="let userpayment of pagos ">
+
+                                
+                                <!-- tofolow -->
+                                <div class="shopping">
                                     
-                                    <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
-                                    <p><b>Status:</b>
-                                        <span class="badge bg-success" *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
-                                        <span class="badge bg-primary" *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
-                                        <span class="badge bg-danger" *ngIf="userpayment.status === 'REJECTED'">Rechazado</span>
-                                    </p>
-                
-                                    <p><b>Validación:</b>
-                                        <span class="badge bg-success" *ngIf="userpayment.validacion === 'APROVED'">Aprobado</span>
-                                        <span class="badge bg-primary" *ngIf="userpayment.validacion === 'PENDING'">Pendiente</span>
-                                        <span class="badge bg-danger" *ngIf="userpayment.validacion === 'REJECTED'">Rechazado</span>
-                                    </p>
+                                    <div class="imagen">
+                                        <a [routerLink]="['/user-account/payment-detail', userpayment._id]">
+                                            <img [src]="userpayment.img | imagenPipe: 'pagos'" alt="" style="width: 100%;">
+                                        </a>
+                                    </div>
+                                    <div class="info">
+                                        <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]" class="cursor">{{userpayment.referencia}}</a></h1>
+                                        <p>{{userpayment.monto | currency}}</p>
+                                        <p>{{userpayment.blog.name}}</p>
+                                        
+                                        <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
+                                        <p><b>Status:</b>
+                                            <span class="badge bg-success" *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
+                                            <span class="badge bg-primary" *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
+                                            <span class="badge bg-danger" *ngIf="userpayment.status === 'REJECTED'">Rechazado</span>
+                                        </p>
+                    
+                                        <p><b>Validación:</b>
+                                            <span class="badge bg-success" *ngIf="userpayment.validacion === 'APROVED'">Aprobado</span>
+                                            <span class="badge bg-primary" *ngIf="userpayment.validacion === 'PENDING'">Pendiente</span>
+                                            <span class="badge bg-danger" *ngIf="userpayment.validacion === 'REJECTED'">Rechazado</span>
+                                        </p>
+                                    </div>
                                 </div>
+                                <!-- tofolow -->
+                                <hr>
                             </div>
-                            <!-- tofolow -->
-                            <hr>
                         </div>
+                        
                         <!-- whotofollow -->
 
                     </div>
@@ -118,28 +124,31 @@
                     <div class="card-body">
                         <h2>Mis Subcripciones</h2>
                         <!-- whotofollow -->
-                        <div class="whotofollow" *ngFor="let userpayment of subcriptionPaypal ">
-                            <!-- tofolow -->
-                            <div class="subcriptions">
-                                <div class="info">
-                                    <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]">{{userpayment.id}}</a></h1>
-                                    <a [routerLink]="['/pasarela-subcripcion/', userpayment.plan_id]">
-                                        <p>{{userpayment.plan_id}}</p>
-                                    </a>
-                                    <p>{{userpayment.monto | currency}}</p>
-                                    
-                                    <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
-                                    <p><b>Status:</b>
-                                        <span class="badge bg-success" *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
-                                        <span class="badge bg-primary" *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
-                                        <span class="badge bg-danger" *ngIf="userpayment.status === 'CANCELED'">Rechazado</span>
-                                    </p>
-                
+                        <div class="listfavoritos">
+                            <div class="whotofollow" *ngFor="let userpayment of subcriptionPaypal ">
+                                <!-- tofolow -->
+                                <div class="subcriptions">
+                                    <div class="info">
+                                        <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]">{{userpayment.id}}</a></h1>
+                                        <a [routerLink]="['/pasarela-subcripcion/', userpayment.plan_id]">
+                                            <p>{{userpayment.plan_id}}</p>
+                                        </a>
+                                        <p>{{userpayment.monto | currency}}</p>
+                                        
+                                        <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
+                                        <p><b>Status:</b>
+                                            <span class="badge bg-success" *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
+                                            <span class="badge bg-primary" *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
+                                            <span class="badge bg-danger" *ngIf="userpayment.status === 'CANCELED'">Rechazado</span>
+                                        </p>
+                    
+                                    </div>
                                 </div>
+                                <!-- tofolow -->
+                                <hr>
                             </div>
-                            <!-- tofolow -->
-                            <hr>
                         </div>
+                        
                         <!-- whotofollow -->
 
                     </div>
@@ -179,25 +188,28 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h2>Favorites Articles</h2>
-                        <div class="whotofollow" *ngFor="let favorito of favoritos ">
-                            <!-- tofolow -->
-                            <div class="tofolow">
-                                <div class="imagen">
-                                    <a [routerLink]="['/blog/', favorito.blog.slug]">
-                                        <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
-                                    </a>
+                        <div class="listfavoritos">
+                            <div class="whotofollow" *ngFor="let favorito of favoritos ">
+                                <!-- tofolow -->
+                                <div class="tofolow">
+                                    <div class="imagen">
+                                        <a [routerLink]="['/blog/', favorito.blog.slug]">
+                                            <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
+                                        </a>
+                                    </div>
+                                    <div class="info">
+                                        <a [routerLink]="['/blog/', favorito.blog.slug]">
+                                            <h1>{{favorito.blog.name}}</h1>
+                                        </a>
+                                        <p>{{favorito.blog.description |slice: 0:45}}...</p>
+                                    </div>
+                                    <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)" src="./assets/svg/icon-delete.svg" alt="delete">
                                 </div>
-                                <div class="info">
-                                    <a [routerLink]="['/blog/', favorito.blog.slug]">
-                                        <h1>{{favorito.blog.name}}</h1>
-                                    </a>
-                                    <p>{{favorito.blog.description |slice: 0:45}}...</p>
-                                </div>
-                                <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)" src="./assets/svg/icon-delete.svg" alt="delete">
+                                <!-- tofolow -->
+                                <hr>
                             </div>
-                            <!-- tofolow -->
-                            <hr>
                         </div>
+                        
 
                     </div>
                 </div>
@@ -207,24 +219,27 @@
                     <div class="card-body">
                         <h2>Blogs Comprados</h2>
                         <!-- whotofollow -->
-                        <div class="whotofollow" *ngFor="let blog of blogcomprados ">
-                            <!-- tofolow -->
-                            <div class="tofolow">
-                                <div class="imagen">
-                                    <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
-                                    <!-- <a [routerLink]="['/blog/', blog.slug]">
-                                    </a> -->
+                        <div class="listfavoritos">
+                            <div class="whotofollow" *ngFor="let blog of pagos ">
+                                <!-- tofolow -->
+                                <div class="tofolow">
+                                    <div class="imagen">
+                                        <a [routerLink]="['/blog/', blog.name]">
+                                            <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
+                                        </a>
+                                    </div>
+                                    <div class="info">
+                                        <a [routerLink]="['/blog/', blog.name]">
+                                            <h1>{{blog.name}}</h1>
+                                        </a>
+                                        <p>{{blog.description |slice: 0:45}}...</p>
+                                    </div>
                                 </div>
-                                <div class="info">
-                                    <h1>{{blog.name}}</h1>
-                                    <!-- <a [routerLink]="['/blog/', blog.slug]">
-                                    </a> -->
-                                    <p>{{blog.description |slice: 0:45}}...</p>
-                                </div>
+                                <!-- tofolow -->
+                                <hr>
                             </div>
-                            <!-- tofolow -->
-                            <hr>
                         </div>
+                        
                         <!-- whotofollow -->
 
                     </div>

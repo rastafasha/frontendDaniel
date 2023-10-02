@@ -28,10 +28,11 @@
             
         </div>
         <div class="options-buttons">
-            <div *ngIf="!usuario">
+            
+            <div *ngIf="!usuario || usuario.role === 'undefined' || usuario.role === 'null'">
                 Registrate para comprar
             </div>
-            <div *ngIf="usuario || usuario.role === 'USER'">
+            <div *ngIf="usuario  ">
                 <a (click)="addToCart()">
                     <button class="btn"> <i class="fa fa-paypal"></i> pagar con paypal/tdc  </button> 
                 </a>
@@ -41,12 +42,19 @@
             </div>
             
         </div>
-        <div class="options-icons" *ngIf="usuario || usuario.role === 'MEMBER' || usuario.role === 'ADMIN' || usuario.role === 'EDITOR' || usuario.role === 'SUPERADMIN'" >
-            <a class="pointer" (click)="agregarLista()">
-                <img src="./assets/svg/marcador.svg" alt="">
-            </a>
+        <div *ngIf="usuario">
+            <div class="options-icons" *ngIf="usuario || usuario.role === 'MEMBER' || usuario.role === 'ADMIN' || usuario.role === 'EDITOR' || usuario.role === 'SUPERADMIN'" >
+                <a class="pointer" id="notification-trigger" (click)="agregarLista()">
+                    <img src="./assets/svg/marcador.svg" alt="">
+                </a>
+            </div>
         </div>
+        
     </div>
+</div>
+<div class="notificacion">
+    <div class="cerrar" (click)="notificacionCerrar()"><i class="fa fa-close"></i></div>
+    <p>Artículo Agregado</p>
 </div>
 
 

@@ -1,35 +1,38 @@
 <div class="aside ">
-    <!-- cart -->
-    <!-- cart -->
-    <!-- staff-pic -->
-    <div class="staff-pic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR'"  >
-        <div class="title-seccion">
-            <img src="./assets/svg/marcador.svg" alt="">
-            <h1>Mis Favoritos</h1>
-        </div>
-        <div class="clear"></div>
-        <div class="listfavoritos" *ngFor="let post of favoritos">
-            <!-- posted -->
-            <div class="gridfavoritos" >
-                <div class="got-image" style="background-image: url('{{imageUrl}}/blogs/{{post.blog.img}}')" title="{{post.blog.name}}" style="height: 50px; width: 50px;" >
-                    
-
-                </div>
-                <div class="info">
-                    <h4><a [routerLink]="['/blog', post.blog.slug]">
-                        {{post.blog.name}}
-                    </a></h4>
-                    <p><b>creado:</b> {{post.blog.createdAt | date: 'dd/mm/YYYY'}}</p>
-                </div>
+    
+    <!-- favoritos -->
+    <div *ngIf="usuario">
+        <div class="staff-pic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' "  >
+            <div class="title-seccion">
+                <img src="./assets/svg/marcador.svg" alt="">
+                <h1>Mis Favoritos</h1>
             </div>
-            <!-- posted -->
+            <div class="clear"></div>
+            <div class="listfavoritos">
+                <!-- favoritos -->
+                <div  *ngFor="let post of favoritos">
+                    <div class="gridfavoritos" >
+                        <div class="got-image" style="background-image: url('{{imageUrl}}/blogs/{{post.blog.img}}')" title="{{post.blog.name}}" style="height: 50px; width: 50px;" ></div>
+                        <div class="info">
+                            <h4><a [routerLink]="['/blog', post.blog.slug]">
+                                {{post.blog.name}}
+                            </a></h4>
+                            <p><b>creado:</b> {{post.blog.createdAt | date: 'dd/mm/YYYY'}}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- favoritos -->
+            </div>
         </div>
-
     </div>
-    <!-- staff-pic -->
+    
+    <!-- favoritos -->
+
+    
 
     <!-- staff-pic -->
-    <div class="staff-pic"  >
+    <div *ngIf="usuario">
+    <div class="staff-pic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' "  >
         <div class="title-seccion">
             <img src="./assets/svg/mundo.svg" alt="">
             <h1>Post Recientes</h1>
@@ -37,13 +40,6 @@
         <div class="clear"></div>
         <div *ngFor="let post of postrecientes">
             <!-- posted -->
-            <div class="posted" *ngIf="!usuario">
-                <div class="userinfo">
-                    <p>{{post.usuario.username}}</p>
-                </div>
-                <h1>{{post.name}}</h1>
-            </div>
-
             <div class="posted" *ngIf="usuario">
                 <div class="userinfo">
                     <p>{{post.usuario.username}}</p>
@@ -55,10 +51,13 @@
 
         <p><a [routerLink]="['/blogs']">Ver Todos</a></p>
     </div>
+    </div>
     <!-- staff-pic -->
-
-    <!-- boxmember -->
-    <!-- <div class="boxmember">
+    <!-- publicidad -->
+    <app-sideadvertising></app-sideadvertising>
+    <!-- publicidad -->
+    <!-- tips -->
+    <div class="boxmember" *ngIf="!usuario">
         <h1>Writing on Daniels'Proyect</h1>
         <ul>
             <li><a href="#">New Writer FAQ</a></li>
@@ -66,10 +65,10 @@
             <li><a href="#">Grow your readership</a></li>
         </ul>
         <button class="btn btn-vinotinto">
-        Start Writing
+            <a [routerLink]="['/login']">Start Writing</a>
     </button>
-    </div> -->
-    <!-- boxmember -->
+    </div>
+    <!-- tips -->
     <!-- socialblock -->
     <div class="socialblock">
         <div class="tope">
@@ -88,68 +87,80 @@
     </div>
     <!-- socialblock -->
     <!-- recomended-topic -->
-    <div class="recomended-topic">
-        <div class="title-seccion">
-            <img src="./assets/svg/prismaticos.svg" alt="">
-            <h1>Categorías</h1>
-
+    <div *ngIf="usuario">
+        <div class="recomended-topic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' ">
+            <div class="title-seccion">
+                <img src="./assets/svg/prismaticos.svg" alt="">
+                <h1>Categorías</h1>
+    
+            </div>
+            <div class="clear"></div>
+            <ul *ngFor="let category of categories">
+                <li class="topic badge badge-pill badge-light mr-1">
+                    <a [routerLink]="['/blog/category/', category._id]">{{category.nombre}}</a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+            <p><a routerLink="../recommended-topics">Ver más categorías</a></p>
         </div>
-        <div class="clear"></div>
-        <ul *ngFor="let category of categories">
-            <li class="topic badge badge-pill badge-light mr-1">
-                <a [routerLink]="['/blog/category/', category._id]">{{category.nombre}}</a>
-            </li>
-        </ul>
-        <div class="clear"></div>
-        <p><a routerLink="recommended-topics">Ver más categorías</a></p>
     </div>
+    
     <!-- recomended-topic -->
     <!-- whotofollow -->
-    <div class="whotofollow">
-        <div class="title-seccion">
-            <img src="./assets/svg/agregar-usuario.svg" alt="">
-            <h1>Editores</h1>
-        </div>
-        <div *ngFor="let editor of editores">
-            <div class="tofolow">
-
-                <div class="imagen">
-                    <a [routerLink]="['/editor', editor.uid]">
-                        <div *ngIf="!editor.profiles">
-                            <img class="img-responsive" src="./assets/img/no-image.jpg" alt=" {{editor.username}}" />
-                        </div>
-                        <div *ngIf="editor.profiles">
-                            <img class="img-responsive" [src]="editor.profiles.img | imagenPipe: 'profiles'" alt=" {{editor.username}}" />
-                        </div>
-                    </a>
-                </div>
-                <div class="info">
-                    <a [routerLink]="['/editor', editor.uid]">
-                        <h1>{{editor.username}}</h1>
-                    </a>
-                    <!-- <p>{{profiles.shortdescription}}</p> -->
-                </div>
-                <div class="boton">
-                    <a [routerLink]="['/editor', editor.uid]">
-                        <button class="btn btn-outline-dark borderradius">+info</button>
-                    </a>
-                    <!-- <button class="btn btn-outline-dark borderradius">Follow</button> -->
+    <div *ngIf="usuario">
+        <div class="whotofollow" *ngIf="usuario || usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' ">
+            <div class="title-seccion">
+                <img src="./assets/svg/agregar-usuario.svg" alt="">
+                <h1>Editores</h1>
+            </div>
+            <div *ngFor="let editor of editores">
+                <div class="tofolow">
+    
+                    <div class="imagen">
+                        <a [routerLink]="['/editor', editor.uid]">
+                            <div *ngIf="!editor.profiles">
+                                <img class="img-responsive" src="./assets/img/no-image.jpg" alt=" {{editor.username}}" />
+                            </div>
+                            <div *ngIf="editor.profiles">
+                                <img class="img-responsive" [src]="editor.profiles.img | imagenPipe: 'profiles'" alt=" {{editor.username}}" />
+                            </div>
+                        </a>
+                    </div>
+                    <div class="info">
+                        <a [routerLink]="['/editor', editor.uid]">
+                            <h1>{{editor.username}}</h1>
+                        </a>
+                        <!-- <p>{{profiles.shortdescription}}</p> -->
+                    </div>
+                    <div class="boton">
+                        <a [routerLink]="['/editor', editor.uid]">
+                            <button class="btn btn-outline-dark borderradius">+info</button>
+                        </a>
+                        <!-- <button class="btn btn-outline-dark borderradius">Follow</button> -->
+                    </div>
                 </div>
             </div>
+            <p><a [routerLink]="['./who-to-follow']" >Ver todos</a></p>
         </div>
-        <p><a routerLink="who-to-follow">Ver todos</a></p>
     </div>
+    
     <!-- whotofollow -->
     <!-- readinglist -->
     <div class="readinglist">
-        <div class="title-seccion">
-            <h1>Reading List</h1>
+        <div *ngIf="usuario ">
+            <div *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' ">
+                <div class="title-seccion">
+                    <h1>Reading List</h1>
+                </div>
+                <h1>Click the <img src="./assets/svg/marcador.svg" alt=""> on any story to easily add to your reading list or a custom list that you can share.</h1>
+            </div>
         </div>
-        <h1>Click the <img src="./assets/svg/marcador.svg" alt=""> on any story to easily add to your reading list or a custom list that you can share.</h1>
+        
+        
         <ul>
             <li><a href="#">Help</a> </li>
             <li><a href="#">Status</a> </li>
-            <li><a routerLink="who-to-follow">Writers</a> </li>
+            <li><a href="#">Writers</a> </li>
             <li><a href="#">Blog</a> </li>
             <li><a href="#">Carrers</a> </li>
             <li><a href="#">Privacy Term</a> </li>
@@ -159,4 +170,5 @@
         <p style="color: #ccc; margin-top: 20px;"><small>Developed by: Malcolm Cordova 2023</small></p>
     </div>
     <!-- readinglist -->
+
 </div>

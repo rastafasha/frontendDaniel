@@ -6,74 +6,15 @@
         <div class="recomended-topic">
             <div class="title-seccion">
                 <img src="./assets/svg/prismaticos.svg" alt="">
-                <h1>Recomended Topics</h1>
+                <h1>Categorias Recomendadas</h1>
 
             </div>
             <div class="clear"></div>
-            <ul class="columns">
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Angular</a>
+            <ul class="columns" >
+                <li class="topic badge badge-pill badge-light mr-1" *ngFor="let category of categories">
+                    <a [routerLink]="['/blog/category/', category._id]">{{category.nombre}}</a>
                 </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Laravel</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Nodejs</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Ionic</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Wordpress</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Postres</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Economía</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Angular</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Laravel</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Nodejs</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Ionic</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Wordpress</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Postres</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Economía</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Angular</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Laravel</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Nodejs</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Ionic</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Wordpress</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Postres</a>
-                </li>
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a href="#">Economía</a>
-                </li>
+                
             </ul>
         </div>
         <!-- recomended-topic -->

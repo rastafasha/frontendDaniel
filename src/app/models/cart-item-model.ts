@@ -12,7 +12,7 @@ export class CartItemModel {
 
     constructor(product: Post){
       this.productId= product._id;
-      this.productName = product.name;
+      this.productName = product.slug;
       this.category = 'DIGITAL_GOODS';
       this.description = 'venta de articulo';
       // this.description = product.adicional;

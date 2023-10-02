@@ -12,20 +12,27 @@
                         <div class="card-body">
                             <div class="tofolow">
                                 <div class="imagen">
-                                    <img src="./assets/img/user2.jpg" alt="">
+                                    <div *ngIf="!profile">
+                                        <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                    </div>
+                                    <div *ngIf="profile">
+                                        <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                    
+                                    </div>
                                 </div>
                                 <div class="info">
                                     <h1>{{profile.usuario.username}}</h1>
                                     <p><b>Email:</b> {{profile.usuario.email}}</p>
                                     <p><b>Miembro desde:</b> {{profile.usuario.createdAt | date: 'dd/mm/YYYY'}}</p>
-                                    <p><b>Plan:</b> {{profile.usuario.role}}</p>
+                                    <p *ngIf="profile.facebook"><b>Facebook:</b> {{profile.facebook}}</p>
+                                    <p *ngIf="profile.instagram"><b>Instagram:</b> {{profile.instagram}}</p>
+                                    <p *ngIf="profile.linkedin"><b>Linkedin:</b> {{profile.linkedin}}</p>
+                                    <p *ngIf="profile.twitter"><b>Twitter:</b> {{profile.twitter}}</p>
                                 </div>
-                                <div class="boton">
+                                <!-- <div class="boton">
                                     <button class="btn btn-outline-dark borderradius">Follow</button>
-                                </div>
+                                </div> -->
                             </div>
-    
-    
                         </div>
                     </div>
                 </div>
@@ -53,52 +60,6 @@
                                 </div>
                                 <!-- article -->
                             </div>
-    
-    
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="card usercard">
-                        <div class="card-body">
-                            <div class="tofolow">
-                                <div class="imagen">
-                                    <!-- <img src="./assets/img/user2.jpg" alt=""> -->
-                                    <div *ngIf="!profile">
-                                        <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
-                                    </div>
-                                    <div *ngIf="profile">
-                                        <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
-                
-                                    </div>
-                                </div>
-    
-                                
-                                <div class="info">
-                                    <h1>{{profile.first_name}} {{profile.last_name}}</h1>
-                                    <p><b>Email:</b> {{profile.usuario.email}}</p>
-                                    <p><b>Miembro desde:</b> {{profile.usuario.createdAt | date: 'dd/mm/YYYY'}}</p>
-                                    <p><b>Role:</b> {{profile.usuario.role}}</p>
-                                </div>
-    
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-4">
-                                    <p><b>pais:</b> {{profile.pais}}</p>
-                                    <p><b>ciudad:</b> {{profile.ciudad}}</p>
-                                    <p><b>estado:</b> {{profile.estado}}</p>
-                                    <p><b>direccion:</b> {{profile.direccion}}</p>
-                                </div>
-                                <div class="col-xs-12 col-sm-4">
-                                    <p><b>telhome:</b> {{profile.telhome}}</p>
-                                    <p><b>telmovil:</b> {{profile.telmovil}}</p>
-                                    <p><b>facebook:</b> {{profile.facebook}}</p>
-                                    <p><b>instagram:</b> {{profile.instagram}}</p>
-                                    <p><b>linkedin:</b> {{profile.linkedin}}</p>
-                                    <p><b>twitter:</b> {{profile.twitter}}</p>
-                                </div>
-                            </div>
-    
                         </div>
                     </div>
                 </div>

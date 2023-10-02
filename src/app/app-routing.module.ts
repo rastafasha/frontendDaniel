@@ -21,13 +21,14 @@ import { PasarelaSubcriptionComponent } from './paypalsubcription/pasarela-subcr
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProfileComponent } from './pages/useraccount/profile/profile.component';
+import { RecommendedTopicComponent } from './pages/recommended-topic/recommended-topic.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   
   
-  { path: 'staff-pics', component: StaffpicsComponent },
-  { path: 'recommended-topics', component: WhotofollowComponent },
+  // { path: 'staff-pics', component: StaffpicsComponent },
+  { path: 'recommended-topics', component: RecommendedTopicComponent },
   { path: 'who-to-follow', component: WhotofollowComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },

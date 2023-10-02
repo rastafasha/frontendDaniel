@@ -168,6 +168,7 @@ export class CartComponent implements OnInit {
       item = {
 
         name: it.productName,
+        id: it.productId,
         quantity: it.quantity,
         category: 'DIGITAL_GOODS',
         description: it.description,

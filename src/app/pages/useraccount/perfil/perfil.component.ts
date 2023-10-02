@@ -28,7 +28,7 @@ export class PerfilComponent implements OnInit {
   blogcomprados:Post;
   favoritos:Favorito;
   favorito:Favorito;
-  pagos!: Payment;
+  pagos: any[]=[];
   uid:User;
   subcriptionPaypal: subcriptionPaypal;
   pagosbl;
@@ -68,13 +68,15 @@ export class PerfilComponent implements OnInit {
   getUser(): void {
 
     this.user = JSON.parse(localStorage.getItem('user'));
+    if(!this.user || this.user  === null ){
+      this.router.navigateByUrl('/login')
+   }
+   
     this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
     this.activatedRoute.params.subscribe( ({id}) => this.getUserSubcription(id));
     
     this.getUserPagos();
-    if(!this.user || !this.user.role || this.user.role === null ){
-       this.router.navigateByUrl('/login')
-    }
+    
     
   }
 
@@ -82,7 +84,7 @@ export class PerfilComponent implements OnInit {
 
     this.pagoService.getPagosbyUser(this.user.uid).subscribe((data: any) => {
       this.pagos = data;
-      this.blogcomprados = data[0].blog;
+      // this.blogcomprados = data[0].blog;
       // console.log(this.pagos);
       // console.log(this.blogcomprados);
      

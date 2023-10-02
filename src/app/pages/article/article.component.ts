@@ -24,6 +24,7 @@ export class ArticleComponent implements OnInit {
   error:string;
   slug:any;
   usuario:User;
+  blogusuario:User;
   uid: string;
   role: User;
   // @Input() product: Post;
@@ -56,6 +57,7 @@ export class ArticleComponent implements OnInit {
     this.postService.getBlogBySlug(slug).subscribe(
       res => {
         this.blog = res;
+        this.blogusuario = res.usuario;
         // console.log(this.blog);
       }
     );
@@ -65,8 +67,8 @@ export class ArticleComponent implements OnInit {
     
       
   getUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    if(!this.user || !this.user.role || this.user.role === null || this.role === null){
+    this.usuario = JSON.parse(localStorage.getItem('user'));
+    if(!this.usuario || !this.usuario.role || this.usuario.role === null || this.role === null){
       // console.log('no hay role')
       // this.user.role = 'USER';
     }

@@ -5,40 +5,18 @@
         <div class="whotofollow ">
             <div class="title-seccion">
                 <img src="./assets/svg/agregar-usuario.svg" alt="">
-                <h1>Who to Follow</h1>
+                <h1>Editores</h1>
             </div>
             <div class="columns">
                 <!-- tofolow -->
                 <div class="tofolow" *ngFor="let editor of editores">
-                    <div class="imagen">
-                        <a [routerLink]="['/editor', editor.uid]">
-                            <div *ngIf="!editor.profiles">
-                                <img class="img-responsive" src="./assets/img/no-image.jpg" alt=" {{editor.username}}" />
-                            </div>
-                            <div *ngIf="editor.profiles">
-                                <img class="img-responsive" [src]="editor.profiles.img | imagenPipe: 'profiles'" alt=" {{editor.username}}" />
-                            </div>
-                        </a>
-                    </div>
                     <div class="info">
                         <a [routerLink]="['/editor', editor.uid]">
                             <h1>{{editor.username}}</h1>
                         </a>
-                        
-                        <!-- <p *ngIf="!editor.profiles.description">Alguien Increible</p>
-                        <p *ngIf="editor.profiles.description">{{editor.profiles.description}}</p> -->
                     </div>
-                    <!-- <div class="boton">
-                        <a href="#">
-                            <button class="btn btn-outline-dark borderradius">+info</button>
-                        </a>
-                    </div> -->
                 </div>
                 <!-- tofolow -->
-               
-
-
-
             </div>
 
         </div>

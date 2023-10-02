@@ -86,7 +86,6 @@ login(){
 
 refresh(): void {
   window.location.reload();
-  this.router.navigateByUrl('/home');
 }
 
 renderButton() {

@@ -81,7 +81,7 @@ export class UserService {
     this.refresh();
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.router.navigateByUrl('/home');
+    // this.router.navigateByUrl('/home');
     this.auth2.signOut().then(()=>{
       this.ngZone.run(()=>{
         this.refresh();
