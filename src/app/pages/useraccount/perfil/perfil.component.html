@@ -8,7 +8,7 @@
         </div>
     </div>
 </div>
-<div class="container mt-3 mb-3" *ngIf="profile">
+<div class="container mt-3 mb-3 pt-5" *ngIf="profile">
     <div class="profile" >
         <div class="row gridperfil">
             <div class=" infodato">
@@ -191,7 +191,7 @@
                         <div class="listfavoritos">
                             <div class="whotofollow" *ngFor="let favorito of favoritos ">
                                 <!-- tofolow -->
-                                <div class="tofolow">
+                                <div class="favoritesss">
                                     <div class="imagen">
                                         <a [routerLink]="['/blog/', favorito.blog.slug]">
                                             <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">

@@ -22,6 +22,8 @@ import { CarritoComponent } from './pages/carrito/carrito.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProfileComponent } from './pages/useraccount/profile/profile.component';
 import { RecommendedTopicComponent } from './pages/recommended-topic/recommended-topic.component';
+import { FavoritosComponent } from './pages/useraccount/favoritos/favoritos.component';
+import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -32,7 +34,8 @@ const routes: Routes = [
   { path: 'who-to-follow', component: WhotofollowComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
-
+  { path: 'buscar', component: BusquedaComponent },
+  
   //blog
   { path: 'blogs', component: AllComponent },
   { path: 'blog/:slug', component: ArticleComponent },
@@ -46,6 +49,7 @@ const routes: Routes = [
   { path: 'user-account/edit/:id', component: ProfileComponent },
   { path: 'user-account/payment-detail/:id', component: PaymentDetailsComponent },
   { path: 'user/carrito', component: CartComponent },
+  { path: 'favoritos/:id', component: FavoritosComponent },
   
 
   // { path: 'subcripciones', component: SubscriptionComponent },

@@ -232,4 +232,13 @@
         justify-content: center;
         align-items: center;
     }
+
+    .got-image {
+        height: 220px;
+    }
+
+
+.article .imagenpost {
+    height: auto;
+}
 }

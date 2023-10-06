@@ -1,0 +1,42 @@
+<!-- <app-cintamiembro></app-cintamiembro> -->
+<div class="container mt-3 mb-3">
+    <!-- left-side -->
+    <div class="contenido ">
+        <!-- recomended-topic -->
+        <div class="recomended-topic">
+            <div class="title-seccion">
+                <img src="./assets/svg/marcador.svg" alt="">
+                <h1>Mis Favoritos</h1>
+
+            </div>
+            <div class="clear"></div>
+            <div class="columns">
+                <div class="whotofollow " *ngFor="let favorito of favoritos ">
+                    <!-- tofolow -->
+                    <div class="tofolow">
+                        <div class="imagen">
+                            <a [routerLink]="['/blog/', favorito.blog.slug]">
+                                <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%; height: 100%;">
+                            </a>
+                        </div>
+                        <div class="info">
+                            <a [routerLink]="['/blog/', favorito.blog.slug]">
+                                <h3>{{favorito.blog.name}}</h3>
+                            </a>
+                            <p>{{favorito.blog.description |slice: 0:45}}...</p>
+                        </div>
+                        <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)" src="./assets/svg/icon-delete.svg" alt="delete">
+                    </div>
+                    <!-- tofolow -->
+                    <hr>
+                </div>
+            </div>
+            
+        </div>
+        <!-- recomended-topic -->
+    </div>
+    <!-- end left-side -->
+    <!-- right side -->
+    <app-sidebar></app-sidebar>
+    <!-- endright side -->
+</div>

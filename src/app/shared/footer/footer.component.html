@@ -4,7 +4,7 @@
         <img src="./assets/svg/hogar.svg" alt="">
         <p>Home</p>
     </a>
-    <a routerLink="staff-pics" class="modal-footer-staff">
+    <a [routerLink]="['/favoritos', user.uid]" class="modal-footer-staff">
         <img src="./assets/svg/marcador.svg" alt="">
         <p>Favoritos</p>
     </a>
@@ -12,8 +12,8 @@
         <img src="./assets/svg/prismaticos.svg" alt="">
         <p>Categorias</p>
     </a>
-    <a routerLink="blogs" class="modal-footer-follow">
+    <a routerLink="buscar" class="modal-footer-follow">
         <img src="./assets/svg/busqueda.svg" alt="">
-        <p>Blogs</p>
+        <p>Buscar</p>
     </a>
 </div>

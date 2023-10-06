@@ -31,13 +31,13 @@
     }
     .navbarM a {
         float: left;
-        display: inline-block;
-        color: var(--gris);
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 11px;
-        width: calc(20%);
+    display: inline-block;
+    color: var(--gris);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 10px;
+    width: calc(25%);
     }
     .navbarM a i {
         font-size: 20px;

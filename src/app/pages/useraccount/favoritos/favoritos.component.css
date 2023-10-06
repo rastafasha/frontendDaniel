@@ -1,0 +1,14 @@
+.whotofollow .tofolow {
+    display: grid;
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: 83px 210px 70px;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 80px;
+}
+
+
+.whotofollow .tofolow h3{
+    font-size: 1.3rem;
+    color: var(--vinotinto);
+}

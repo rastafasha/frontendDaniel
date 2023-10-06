@@ -236,9 +236,12 @@ textarea {
     -webkit-column-gap: 4em;
     -moz-column-gap: 4em;
     column-gap: 4em;
-    -webkit-column-width: 200px;
-    -moz-column-width: 200px;
-    column-width: 200px;
+    -webkit-column-width: 330px;
+    -moz-column-width: 330px;
+    column-width: 330px;
+    column-rule: dotted;
+    column-rule-width: thin;
+    break-inside: avoid-column;
 }
 
 .badge-pill {

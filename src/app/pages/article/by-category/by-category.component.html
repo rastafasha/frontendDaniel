@@ -1,6 +1,6 @@
 
 
-<div class="container mt-3 mb-3">
+<div class="container mt-3 mb-3 pt-5">
     <!-- left-side -->
     <div class="container " *ngIf="!usuario">
         <h2>Post por categoría:{{categoria.nombre}} </h2>
@@ -24,13 +24,13 @@
                        
                     </div>
                 </div>
-                <div class="boton-mas-articulos">
-                    <button class="btn btn-vinotinto" >Cargar más</button>
-                </div>
+                
             </div>
             
         <!-- article -->
-        
+        <div class="boton-mas-articulos">
+            <button class="btn btn-vinotinto" >Cargar más</button>
+        </div>
     </div>
     <div class="container " *ngIf="usuario">
         <h2>Post por categoría:{{categoria.nombre}} </h2>

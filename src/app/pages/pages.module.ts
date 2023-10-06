@@ -19,6 +19,8 @@ import { AllComponent } from './article/all/all.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaymentDetailsComponent } from './useraccount/payment-details/payment-details.component';
 import { ProfileComponent } from './useraccount/profile/profile.component';
+import { FavoritosComponent } from './useraccount/favoritos/favoritos.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 
@@ -37,7 +39,9 @@ import { ProfileComponent } from './useraccount/profile/profile.component';
     ByCategoryComponent,
     AllComponent,
     PaymentDetailsComponent,
-    ProfileComponent
+    ProfileComponent,
+    FavoritosComponent,
+    BusquedaComponent
   ],
   exports: [
     HomeComponent,
@@ -53,7 +57,9 @@ import { ProfileComponent } from './useraccount/profile/profile.component';
     ByCategoryComponent,
     AllComponent,
     PaymentDetailsComponent,
-    ProfileComponent
+    ProfileComponent,
+    FavoritosComponent,
+    BusquedaComponent
   ],
   imports: [
     CommonModule,
