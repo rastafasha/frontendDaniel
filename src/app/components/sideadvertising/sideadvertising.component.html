@@ -9,7 +9,13 @@
             <div class="carousel-inner" >
                 <div class="carousel-item " *ngFor="let banner of sideadvices;let i=index " [ngClass]="(i === 0) ? 'active' : ''">
                     <a href="{{banner.url}}" target="{{banner.target}}" class="btn btn-outline-dann">
-                        <img [src]="banner.img | imagenPipe: 'sideadvertisings'" alt=" {{banner.title}}">
+                        <div *ngIf="!banner.img">
+                            <img src="./assets/img/no-image.jpg" >
+                        </div>
+                        <div *ngIf="banner.img">
+                            <img [src]="banner.img | imagenPipe: 'sideadvertisings'" alt=" {{banner.title}}">
+                            
+                        </div>
                     </a>
                 </div>
             </div>

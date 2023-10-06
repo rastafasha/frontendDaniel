@@ -1,0 +1,9 @@
+
+.buscadoree{
+    display: grid;
+    grid-template-columns: 10% 90%;
+    grid-column-gap: 8px;
+    grid-row-gap: 0px;
+    height: auto;
+}
+
