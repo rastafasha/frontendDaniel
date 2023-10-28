@@ -3,6 +3,10 @@ import { Category } from './category';
 import { User } from "./user";
 const base_url = environment.apiUrlMedia;
 export class Post {
+  slice(arg0: number, newLength: any): any {
+    throw new Error('Method not implemented.');
+  }
+  length: any;
   constructor(
 
     public name: string,

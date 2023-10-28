@@ -60,6 +60,7 @@ export class CartComponent implements OnInit {
     this.getItem();
     this.total = this.getTotal();
     this.closeModalCart();
+    this.closeModalUser();
   }
 
 
@@ -108,13 +109,14 @@ export class CartComponent implements OnInit {
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point',
             JSON.stringify(data));
             this.openModal(
-              data.id,
+              data.purchase_units[0].payments.captures.id,
               data.status,
               data.payer.email_address,
               data.payer.name.surname,
               data.payer.name.given_name,
               data.purchase_units[0].items,
               data.purchase_units[0].amount.value,
+              data.purchase_units[0].payments.captures[0].create_time,
               // data.purchase_units[0].items[0]
 
             );
@@ -122,7 +124,6 @@ export class CartComponent implements OnInit {
 
             this.spinner.hide();
             // this.procesarPagoPaypal();
-
 
         },
         onCancel: (data, actions) => {
@@ -209,7 +210,7 @@ export class CartComponent implements OnInit {
     this.total = this.getTotal();
     this.storageService.setCart(this.cartItems);
   }
-  openModal(id, status, email, name, surname, items, amount): void{
+  openModal(id, status, email, name, surname, items, amount, created): void{
 
 
 
@@ -221,14 +222,23 @@ export class CartComponent implements OnInit {
     modalRef.componentInstance.name = name;
     modalRef.componentInstance.items = items;
     modalRef.componentInstance.amount = amount;
+    modalRef.componentInstance.created = created;
     // modalRef.componentInstance.items[0] = planid;
 
   }
 
-  closeModalCart(){
+  closeModalUser(){
+    var modaluser = document.getElementsByClassName("user-modal");
+      for (var i = 0; i<modaluser.length; i++) {
+         modaluser[i].classList.remove("user-modal-active");
+
+      }
+  }
+
+closeModalCart(){
     var modalcart = document.getElementsByClassName("cart-modal");
       for (var i = 0; i<modalcart.length; i++) {
-         modalcart[i].classList.remove("show");
+         modalcart[i].classList.remove("cart-modal-active");
 
       }
   }

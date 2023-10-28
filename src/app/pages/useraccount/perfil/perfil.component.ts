@@ -150,9 +150,9 @@ export class PerfilComponent implements OnInit {
 
   
   closeModalProfile(){
-    var modalcart = document.getElementsByClassName("user-modal");
-      for (var i = 0; i<modalcart.length; i++) {
-         modalcart[i].classList.remove("show");
+    var modaluser = document.getElementsByClassName("user-modal");
+      for (var i = 0; i<modaluser.length; i++) {
+         modaluser[i].classList.remove("user-modal-active");
 
       }
   }

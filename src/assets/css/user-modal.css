@@ -6,16 +6,43 @@
 /*Author: Malcolm cordova @malcolmcordova mercadocreativo@gmail.com www.malcolmcordova.com*/
 
 .user-modal {
-    display: none;
+    display: flex;
+    flex-direction: column;
     width: 300px;
-    height: 200px;
-    border-radius: 8px;
+    height: 100vh;
     box-shadow: 3px 3px 10px;
     position: fixed;
-    top: 75px;
-    right: 6px;
+    top: 65px;
+    right: -306px;
     background-color: hsl(0deg, 0%, 100%);
     z-index: 9999;
+    transition: all .4s ease;
+}
+
+.user-modal-active {
+    display: block;
+    width: 300px;
+    height: 100vh;
+    box-shadow: 3px 3px 10px;
+    position: fixed;
+    top: 65px;
+    right: -14px;
+    background-color: hsl(0deg, 0%, 100%);
+    z-index: 9999;
+    transition: all .4s ease;
+}
+
+.btn-closem{
+    display: flex;
+    justify-content: flex-end;
+    align-self: end;
+    background-color: #ccc;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    font-size: 20px;
+    border-radius: 10px;
+
 }
 
 .user-modal__title {

@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Articles App</title>
-    <base href="https://tudigitalmanger.com/daniel/frontend-daniel/">
+    <!-- <base href="https://tudigitalmanger.com/daniel/frontend-daniel/"> -->
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -93,6 +94,8 @@
         $('.carousel').carousel({
             interval: 10000
         });
+        var element = document.getElementsByClassName("modal-dialog");
+        element.classList.addClass("modal-lg");
     </script>
 
 <script src="./assets/js/modernizr.custom.js"></script>

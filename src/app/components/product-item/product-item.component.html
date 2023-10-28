@@ -43,7 +43,7 @@
             
         </div>
         <div *ngIf="usuario">
-            <div class="options-icons" *ngIf="usuario || usuario.role === 'MEMBER' || usuario.role === 'ADMIN' || usuario.role === 'EDITOR' || usuario.role === 'SUPERADMIN'" >
+            <div class="options-icons" *ngIf="usuario.role === 'MEMBER' || usuario.role === 'ADMIN' || usuario.role === 'EDITOR' || usuario.role === 'SUPERADMIN'" >
                 <a class="pointer" id="notification-trigger" (click)="agregarLista()">
                     <img src="./assets/svg/marcador.svg" alt="">
                 </a>

@@ -1,5 +1,4 @@
-{
-    "id": "4KT61199C4311505N",
+{"id": "7RS6719809923422V",
     "intent": "CAPTURE",
     "status": "COMPLETED",
     "purchase_units": [
@@ -7,11 +6,11 @@
             "reference_id": "default",
             "amount": {
                 "currency_code": "USD",
-                "value": "2823.00",
+                "value": "5.00",
                 "breakdown": {
                     "item_total": {
                         "currency_code": "USD",
-                        "value": "2823.00"
+                        "value": "5.00"
                     },
                     "shipping": {
                         "currency_code": "USD",
@@ -35,28 +34,14 @@
                 "email_address": "sb-zv1u7869121@business.example.com",
                 "merchant_id": "JLG2AXZLCLFHC"
             },
-            "description": "admin con nodejs",
+            "description": "prueba-post",
             "soft_descriptor": "PAYPAL *JOHNDOESTES",
             "items": [
                 {
-                    "name": "admin con nodejs",
+                    "name": "prueba-post",
                     "unit_amount": {
                         "currency_code": "USD",
-                        "value": "500.00"
-                    },
-                    "tax": {
-                        "currency_code": "USD",
-                        "value": "0.00"
-                    },
-                    "quantity": "1",
-                    "description": "venta de articulo",
-                    "image_url": ""
-                },
-                {
-                    "name": "How to Update Object in JavaScript Array?",
-                    "unit_amount": {
-                        "currency_code": "USD",
-                        "value": "2323.00"
+                        "value": "5.00"
                     },
                     "tax": {
                         "currency_code": "USD",
@@ -82,11 +67,11 @@
             "payments": {
                 "captures": [
                     {
-                        "id": "37449880598512636",
+                        "id": "8HG51383PU634122X",
                         "status": "COMPLETED",
                         "amount": {
                             "currency_code": "USD",
-                            "value": "2823.00"
+                            "value": "5.00"
                         },
                         "final_capture": true,
                         "seller_protection": {
@@ -96,8 +81,8 @@
                                 "UNAUTHORIZED_TRANSACTION"
                             ]
                         },
-                        "create_time": "2023-09-14T19:08:50Z",
-                        "update_time": "2023-09-14T19:08:50Z"
+                        "create_time": "2023-10-10T21:22:09Z",
+                        "update_time": "2023-10-10T21:22:09Z"
                     }
                 ]
             }
@@ -114,11 +99,11 @@
             "country_code": "VE"
         }
     },
-    "create_time": "2023-09-14T19:08:38Z",
-    "update_time": "2023-09-14T19:08:50Z",
+    "create_time": "2023-10-10T21:22:02Z",
+    "update_time": "2023-10-10T21:22:09Z",
     "links": [
         {
-            "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4KT61199C4311505N",
+            "href": "https://api.sandbox.paypal.com/v2/checkout/orders/7RS6719809923422V",
             "rel": "self",
             "method": "GET"
         }

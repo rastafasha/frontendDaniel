@@ -25,7 +25,7 @@
             <div class="notification" routerLink="subcripciones">
                 <img src="./assets/svg/campana.svg" alt="logo ">
             </div>
-            <div class="notification cart" (click)="openModalCart()">
+            <div class="notification cart" *ngIf="user" (click)="openModalCart()">
                 <div class="cart--notification">{{cartItems.length}}</div>
                 <img src="./assets/svg/carrito-de-compras.svg" alt="logo ">
             </div>
@@ -34,7 +34,7 @@
                 <img src="./assets/svg/marcador.svg" alt="logo ">
             </div> -->
             <div *ngIf="user">
-                <div class="user-header" (click)="openModal()">
+                <div class="user-header" (click)="openModalUser()">
                     <!-- <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar"> -->
                     <div *ngIf="!profile">
                         <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
@@ -53,8 +53,11 @@
 
 <!-- inicio user modal -->
 <div *ngIf="user">
-    <div class="user-modal animated fadeInDown">
+    <div class="user-modal ">
         <p class="user-modal__title">Hola de nuevo!</p>
+        <button class="btn btn-sm btn-closem" (click)="closeModalUser()">
+            X
+        </button>
         <div class="user-modal__chekout-container">
             <div class="user-modal__details-container">
                 <div *ngIf="!profile">
@@ -86,8 +89,11 @@
 </div> -->
 <!-- fin notificacion modal -->
 <!-- inicio cart modal -->
-<div class="cart-modal animated fadeInDown">
+<div class="cart-modal ">
     <p class="cart-modal__title">Mi Carrito</p>
+    <button class="btn btn-sm btn-closemc" (click)="closeModalCart()">
+        X
+    </button>
     <div class="cart-modal__chekout-container">
         <div class="cart-modal__details-container " *ngFor="let item of cartItems; index as i">
             <img class="cart-modal__image" src="{{imageUrl}}blogs/{{item.img}}" alt="">

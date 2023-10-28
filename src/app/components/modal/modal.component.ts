@@ -22,6 +22,7 @@ export class ModalComponent implements OnInit {
   @Input() surname;
   @Input() amount;
   @Input() items;
+  @Input() created;
 
 
 
@@ -56,7 +57,7 @@ export class ModalComponent implements OnInit {
 
   closeModal(): void{
     this.activeModal.dismiss('Cross click');
-    this.router.navigateByUrl('/user-account');
+    this.router.navigateByUrl('/');
 
   }
 

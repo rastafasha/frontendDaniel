@@ -92,10 +92,10 @@ export class HeaderComponent implements OnInit {
 
     this.user = JSON.parse(localStorage.getItem('user'));
     if(!this.user || !this.user.role || this.user.role === null ){
-      //  this.router.navigateByUrl('/login')
+       this.router.navigateByUrl('/login')
     }
     if(this.user ){
-      // this.router.navigateByUrl('/home')
+      this.router.navigateByUrl('/home')
    }
 
     this.listar()
@@ -201,18 +201,25 @@ export class HeaderComponent implements OnInit {
   }
 
   //modales
-  openModal(){
-    var modalcart = document.getElementsByClassName("user-modal");
-      for (var i = 0; i<modalcart.length; i++) {
-         modalcart[i].classList.toggle("show");
+  openModalUser(){
+    var modaluser = document.getElementsByClassName("user-modal");
+      for (var i = 0; i<modaluser.length; i++) {
+         modaluser[i].classList.add("user-modal-active");
+
+      }
+  }
+  closeModalUser(){
+    var modaluser = document.getElementsByClassName("user-modal");
+      for (var i = 0; i<modaluser.length; i++) {
+         modaluser[i].classList.remove("user-modal-active");
 
       }
   }
 
   openModalNotification(){
-    var modalcart = document.getElementsByClassName("notificacion-modal");
-      for (var i = 0; i<modalcart.length; i++) {
-         modalcart[i].classList.toggle("show");
+    var modalnotif = document.getElementsByClassName("notificacion-modal");
+      for (var i = 0; i<modalnotif.length; i++) {
+         modalnotif[i].classList.toggle("show");
 
       }
   }
@@ -220,10 +227,19 @@ export class HeaderComponent implements OnInit {
   openModalCart(){
     var modalcart = document.getElementsByClassName("cart-modal");
       for (var i = 0; i<modalcart.length; i++) {
-         modalcart[i].classList.toggle("show");
+        modalcart[i].classList.add("cart-modal-active");
 
       }
   }
+
+  closeModalCart(){
+    var modalcart = document.getElementsByClassName("cart-modal");
+      for (var i = 0; i<modalcart.length; i++) {
+         modalcart[i].classList.remove("cart-modal-active");
+
+      }
+  }
+
   openModalFavorites(){
     var modalfavorite = document.getElementsByClassName("favorite-modal");
       for (var i = 0; i<modalfavorite.length; i++) {

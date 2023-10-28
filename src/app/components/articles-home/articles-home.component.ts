@@ -8,7 +8,7 @@ import { PostService } from 'src/app/services/post.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 import {environment} from 'src/environments/environment';
-
+import $ from 'jquery';
 @Component({
   selector: 'app-articles-home',
   templateUrl: './articles-home.component.html',
@@ -25,7 +25,9 @@ export class ArticlesHomeComponent implements OnInit {
   query:string ='';
   user;
 
-  blogs:any;
+  blogs:Post;
+  blog:any;
+  tmpData:[];
 
   constructor(
     private postService: PostService,
@@ -53,7 +55,13 @@ export class ArticlesHomeComponent implements OnInit {
   }
 
 
-
+  showMore() {
+    let newLength = this.blogs.length + 2;
+    if (newLength > this.product.length) {
+        newLength = this.product.length
+    }
+     this.blogs = this.product.slice(0, newLength);
+  }
 
 
 }
