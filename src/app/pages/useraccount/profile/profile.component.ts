@@ -260,6 +260,7 @@ export class ProfileComponent implements OnInit {
     }).catch(err =>{
       Swal.fire('Error', 'No se pudo subir la imagen', 'error');
     })
+    this.ngOnInit();
   }
 
 
@@ -306,7 +307,7 @@ export class ProfileComponent implements OnInit {
         res => {
             Swal.fire('Guardado', 'Los cambios fueron creados', 'success');
             // this.ngOnInit();
-            this.router.navigateByUrl(`/gracias`);
+            this.router.navigateByUrl(`/user-account/${this.user.uid}`);
         },
         error => this.errors = error
       );

@@ -16,7 +16,8 @@ import { ModalsubcripcionComponent } from './modalsubcripcion/modalsubcripcion.c
 import { ModalbinanceComponent } from './modalbinance/modalbinance.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { SideadvertisingComponent } from './sideadvertising/sideadvertising.component';
-
+import { SplashComponent } from './splash/splash.component';
+// import {ScrollingModule} from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [
     ArticlesHomeComponent,
@@ -29,7 +30,8 @@ import { SideadvertisingComponent } from './sideadvertising/sideadvertising.comp
     ModalplansComponent,
     ModalsubcripcionComponent,
     ModalbinanceComponent,
-    SideadvertisingComponent
+    SideadvertisingComponent,
+    SplashComponent,
   ],
   exports: [
     ArticlesHomeComponent,
@@ -41,7 +43,8 @@ import { SideadvertisingComponent } from './sideadvertising/sideadvertising.comp
     ModalCondicionesComponent,
     ModalplansComponent,
     ModalbinanceComponent,
-    SideadvertisingComponent
+    SideadvertisingComponent,
+    SplashComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +53,7 @@ import { SideadvertisingComponent } from './sideadvertising/sideadvertising.comp
     PipesModule,
     FormsModule,
     NgxPayPalModule,
+    // ScrollingModule
 
   ]
 })

@@ -1,0 +1,40 @@
+
+<!-- <div class="row">
+    <div class="col">
+        <button class="btn btn-primary" (click)="irFinal()">
+            ir al final
+        </button>
+    </div>
+    <div class="col">
+        <button class="btn btn-success" (click)="irMitad()">
+            ir al Mitad
+        </button>
+    </div>
+    <div class="col text-right">
+        <button class="btn btn-secondary" (click)="irInicio()">
+            ir al inicio
+        </button>
+    </div>
+    <br>
+    <br>
+</div> -->
+
+<!-- inicio virtual scroll -->
+<cdk-virtual-scroll-viewport itemSize="50" class="list-container list-group">
+
+    <div *cdkVirtualFor="let p of cursos">
+        <div class="col-xs-6 col-sm-4">
+            <app-product-item [product]="p"></app-product-item>
+        </div>
+    </div>
+
+    <!-- <div *cdkVirtualFor="let p of personas">
+        <div class="list-group-item animate__animated animate__fadeInUp" *cdkVirtualFor="let p of personas; let i = index; let conteo = count">
+            Item {{i}} / {{conteo}}
+        </div>
+        
+    </div> -->
+
+
+</cdk-virtual-scroll-viewport>
+<!-- inicio virtual scroll -->

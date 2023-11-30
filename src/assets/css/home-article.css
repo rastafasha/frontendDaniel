@@ -111,6 +111,13 @@
     align-items: center;
     flex-direction: row;
     margin-top: 35px;
+    background: #f2f2f2;
+    border-radius: 100px;
+    width: 50%;
+    padding: 5px;
+    box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.30);
+    -webkit-box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.30);
+    -moz-box-shadow: 0px 7px 5px -3px rgba(0, 0, 0, 0.30);
 }
 
 .home-article .article-options .time-story {
@@ -176,12 +183,15 @@
     }
     .home-article .article-options {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         margin-top: 10px;
+        width: 100%;
+        border: none;
+        background: none;
     }
     .home-article .article-options .time-story,
     .home-article .article-options .topic {
-        display: none;
+        display: block;
     }
     .boton-mas-articulos {
         display: flex;

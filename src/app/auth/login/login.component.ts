@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { SplashscreenService } from 'src/app/services/splashscreen.service';
 declare const gapi: any;
 
 
@@ -51,11 +52,15 @@ export class LoginComponent implements OnInit{
     private router: Router,
     private fb: FormBuilder,
     private usuarioService: UserService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private splashService:SplashscreenService
   ) {}
 ngOnInit(){
-  this.renderButton();
   window.scrollTo(0, 0);
+  setTimeout(() => {
+    this.splashService.stop();
+    this.renderButton();
+  }, 5000);
 
 }
 
@@ -184,5 +189,9 @@ passwordsIguales(pass1Name: string, pass2Name: string){
 // Registro
 
 
+  switchRegistrologin(){
+    const container = document.querySelector(".logincontainer");
+    container.classList.toggle("sign-up-mode");
+  }
 
 }

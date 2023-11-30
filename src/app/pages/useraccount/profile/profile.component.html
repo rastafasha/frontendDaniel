@@ -138,10 +138,10 @@
                 </div>
                 <div class="col-xs-12" *ngIf="profile">
                     <div class="text-center">
-                        <img *ngIf="!imgTemp" [src]="profile.img | imagenPipe : 'profiles'"
+                        <img *ngIf="!imgTemp" style="width:100%" [src]="profile.img | imagenPipe : 'profiles'"
                             class="img-responsive img-thumbnail" alt="" />
                         <!-- <img *ngIf="post.img" [src]="post.img | imagenPipe: 'blogs'" class="img-responsive img-thumbnail" alt=""> -->
-                        <img *ngIf="imgTemp" [src]="imgTemp" class="img-responsive" />
+                        <img *ngIf="imgTemp" style="width:100%" [src]="imgTemp" class="img-responsive" />
                     </div>
                     <input type="file" (change)="cambiarImagen($event.target.files[0])" />
                     <br />

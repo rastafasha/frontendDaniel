@@ -1,38 +1,35 @@
 <div class="aside ">
     
     <!-- favoritos -->
-    <div *ngIf="usuario">
-        <div class="staff-pic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' "  >
-            <div class="title-seccion">
-                <img src="./assets/svg/marcador.svg" alt="">
-                <h1>Mis Favoritos</h1>
-            </div>
-            <div class="clear"></div>
-            <div class="listfavoritos">
-                <!-- favoritos -->
-                <div  *ngFor="let post of favoritos">
-                    <div class="gridfavoritos" >
-                        <div class="got-image" style="background-image: url('{{imageUrl}}/blogs/{{post.blog.img}}')" title="{{post.blog.name}}" style="height: 50px; width: 50px;" ></div>
-                        <div class="info">
-                            <h4><a [routerLink]="['/blog', post.blog.slug]">
-                                {{post.blog.name}}
-                            </a></h4>
-                            <p><b>creado:</b> {{post.blog.createdAt | date: 'dd/mm/YYYY'}}</p>
-                        </div>
+    <div class="staff-pic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' "  >
+        <div class="title-seccion">
+            <img src="./assets/svg/marcador.svg" alt="">
+            <h1>Mis Favoritos</h1>
+        </div>
+        <div class="clear"></div>
+        <div class="listfavoritos">
+            <!-- favoritos -->
+            <div  *ngFor="let post of favoritos">
+                <div class="gridfavoritos" >
+                    <div class="got-image" style="background-image: url('{{imageUrl}}/blogs/{{post.blog.img}}')" title="{{post.blog.name}}" style="height: 50px; width: 50px;" ></div>
+                    <div class="info">
+                        <h4><a [routerLink]="['/blog', post.blog.slug]">
+                            {{post.blog.name}}
+                        </a></h4>
+                        <p><b>creado:</b> {{post.blog.createdAt | date: 'dd/mm/YYYY'}}</p>
                     </div>
                 </div>
-                <!-- favoritos -->
             </div>
-            <p><a [routerLink]="['/favoritos', usuario.uid]">Ver Todos</a></p>
+            <!-- favoritos -->
         </div>
+        <p><a [routerLink]="['/favoritos', usuario.uid]">Ver Todos</a></p>
     </div>
-    
     <!-- favoritos -->
 
     
 
     <!-- staff-pic -->
-    <div *ngIf="usuario">
+    <!-- <div *ngIf="usuario">
     <div class="staff-pic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' "  >
         <div class="title-seccion">
             <img src="./assets/svg/mundo.svg" alt="">
@@ -40,19 +37,17 @@
         </div>
         <div class="clear"></div>
         <div *ngFor="let post of postrecientes">
-            <!-- posted -->
             <div class="posted" *ngIf="usuario">
                 <div class="userinfo">
                     <p>{{post.usuario.username}}</p>
                 </div>
                 <h1><a [routerLink]="['/blog', post.slug]">{{post.name}}</a></h1>
             </div>
-            <!-- posted -->
         </div>
 
         <p><a [routerLink]="['/blogs']">Ver Todos</a></p>
     </div>
-    </div>
+    </div> -->
     <!-- staff-pic -->
     <!-- publicidad -->
     <app-sideadvertising></app-sideadvertising>
@@ -108,7 +103,7 @@
     
     <!-- recomended-topic -->
     <!-- whotofollow -->
-    <div *ngIf="usuario">
+    <!-- <div *ngIf="usuario">
         <div class="whotofollow" *ngIf="usuario || usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' ">
             <div class="title-seccion">
                 <img src="./assets/svg/agregar-usuario.svg" alt="">
@@ -131,30 +126,27 @@
                         <a [routerLink]="['/editor', editor.uid]">
                             <h1>{{editor.username}}</h1>
                         </a>
-                        <!-- <p>{{profiles.shortdescription}}</p> -->
                     </div>
                     <div class="boton">
                         <a [routerLink]="['/editor', editor.uid]">
                             <button class="btn btn-outline-dark borderradius">+info</button>
                         </a>
-                        <!-- <button class="btn btn-outline-dark borderradius">Follow</button> -->
+                        <button class="btn btn-outline-dark borderradius">Follow</button>
                     </div>
                 </div>
             </div>
             <p><a [routerLink]="['./who-to-follow']" >Ver todos</a></p>
         </div>
-    </div>
+    </div> -->
     
     <!-- whotofollow -->
     <!-- readinglist -->
     <div class="readinglist">
-        <div *ngIf="usuario ">
-            <div *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' ">
-                <div class="title-seccion">
-                    <h1>Reading List</h1>
-                </div>
-                <h1>Click the <img src="./assets/svg/marcador.svg" alt=""> on any story to easily add to your reading list or a custom list that you can share.</h1>
+        <div *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' ">
+            <div class="title-seccion">
+                <h1>Mis Favoritos</h1>
             </div>
+            <h1>Pulsa el boton <img src="./assets/svg/marcador.svg" alt=""> en cada artículo y facilmente se agregará a tu lista.</h1>
         </div>
         
         

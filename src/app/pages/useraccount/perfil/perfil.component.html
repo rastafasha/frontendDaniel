@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <div class="misblog" *ngIf="blogs || user.role === 'EDITOR' || user.role === 'SUPERADMIN' || user.role === 'ADMIN' ">
+            <div class="misblog" *ngIf="user.role === 'EDITOR' || user.role === 'SUPERADMIN' || user.role === 'ADMIN' ">
                 <div class="card shadow">
                     <div class="card-body">
                         <h2>Blogs Creados</h2>
