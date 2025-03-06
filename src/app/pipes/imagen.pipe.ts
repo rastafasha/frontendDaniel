@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { environment } from '../../environments/environment';
 
-const base_url = environment.apiUrlMedia;
+const base_url = environment.mediaUrlRemoto;
 
 @Pipe({
   name: 'imagenPipe'

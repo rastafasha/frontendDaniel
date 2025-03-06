@@ -27,7 +27,7 @@ export class ProductItemComponent implements OnInit {
   profile:Profile;
   subcriptionPaypal: subcriptionPaypal;
 
-  imageUrl = environment.apiUrlMedia;
+  imageUrl = environment.mediaUrlRemoto;
 
   favoritos:any=[]=[];
   blogs:any=[]=[];

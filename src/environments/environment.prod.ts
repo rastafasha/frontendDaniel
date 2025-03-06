@@ -5,7 +5,7 @@ export const environment = {
   // apiUrlMedia: "http://localhost:5001/api/uploads/",
   //remoto
   apiUrl: "https://backend-daniel-node-mongo.vercel.app/api",
-  apiUrlMedia: "https://backend-daniel-node-mongo.vercel.app/api/uploads/",
+  apiUrlMedia: "https://backend-daniel-node-mongo.vercel.app/api/uploads",
   mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741218430/articlesApp',
   //paypal
   clientSandboxId: 'AXlazeNsZ0CmjfJIronSzcqzw4hLHkcoVEM5fO5BY7AbD-_GhKoKezRcavq6-T4kQuRqaTXFB_VXmheG',

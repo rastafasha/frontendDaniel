@@ -33,12 +33,12 @@
                         <img class="img-responsive" src="./assets/images/no-image.jpg" alt=" {{blog.name}}" />
                     </div>
                     <div *ngIf="blog">
-                        <div class="got-image" style="background-image: url('{{imagenSerUrl}}blogs/{{blog.img}}')" title="{{blog.name}}"></div>
+                        <div class="got-image" style="background-image: url('{{blog.img}}')" title="{{blog.name}}"></div>
                         <!-- <img class="img-responsive" [src]="blog.img | imagenPipe: 'posts'" alt=" {{blog.name}}" /> -->
                     </div>
                 </div>
                 <h1>{{blog.name}}</h1>
-                <div [innerHtml]="blog.description | safe: 'html' "></div>
+                <div class="desc" [innerHtml]="blog.description | safe: 'html' "></div>
                 
                 
             </div> 

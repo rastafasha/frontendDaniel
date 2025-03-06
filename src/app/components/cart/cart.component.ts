@@ -109,14 +109,16 @@ export class CartComponent implements OnInit {
             console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point',
             JSON.stringify(data));
             this.openModal(
-              data.purchase_units[0].payments.captures.id,
+              data.purchase_units[0],
+              // data.purchase_units[0].payments.captures[0].id,
               data.status,
               data.payer.email_address,
               data.payer.name.surname,
               data.payer.name.given_name,
               data.purchase_units[0].items,
               data.purchase_units[0].amount.value,
-              data.purchase_units[0].payments.captures[0].create_time,
+              data.purchase_units[0],
+              // data.purchase_units[0].payments.captures[0].create_time,
               // data.purchase_units[0].items[0]
 
             );

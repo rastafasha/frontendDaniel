@@ -54,16 +54,16 @@
               ],
               "outputHashing": "all"
             },
-            "frontarticles": {
-              "outputPath": "dist/frontarticles",
+            "frontarticle": {
+              "outputPath": "dist/frontarticle",
               "index": {
-                "input": "src/env/frontarticles/index.html",
+                "input": "src/env/frontarticle/index.html",
                 "output": "index.html"
               },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.frontarticles.ts"
+                  "with": "src/environments/environment.frontarticle.ts"
                 }
               ],
               "assets": [
@@ -77,7 +77,7 @@
                 },
                 {
                   "glob": "**.*",
-                  "input": "src/env/admin_ecommerce/manifest.webmanifest",
+                  "input": "src/env/frontarticle/manifest.webmanifest",
                   "output": "src/manifest.webmanifest"
                 }
               ],

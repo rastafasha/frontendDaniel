@@ -2,6 +2,18 @@
     height: 100vh;
 }
 
+.desc{
+    
+}
+.desc img, 
+.image,
+figure .image, 
+.image img{
+    width: 100% !important;
+    margin: auto;
+}
+
+
 @media(max-width:768px){
     .contenido{
         height: auto;

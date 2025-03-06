@@ -2,13 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Favorite } from 'src/app/models/favorite';
 import { Post } from 'src/app/models/post';
-import { FavoriteService } from 'src/app/services/favorite.service';
-import { MessageService } from 'src/app/services/message.service';
 import { PostService } from 'src/app/services/post.service';
-import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 import {environment} from 'src/environments/environment';
-import $ from 'jquery';
+// import $ from 'jquery';
 @Component({
   selector: 'app-articles-home',
   templateUrl: './articles-home.component.html',
@@ -21,7 +18,7 @@ export class ArticlesHomeComponent implements OnInit {
   slug: Post;
   post: Post;
   error: string;
-  imagenSerUrl = environment.apiUrlMedia;
+  // imagenSerUrl = environment.mediaUrlRemoto;
   query:string ='';
   user;
 
