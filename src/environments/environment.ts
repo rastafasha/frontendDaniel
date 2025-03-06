@@ -5,11 +5,12 @@
 export const environment = {
   production: false,
   //apirest local node
-  //  apiUrl: "http://localhost:5001/api",
-  // apiUrlMedia: "http://localhost:5001/api/uploads/",
+   apiUrl: "http://localhost:5001/api",
+  apiUrlMedia: "http://localhost:5001/api/uploads/",
+  mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741218430/articlesApp',
   //remoto
-  apiUrl: "https://backend-daniel-node-mongo.vercel.app/api",
-  apiUrlMedia: "https://backend-daniel-node-mongo.vercel.app/api/uploads/",
+  // apiUrl: "https://backend-daniel-node-mongo.vercel.app/api",
+  // apiUrlMedia: "https://backend-daniel-node-mongo.vercel.app/api/uploads/",
   //paypal
   clientSandboxId: 'AXlazeNsZ0CmjfJIronSzcqzw4hLHkcoVEM5fO5BY7AbD-_GhKoKezRcavq6-T4kQuRqaTXFB_VXmheG',
   paypalKey:'Aebb_SJ2-L8OrgRAvAERINfyMb7eKrqZ7xPt5JreBd9eYfDjzfDildStuo5Gjcx6GNvWbTZaiwBiMeAf',

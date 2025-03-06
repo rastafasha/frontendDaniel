@@ -6,6 +6,7 @@
         "start": "ng serve",
         "build": "ng build",
         "start:prod": "ng build && lite-server -p 8080 --baseDir dist/frontend-daniel",
+        "build:frontarticles": "ng build --configuration frontarticles",
         "watch": "ng build --watch --configuration development",
         "test": "ng test"
     },

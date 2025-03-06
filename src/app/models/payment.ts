@@ -3,7 +3,7 @@ import { Post } from "./post";
 import { User } from "./user";
 import { environment } from "src/environments/environment";
 
-const base_url = environment.apiUrlMedia;
+const base_url = environment.mediaUrlRemoto;
 
 export class Payment {
    constructor(

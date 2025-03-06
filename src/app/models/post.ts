@@ -1,7 +1,7 @@
 import { environment } from "src/environments/environment";
 import { Category } from './category';
 import { User } from "./user";
-const base_url = environment.apiUrlMedia;
+const base_url = environment.mediaUrlRemoto;
 export class Post {
   slice(arg0: number, newLength: any): any {
     throw new Error('Method not implemented.');

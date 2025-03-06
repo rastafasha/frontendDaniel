@@ -2,7 +2,7 @@ import { environment } from "src/environments/environment";
 import { Post } from "./post";
 import { User } from "./user";
 import { subcriptionPaypal } from "./subcriptionPaypal";
-const base_url = environment.apiUrlMedia;
+const base_url = environment.mediaUrlRemoto;
 export class Profile {
 
 

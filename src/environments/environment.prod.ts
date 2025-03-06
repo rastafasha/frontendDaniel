@@ -6,6 +6,7 @@ export const environment = {
   //remoto
   apiUrl: "https://backend-daniel-node-mongo.vercel.app/api",
   apiUrlMedia: "https://backend-daniel-node-mongo.vercel.app/api/uploads/",
+  mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741218430/articlesApp',
   //paypal
   clientSandboxId: 'AXlazeNsZ0CmjfJIronSzcqzw4hLHkcoVEM5fO5BY7AbD-_GhKoKezRcavq6-T4kQuRqaTXFB_VXmheG',
   paypalKey:'Aebb_SJ2-L8OrgRAvAERINfyMb7eKrqZ7xPt5JreBd9eYfDjzfDildStuo5Gjcx6GNvWbTZaiwBiMeAf',
