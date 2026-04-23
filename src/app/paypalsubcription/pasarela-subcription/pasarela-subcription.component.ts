@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 import { PaypalSubcriptionService } from '../../services/paypalSubcription.service';
 import { planPaypalSubcription, subcriptionGenerated } from 'src/app/models/planPaypalSubcription';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalsubcripcionComponent } from 'src/app/components/modalsubcripcion/modalsubcripcion.component';
 import { plans } from "../../plans";
@@ -41,7 +41,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
   public SubcriptionConfig ? : IPayPalConfig;
 
   constructor(
-    private modalService: NgbModal,
+    private modalService: BsModalService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private payPalScriptService: PayPalScriptService,
@@ -169,13 +169,13 @@ export class PasarelaSubcriptionComponent implements OnInit {
   }
 
   openModal(orderID, status, email, payerID, amount, paypalplanId): void{
-    const modalRef = this.modalService.open(ModalsubcripcionComponent);
-    modalRef.componentInstance.orderID = orderID;
-    modalRef.componentInstance.status = status;
-    modalRef.componentInstance.email = email;
-    modalRef.componentInstance.payerID = payerID;
-    modalRef.componentInstance.amount = amount;
-    modalRef.componentInstance.paypalplanId = this.planpaypal.id;
+    const modalRef: BsModalRef = this.modalService.show(ModalsubcripcionComponent);
+    modalRef.content.orderID = orderID;
+    modalRef.content.status = status;
+    modalRef.content.email = email;
+    modalRef.content.payerID = payerID;
+    modalRef.content.amount = amount;
+    modalRef.content.paypalplanId = this.planpaypal.id;
   }
   
 }

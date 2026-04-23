@@ -5,7 +5,7 @@ import { Payment } from 'src/app/models/payment';
 import { User } from 'src/app/models/user';
 import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { planPaypalSubcription, subcriptionGenerated } from 'src/app/models/planPaypalSubcription';
 import { SubcriptionPaypalService } from 'src/app/services/subcriptionPaypal.service';
 import Swal from 'sweetalert2';
@@ -41,7 +41,7 @@ export class ModalsubcripcionComponent implements OnInit {
   pagopaypal;
   user:User;
   constructor(
-    public activeModal:NgbActiveModal,
+    public bsModalRef: BsModalRef,
     public router: Router,
     private paymentService: PaymentService,
     private fb: FormBuilder,
@@ -69,7 +69,7 @@ export class ModalsubcripcionComponent implements OnInit {
   }
 
   closeModal(): void{
-    this.activeModal.dismiss('Cross click');
+    this.bsModalRef.hide();
 
   }
   getPlan(paypalplanId): void {

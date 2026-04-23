@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { PaypalsubcriptionModule } from './paypalsubcription/paypalsubcription.module';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -35,6 +36,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
     HttpClientModule,
     PaypalsubcriptionModule,
     NgxPayPalModule,
+    ModalModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

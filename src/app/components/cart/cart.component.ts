@@ -7,7 +7,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 //pluggins
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from "ngx-spinner";
 
 import { Router } from '@angular/router';
@@ -42,7 +42,7 @@ export class CartComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private storageService: StorageService,
-    private modalService: NgbModal,
+    private modalService: BsModalService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private paymentService: PaymentService,
@@ -213,20 +213,15 @@ export class CartComponent implements OnInit {
     this.storageService.setCart(this.cartItems);
   }
   openModal(id, status, email, name, surname, items, amount, created): void{
-
-
-
-    const modalRef = this.modalService.open(ModalComponent);
-    modalRef.componentInstance.id = id;
-    modalRef.componentInstance.status = status;
-    modalRef.componentInstance.email = email;
-    modalRef.componentInstance.surname = surname;
-    modalRef.componentInstance.name = name;
-    modalRef.componentInstance.items = items;
-    modalRef.componentInstance.amount = amount;
-    modalRef.componentInstance.created = created;
-    // modalRef.componentInstance.items[0] = planid;
-
+    const modalRef: BsModalRef = this.modalService.show(ModalComponent);
+    modalRef.content.id = id;
+    modalRef.content.status = status;
+    modalRef.content.email = email;
+    modalRef.content.surname = surname;
+    modalRef.content.name = name;
+    modalRef.content.items = items;
+    modalRef.content.amount = amount;
+    modalRef.content.created = created;
   }
 
   closeModalUser(){

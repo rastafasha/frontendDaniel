@@ -21,8 +21,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest",
               "src/manifest.webmanifest"
             ],
             "styles": [
@@ -110,10 +108,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "frontendDaniel:build:production"
+              "buildTarget": "frontendDaniel:build:production"
             },
             "development": {
-              "browserTarget": "frontendDaniel:build:development"
+              "buildTarget": "frontendDaniel:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -121,7 +119,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontendDaniel:build"
+            "buildTarget": "frontendDaniel:build"
           }
         },
         "test": {
