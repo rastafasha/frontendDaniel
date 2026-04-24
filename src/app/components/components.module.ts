@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArticlesHomeComponent } from './articles-home/articles-home.component';
 import { ArticlesFollowComponent } from './articles-follow/articles-follow.component';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { ProductItemComponent } from './product-item/product-item.component';
@@ -18,43 +18,35 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { SideadvertisingComponent } from './sideadvertising/sideadvertising.component';
 import { SplashComponent } from './splash/splash.component';
 // import {ScrollingModule} from '@angular/cdk/scrolling';
-@NgModule({
-  declarations: [
-    ArticlesHomeComponent,
-    ArticlesFollowComponent,
-    CartItemComponent,
-    ProductItemComponent,
-    ModalComponent,
-    CartComponent,
-    ModalCondicionesComponent,
-    ModalplansComponent,
-    ModalsubcripcionComponent,
-    ModalbinanceComponent,
-    SideadvertisingComponent,
-    SplashComponent,
-  ],
-  exports: [
-    ArticlesHomeComponent,
-    ArticlesFollowComponent,
-    CartItemComponent,
-    ProductItemComponent,
-    ModalComponent,
-    CartComponent,
-    ModalCondicionesComponent,
-    ModalplansComponent,
-    ModalbinanceComponent,
-    SideadvertisingComponent,
-    SplashComponent,
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    RouterModule,
-    PipesModule,
-    FormsModule,
-    NgxPayPalModule,
-    // ScrollingModule
-
-  ]
-})
+@NgModule({ declarations: [
+        ArticlesHomeComponent,
+        ArticlesFollowComponent,
+        CartItemComponent,
+        ProductItemComponent,
+        ModalComponent,
+        CartComponent,
+        ModalCondicionesComponent,
+        ModalplansComponent,
+        ModalsubcripcionComponent,
+        ModalbinanceComponent,
+        SideadvertisingComponent,
+        SplashComponent,
+    ],
+    exports: [
+        ArticlesHomeComponent,
+        ArticlesFollowComponent,
+        CartItemComponent,
+        ProductItemComponent,
+        ModalComponent,
+        CartComponent,
+        ModalCondicionesComponent,
+        ModalplansComponent,
+        ModalbinanceComponent,
+        SideadvertisingComponent,
+        SplashComponent,
+    ], imports: [CommonModule,
+        RouterModule,
+        PipesModule,
+        FormsModule,
+        NgxPayPalModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ComponentsModule { }
