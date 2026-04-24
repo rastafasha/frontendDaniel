@@ -8,9 +8,10 @@ import { PostService } from 'src/app/services/post.service';
 import {environment} from 'src/environments/environment';
 
 @Component({
-  selector: 'app-by-category',
-  templateUrl: './by-category.component.html',
-  styleUrls: ['./by-category.component.css']
+    selector: 'app-by-category',
+    templateUrl: './by-category.component.html',
+    styleUrls: ['./by-category.component.css'],
+    standalone: false
 })
 export class ByCategoryComponent implements OnInit {
 

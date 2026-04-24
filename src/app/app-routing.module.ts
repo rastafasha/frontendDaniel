@@ -26,31 +26,35 @@ import { FavoritosComponent } from './pages/useraccount/favoritos/favoritos.comp
 import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
-  
-  
+
+  {
+    path: 'home',
+    // canActivate: [AuthGuard],
+    component: HomeComponent
+  },
+
   // { path: 'staff-pics', component: StaffpicsComponent },
   { path: 'recommended-topics', component: RecommendedTopicComponent },
   { path: 'who-to-follow', component: WhotofollowComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'buscar', component: BusquedaComponent },
-  
+
   //blog
   { path: 'blogs', component: AllComponent },
   { path: 'blog/:slug', component: ArticleComponent },
   { path: 'blog/category/:id', component: ByCategoryComponent },
-  
-  
+
+
   { path: 'editor/:id', component: EditorComponent },
-  
+
   { path: 'user-account', component: PerfilComponent },
   { path: 'user-account/:id', component: PerfilComponent },
   { path: 'user-account/edit/:id', component: ProfileComponent },
   { path: 'user-account/payment-detail/:id', component: PaymentDetailsComponent },
   { path: 'user/carrito', component: CartComponent },
   { path: 'favoritos/:id', component: FavoritosComponent },
-  
+
 
   // { path: 'subcripciones', component: SubscriptionComponent },
   { path: 'subcripciones', component: AllPlansComponent },
@@ -61,6 +65,7 @@ const routes: Routes = [
   { path: 'fallo', component: FalloComponent },
   { path: 'cancel-payment', component: CancelPaymentComponent },
   { path: 'execute-payment', component: ExecutePaymentComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: HomeComponent },
 ];
 

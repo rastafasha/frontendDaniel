@@ -9,9 +9,10 @@ import { SubcriptionPaypalService } from 'src/app/services/subcriptionPaypal.ser
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-allplans',
-  templateUrl: './allplans.component.html',
-  styleUrls: ['./allplans.component.css']
+    selector: 'app-allplans',
+    templateUrl: './allplans.component.html',
+    styleUrls: ['./allplans.component.css'],
+    standalone: false
 })
 export class AllPlansComponent implements OnInit {
 

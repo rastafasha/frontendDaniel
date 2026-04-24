@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-cancel-payment',
-  templateUrl: './cancel-payment.component.html',
-  styleUrls: ['./cancel-payment.component.css']
+    selector: 'app-cancel-payment',
+    templateUrl: './cancel-payment.component.html',
+    styleUrls: ['./cancel-payment.component.css'],
+    standalone: false
 })
 export class CancelPaymentComponent implements OnInit {
 

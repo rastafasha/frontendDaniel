@@ -3,9 +3,10 @@ import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
-  selector: 'app-recommended-topic',
-  templateUrl: './recommended-topic.component.html',
-  styleUrls: ['./recommended-topic.component.css']
+    selector: 'app-recommended-topic',
+    templateUrl: './recommended-topic.component.html',
+    styleUrls: ['./recommended-topic.component.css'],
+    standalone: false
 })
 export class RecommendedTopicComponent implements OnInit {
 

@@ -15,9 +15,10 @@ import { subcriptionPaypal } from 'src/app/models/subcriptionPaypal';
 
 
 @Component({
-  selector: 'app-product-item',
-  templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.css']
+    selector: 'app-product-item',
+    templateUrl: './product-item.component.html',
+    styleUrls: ['./product-item.component.css'],
+    standalone: false
 })
 export class ProductItemComponent implements OnInit {
 

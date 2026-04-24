@@ -3,9 +3,10 @@ import { Sideadvice } from 'src/app/models/sideadvice';
 import { SideadviceService } from 'src/app/services/sideadvice.service';
 
 @Component({
-  selector: 'app-sideadvertising',
-  templateUrl: './sideadvertising.component.html',
-  styleUrls: ['./sideadvertising.component.css']
+    selector: 'app-sideadvertising',
+    templateUrl: './sideadvertising.component.html',
+    styleUrls: ['./sideadvertising.component.css'],
+    standalone: false
 })
 export class SideadvertisingComponent implements OnInit {
 

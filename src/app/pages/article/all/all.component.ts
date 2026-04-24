@@ -6,9 +6,10 @@ import { PostService } from 'src/app/services/post.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-all',
-  templateUrl: './all.component.html',
-  styleUrls: ['./all.component.css']
+    selector: 'app-all',
+    templateUrl: './all.component.html',
+    styleUrls: ['./all.component.css'],
+    standalone: false
 })
 export class AllComponent implements OnInit {
 

@@ -5,13 +5,14 @@ import { Payment } from 'src/app/models/payment';
 import { User } from 'src/app/models/user';
 import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+    selector: 'app-modal',
+    templateUrl: './modal.component.html',
+    styleUrls: ['./modal.component.css'],
+    standalone: false
 })
 export class ModalComponent implements OnInit {
 
@@ -32,7 +33,7 @@ export class ModalComponent implements OnInit {
   pagopaypal;
   user:User;
   constructor(
-    public activeModal:NgbActiveModal,
+    public bsModalRef: BsModalRef,
     public router: Router,
     private paymentService: PaymentService,
     private fb: FormBuilder,
@@ -56,7 +57,7 @@ export class ModalComponent implements OnInit {
   }
 
   closeModal(): void{
-    this.activeModal.dismiss('Cross click');
+    this.bsModalRef.hide();
     this.router.navigateByUrl('/');
 
   }

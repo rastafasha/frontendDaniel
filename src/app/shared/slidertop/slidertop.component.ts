@@ -3,9 +3,10 @@ import { Banner } from 'src/app/models/banner';
 import { BannerService } from 'src/app/services/banner.service';
 
 @Component({
-  selector: 'app-slidertop',
-  templateUrl: './slidertop.component.html',
-  styleUrls: ['./slidertop.component.css']
+    selector: 'app-slidertop',
+    templateUrl: './slidertop.component.html',
+    styleUrls: ['./slidertop.component.css'],
+    standalone: false
 })
 export class SlidertopComponent implements OnInit {
   banners: Banner;

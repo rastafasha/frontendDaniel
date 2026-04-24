@@ -5,34 +5,28 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SlidertopComponent } from './slidertop/slidertop.component';
 import { RouterModule } from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PipesModule } from '../pipes/pipes.module';
 import { ComponentsModule } from '../components/components.module';
 // import { CintamiembroComponent } from './cintamiembro/cintamiembro.component';
 
 
 
-@NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    SlidertopComponent,
-    // CintamiembroComponent
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    SlidertopComponent,
-    // CintamiembroComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    HttpClientModule,
-    PipesModule,
-    ComponentsModule
-  ]
-})
+@NgModule({ declarations: [
+        HeaderComponent,
+        FooterComponent,
+        SidebarComponent,
+        SlidertopComponent,
+        // CintamiembroComponent
+    ],
+    exports: [
+        HeaderComponent,
+        FooterComponent,
+        SidebarComponent,
+        SlidertopComponent,
+        // CintamiembroComponent
+    ], imports: [CommonModule,
+        RouterModule,
+        PipesModule,
+        ComponentsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class SharedModule { }

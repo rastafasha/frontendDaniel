@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-condiciones',
-  templateUrl: './condiciones.component.html',
-  styleUrls: ['./condiciones.component.css']
+    selector: 'app-condiciones',
+    templateUrl: './condiciones.component.html',
+    styleUrls: ['./condiciones.component.css'],
+    standalone: false
 })
 export class CondicionesComponent implements OnInit {
 

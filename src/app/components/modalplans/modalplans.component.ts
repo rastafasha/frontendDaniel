@@ -4,9 +4,10 @@ import { planPaypalSubcription } from 'src/app/models/planPaypalSubcription';
 import { PaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
 
 @Component({
-  selector: 'app-modalplans',
-  templateUrl: './modalplans.component.html',
-  styleUrls: ['./modalplans.component.css']
+    selector: 'app-modalplans',
+    templateUrl: './modalplans.component.html',
+    styleUrls: ['./modalplans.component.css'],
+    standalone: false
 })
 export class ModalplansComponent implements OnInit {
   planPaypals: planPaypalSubcription;

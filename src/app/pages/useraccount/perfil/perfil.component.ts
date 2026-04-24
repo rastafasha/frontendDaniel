@@ -14,9 +14,10 @@ import { SubcriptionPaypalService } from 'src/app/services/subcriptionPaypal.ser
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+    selector: 'app-perfil',
+    templateUrl: './perfil.component.html',
+    styleUrls: ['./perfil.component.css'],
+    standalone: false
 })
 export class PerfilComponent implements OnInit {
   @Input() favoriteItem: FavoriteItemModel;

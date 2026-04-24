@@ -8,9 +8,10 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 
 @Component({
-  selector: 'app-virtual',
-  templateUrl: './virtual.component.html',
-  styleUrls: ['./virtual.component.css']
+    selector: 'app-virtual',
+    templateUrl: './virtual.component.html',
+    styleUrls: ['./virtual.component.css'],
+    standalone: false
 })
 export class VirtualComponent implements OnInit {
 

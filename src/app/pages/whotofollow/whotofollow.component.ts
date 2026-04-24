@@ -5,9 +5,10 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-whotofollow',
-  templateUrl: './whotofollow.component.html',
-  styleUrls: ['./whotofollow.component.css']
+    selector: 'app-whotofollow',
+    templateUrl: './whotofollow.component.html',
+    styleUrls: ['./whotofollow.component.css'],
+    standalone: false
 })
 export class WhotofollowComponent implements OnInit {
 
