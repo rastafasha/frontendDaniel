@@ -11,9 +11,10 @@ import { UserService } from 'src/app/services/user.service';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { Post } from 'src/app/models/post';
 @Component({
-  selector: 'app-payment-details',
-  templateUrl: './payment-details.component.html',
-  styleUrls: ['./payment-details.component.css']
+    selector: 'app-payment-details',
+    templateUrl: './payment-details.component.html',
+    styleUrls: ['./payment-details.component.css'],
+    standalone: false
 })
 export class PaymentDetailsComponent implements OnInit {
 

@@ -13,7 +13,7 @@ import { User } from '../models/user';
 
 const base_url = environment.apiUrl;
 const userGoogle = environment.clientGoogle
-declare const gapi: any;
+// declare const gapi: any;
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class UserService {
     private router: Router,
     private ngZone: NgZone
     ) {
-      this.googleInit();
+      // this.googleInit();
   }
 
   get token():string{
@@ -60,21 +60,21 @@ export class UserService {
   }
 
 
-  googleInit(){
+  // googleInit(){
 
-    return new Promise<void>((resolve) =>{
+  //   return new Promise<void>((resolve) =>{
 
-      gapi.load('auth2', () =>{
-        this.auth2 = gapi.auth2.init({
-          client_id: userGoogle,
-          cookiepolicy: 'single_host_origin',
-        });
-        resolve();
-      });
-    });
+  //     gapi.load('auth2', () =>{
+  //       this.auth2 = gapi.auth2.init({
+  //         client_id: userGoogle,
+  //         cookiepolicy: 'single_host_origin',
+  //       });
+  //       resolve();
+  //     });
+  //   });
 
 
-  }
+  // }
 
 
   logout(){
@@ -82,12 +82,12 @@ export class UserService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     // this.router.navigateByUrl('/home');
-    this.auth2.signOut().then(()=>{
-      this.ngZone.run(()=>{
-        this.refresh();
-        this.router.navigateByUrl('/');
-      })
-    })
+    // this.auth2.signOut().then(()=>{
+    //   this.ngZone.run(()=>{
+    //     this.refresh();
+    //     this.router.navigateByUrl('/');
+    //   })
+    // })
     
   }
 
@@ -157,15 +157,15 @@ export class UserService {
     )
   }
 
-  loginGoogle(token){
-    return this.http.post(`${base_url}/auth/google`, {token})
-    .pipe(
-      tap((resp: any) => {
-        this.guardarLocalStorage(resp.token, resp.user);
-        this.refresh();
-      })
-    )
-  }
+  // loginGoogle(token){
+  //   return this.http.post(`${base_url}/auth/google`, {token})
+  //   .pipe(
+  //     tap((resp: any) => {
+  //       this.guardarLocalStorage(resp.token, resp.user);
+  //       this.refresh();
+  //     })
+  //   )
+  // }
 
   cargarUsuarios(desde: number = 0){
 

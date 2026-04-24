@@ -7,9 +7,10 @@ import { UserService } from 'src/app/services/user.service';
 import {environment} from 'src/environments/environment';
 // import $ from 'jquery';
 @Component({
-  selector: 'app-articles-home',
-  templateUrl: './articles-home.component.html',
-  styleUrls: ['./articles-home.component.css']
+    selector: 'app-articles-home',
+    templateUrl: './articles-home.component.html',
+    styleUrls: ['./articles-home.component.css'],
+    standalone: false
 })
 export class ArticlesHomeComponent implements OnInit {
 

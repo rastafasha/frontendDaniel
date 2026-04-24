@@ -12,9 +12,10 @@ import Swal from 'sweetalert2';
 import { PaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
 
 @Component({
-  selector: 'app-modalsubcripcion',
-  templateUrl: './modalsubcripcion.component.html',
-  styleUrls: ['./modalsubcripcion.component.css']
+    selector: 'app-modalsubcripcion',
+    templateUrl: './modalsubcripcion.component.html',
+    styleUrls: ['./modalsubcripcion.component.css'],
+    standalone: false
 })
 export class ModalsubcripcionComponent implements OnInit {
 

@@ -5,9 +5,10 @@ import { User } from 'src/app/models/user';
 import { FavoriteService } from 'src/app/services/favorite.service';
 
 @Component({
-  selector: 'app-favoritos',
-  templateUrl: './favoritos.component.html',
-  styleUrls: ['./favoritos.component.css']
+    selector: 'app-favoritos',
+    templateUrl: './favoritos.component.html',
+    styleUrls: ['./favoritos.component.css'],
+    standalone: false
 })
 export class FavoritosComponent implements OnInit {
   

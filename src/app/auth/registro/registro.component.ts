@@ -7,9 +7,10 @@ import { UserService } from 'src/app/services/user.service';
 declare const gapi: any;
 
 @Component({
-  selector: 'app-registro',
-  templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+    selector: 'app-registro',
+    templateUrl: './registro.component.html',
+    styleUrls: ['./registro.component.css'],
+    standalone: false
 })
 export class RegistroComponent implements OnInit {
 

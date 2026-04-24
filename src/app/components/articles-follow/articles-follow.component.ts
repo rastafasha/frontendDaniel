@@ -5,9 +5,10 @@ import { PostService } from 'src/app/services/post.service';
 import {environment} from 'src/environments/environment';
 
 @Component({
-  selector: 'app-articles-follow',
-  templateUrl: './articles-follow.component.html',
-  styleUrls: ['./articles-follow.component.css']
+    selector: 'app-articles-follow',
+    templateUrl: './articles-follow.component.html',
+    styleUrls: ['./articles-follow.component.css'],
+    standalone: false
 })
 export class ArticlesFollowComponent implements OnInit {
 

@@ -3,9 +3,10 @@ import { MessageService } from 'src/app/services/message.service';
 import { PlanesService } from 'src/app/services/planes.service';
 import { Plan } from 'src/app/models/plan';
 @Component({
-  selector: 'app-subscription',
-  templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.css']
+    selector: 'app-subscription',
+    templateUrl: './subscription.component.html',
+    styleUrls: ['./subscription.component.css'],
+    standalone: false
 })
 export class SubscriptionComponent implements OnInit {
   plan: Plan;

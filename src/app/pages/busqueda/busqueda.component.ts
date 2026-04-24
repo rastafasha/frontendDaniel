@@ -10,9 +10,10 @@ import { Location } from '@angular/common';
 import { planPaypalSubcription } from 'src/app/models/planPaypalSubcription';
 
 @Component({
-  selector: 'app-busqueda',
-  templateUrl: './busqueda.component.html',
-  styleUrls: ['./busqueda.component.css']
+    selector: 'app-busqueda',
+    templateUrl: './busqueda.component.html',
+    styleUrls: ['./busqueda.component.css'],
+    standalone: false
 })
 export class BusquedaComponent implements OnInit {
 

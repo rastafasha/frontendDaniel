@@ -21,9 +21,10 @@ import { MessageFavoriteService } from 'src/app/services/messageFavorite.service
 declare var $: any;
 declare var jQuery: any;
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
 
@@ -63,7 +64,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.disabled = true;
     
-      this.getUser();
+      // this.getUser();
     // this.getUserServer();
     if(this.storageService.existCart()){
       this.cartItems = this.storageService.getCart();

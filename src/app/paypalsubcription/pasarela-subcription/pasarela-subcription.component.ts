@@ -18,9 +18,10 @@ import { map } from 'rxjs/operators';
 declare var paypal; 
 
 @Component({
-  selector: 'app-pasarela-subcription',
-  templateUrl: './pasarela-subcription.component.html',
-  styleUrls: ['./pasarela-subcription.component.css']
+    selector: 'app-pasarela-subcription',
+    templateUrl: './pasarela-subcription.component.html',
+    styleUrls: ['./pasarela-subcription.component.css'],
+    standalone: false
 })
 export class PasarelaSubcriptionComponent implements OnInit {
 
