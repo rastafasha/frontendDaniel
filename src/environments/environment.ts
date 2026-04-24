@@ -7,7 +7,7 @@ export const environment = {
   //apirest local node
    apiUrl: "http://localhost:3000/api",
   apiUrlMedia: "http://localhost:3000/api/uploads",
-  mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741218430/articlesApp/uploads',
+  mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741218430/articlesApp',
   //remoto
   // apiUrl: "https://backend-daniel-node-mongo.onrender.com/api",
   // apiUrlMedia: "https://backend-daniel-node-mongo.onrender.com/api/uploads/",

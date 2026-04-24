@@ -1,8 +1,5 @@
 export const environment = {
   production: true,
-  //apirest local node
-  // apiUrl: "http://localhost:5001/api",
-  // apiUrlMedia: "http://localhost:5001/api/uploads/",
   //remoto
   apiUrl: "https://backend-daniel-node-mongo.onrender.com/api",
   apiUrlMedia: "https://backend-daniel-node-mongo.onrender.com/api/uploads",
