@@ -71,8 +71,13 @@
                   "with": "src/environments/environment.articleapp.ts"
                 }
               ],
-             "assets": [
+              "assets": [
                 "src/assets",
+                {
+                  "glob": "**/*",
+                  "input": "public",
+                  "output": "."
+                },
                 {
                   "glob": "_redirects",
                   "input": "src",
@@ -84,8 +89,8 @@
                   "output": "/assets"
                 },
                 {
-                  "glob": "manifest.webmanifest", 
-                  "input": "src/env/articleapp/", 
+                  "glob": "manifest.webmanifest",
+                  "input": "src/env/articleapp/",
                   "output": "/"
                 }
               ],
