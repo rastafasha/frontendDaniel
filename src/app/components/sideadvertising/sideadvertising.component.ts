@@ -12,6 +12,7 @@ export class SideadvertisingComponent implements OnInit {
 
   public sideadvices: Sideadvice;
   error: any;
+  loading=false;
 
   constructor(
     private sideadviceService: SideadviceService
@@ -22,10 +23,12 @@ export class SideadvertisingComponent implements OnInit {
   }
 
   getPosts(): void {
+    this.loading=true;
     this.sideadviceService.getBannerActivos().subscribe(
       res =>{
         this.sideadvices = res;
-        error => this.error = error
+        error => this.error = error;
+        this.loading=false;
       }
     );
   }

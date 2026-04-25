@@ -12,6 +12,7 @@ export class RecommendedTopicComponent implements OnInit {
 
   categories: Category;
   error:any;
+  title = 'Categorías Recomendadas'
   
   constructor(
     private categoryService: CategoryService,

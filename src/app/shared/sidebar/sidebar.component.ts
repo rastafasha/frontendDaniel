@@ -21,60 +21,33 @@ import { environment } from 'src/environments/environment';
 export class SidebarComponent implements OnInit {
 
   imageUrl = environment.apiUrlMedia;
-  categories: Category;
+ 
   postrecientes: Post;
   editores: User;
   usuario: User;
   profiles: Profile;
   error: string;
   loading = false;
-
-  favoritos:any=[]=[];
   blogs:any=[]=[];
   favorito:Favorito;
 
   constructor(
     private postService: PostService,
-    private categoryService: CategoryService,
+    
     private userService: UserService,
     private profileService: ProfileService,
     private router: Router,
-    private favoriteService: FavoriteService,
     private activatedRoute: ActivatedRoute,
 
   ) { }
 
   ngOnInit(): void {
     this.getPosts();
-    this.getCategories();
     this.getEditors();
-    this.getUser();
-    
-    // this.getProfiles();
-  }
-
-  getUser(): void {
-
     this.usuario = JSON.parse(localStorage.getItem('user'));
-    if(!this.usuario || !this.usuario.role || this.usuario.role === null ){
-      // console.log('no hay role')
-    }
-    if(this.usuario){
-      this.listarfavoritessUser();
-    }
   }
 
-  listarfavoritessUser(){
-    this.loading = true;
-    this.favoriteService.listarUsuarioFavorites(this.usuario.uid).subscribe(
-      response =>{
-        this.favoritos = response;
-        this.blogs = response.blog;
-        this.loading = false;
-      }
-    );
-    
-  }
+  
 
   getPosts(): void {
     // return this.planesService.carga_info();
@@ -87,17 +60,7 @@ export class SidebarComponent implements OnInit {
     );
   }
 
-  getCategories(): void {
-    // return this.planesService.carga_info();
-    this.categoryService.getCategories().subscribe(
-      res =>{
-        this.categories = res;
-        error => this.error = error
-        // console.log(this.categories);
-      }
-    );
-  }
-
+ 
   getEditors(): void {
     this.userService.getAllEditors().subscribe(
       res =>{

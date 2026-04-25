@@ -1,5 +1,7 @@
-<div *ngIf="!profile">
+ <app-loading *ngIf="isLoading"></app-loading>
+<div *ngIf="!profile && !isLoading">
     <div class="container">
+        <app-back-button [title]="title"></app-back-button>
         <div class="col-xs-12 col-sm-4 col-sm-push-3">
             <h3>Completa tu perfil y Subcribete!</h3>
             <a [routerLink]="['/user-account/edit/', user.uid]">
@@ -8,10 +10,14 @@
         </div>
     </div>
 </div>
+
 <div class="container mt-3 mb-3 pt-5" *ngIf="profile">
+    <app-back-button [title]="title"></app-back-button>
     <div class="profile">
         <div class="row gridperfil">
-            <div class=" infodato">
+            <!-- profile -->
+             <app-loading *ngIf="isLoading"></app-loading>
+            <div class=" infodato" *ngIf="!isLoading">
                 <div class="card shadow">
                     <div class="card-body">
                         <div class="card-headerrr">
@@ -84,7 +90,8 @@
 
             </div>
             <!-- miscompras -->
-            <div class=" miscompras" *ngIf="pagos && pagos.length > 0">
+             <app-loading *ngIf="isLoadingPagos"></app-loading>
+            <div class=" miscompras" *ngIf="pagos && pagos.length > 0 && !isLoadingPagos">
                 <div class="card shadow">
                     <div class="card-body">
                         <h2>Mis Compras</h2>
@@ -139,7 +146,8 @@
                 </div>
             </div>
             <!-- missubcripciones -->
-            <div class="missubcripciones" *ngIf="subcriptionPaypal && subcriptionPaypal.length > 0">
+             <app-loading *ngIf="isLoadingSubs"></app-loading>
+            <div class="missubcripciones" *ngIf="subcriptionPaypal && subcriptionPaypal.length > 0 && !isLoadingSubs">
                 <div class="card shadow">
                     <div class="card-body">
                         <h2>Mis Subcripciones</h2>
@@ -180,7 +188,8 @@
                 </div>
             </div>
             <!-- misblog -->
-            <div class="misblog" *ngIf="user.role === 'EDITOR' || user.role === 'SUPERADMIN' || user.role === 'ADMIN' && blogs && blogs.length > 0">
+             <app-loading *ngIf="isLoadingBlog"></app-loading>
+            <div class="misblog" *ngIf="user.role === 'EDITOR' || user.role === 'SUPERADMIN' || user.role === 'ADMIN' && blogs && blogs.length > 0 && !isLoadingBlog">
                 <div class="card shadow">
                     <div class="card-body">
                         <h2>Blogs Creados</h2>
@@ -209,7 +218,8 @@
                 </div>
             </div>
             <!-- favorites -->
-            <div class="favorites" *ngIf="favoritos && favoritos.length > 0">
+             <app-loading *ngIf="isLoadingFavorite"></app-loading>
+            <div class="favorites" *ngIf="favoritos && favoritos.length > 0 && !isLoadingFavorite">
                 <div class="card shadow">
                     <div class="card-body">
                         <h2>Favorites Articles</h2>
@@ -242,7 +252,8 @@
                 </div>
             </div>
             <!-- blogcomrados -->
-            <div class="blogcomrados" *ngIf="blogcomprados && blogcomprados.length > 0">
+             <app-loading *ngIf="isLoadingPagos"></app-loading>
+            <div class="blogcomrados" *ngIf="blogcomprados && blogcomprados.length > 0 && !isLoadingPagos">
                 <div class="card shadow">
                     <div class="card-body">
                         <h2>Blogs Comprados</h2>

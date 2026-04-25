@@ -1,0 +1,24 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="favoriteshome" *ngIf="!loading && favoritos && favoritos.length > 0">
+    <div class="title-seccion" >
+        <img src="./assets/svg/marcador.svg" alt="">
+        <h1>Mis Favoritos</h1>
+    </div>
+    <div class="listfavoritos" *ngIf="favoritos">
+        <!-- favoritos -->
+        <div *ngFor="let post of favoritos">
+            <div class="gridfavoritos">
+                <div class="got-image" style="background-image: url('{{imageUrl}}/blogs/{{post.blog.img}}')"
+                    title="{{post.blog.name}}" style="height: 50px; width: 50px;"></div>
+                <div class="info">
+                    <h4><a [routerLink]="['/blog', post.blog.slug]">
+                            {{post.blog.name}}
+                        </a></h4>
+                    <p><b>creado:</b> {{post.blog.createdAt | date: 'dd/mm/YYYY'}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- favoritos -->
+    </div>
+    <p><a  [routerLink]="['/favoritos', usuario.uid]">Ver Todos</a></p>
+</div>

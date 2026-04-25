@@ -10,6 +10,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ComponentsModule } from '../components/components.module';
 import { LoadingComponent } from './loading/loading.component';
 import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-installer.component';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 
 
@@ -19,7 +20,8 @@ import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-inst
         SidebarComponent,
         SlidertopComponent,
         LoadingComponent,
-        PwaNotifInstallerComponent
+        PwaNotifInstallerComponent,
+        BackButtonComponent
     ],
     exports: [
         HeaderComponent,
@@ -27,7 +29,8 @@ import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-inst
         SidebarComponent,
         SlidertopComponent,
         LoadingComponent,
-        PwaNotifInstallerComponent
+        PwaNotifInstallerComponent,
+        BackButtonComponent
     ], imports: [
         CommonModule,
         RouterModule,

@@ -11,6 +11,7 @@ import { ComponentsModule } from '../components/components.module';
 import { FormsModule } from '@angular/forms';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RouterModule } from '@angular/router';
     ComponentsModule,
     FormsModule,
     NgxPayPalModule,
-    RouterModule
-  ]
+    RouterModule,
+    SharedModule
+]
 })
 export class PaypalsubcriptionModule { }

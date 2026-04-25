@@ -14,25 +14,30 @@ import { SubcriptionPaypalService } from 'src/app/services/subcriptionPaypal.ser
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-    selector: 'app-perfil',
-    templateUrl: './perfil.component.html',
-    styleUrls: ['./perfil.component.css'],
-    standalone: false
+  selector: 'app-perfil',
+  templateUrl: './perfil.component.html',
+  styleUrls: ['./perfil.component.css'],
+  standalone: false
 })
 export class PerfilComponent implements OnInit {
   @Input() favoriteItem: FavoriteItemModel;
   favoriteItems: any[] = [];
-  
-  user:User;
-  profile:Profile;
-  blogs:Post;
-  blogcomprados:Post;
-  favoritos:Favorito;
-  favorito:Favorito;
-  pagos: any[]=[];
-  uid:User;
+  title = 'Perfil de Usuario'
+  user: User;
+  profile: Profile;
+  blogs: Post;
+  blogcomprados: Post;
+  favoritos: Favorito;
+  favorito: Favorito;
+  pagos: any[] = [];
+  uid: User;
   subcriptionPaypal: subcriptionPaypal;
   pagosbl;
+  isLoading = false;
+  isLoadingFavorite = false;
+  isLoadingBlog = false;
+  isLoadingSubs = false;
+  isLoadingPagos = false;
 
   redssociales: RedesSociales[] = [];
 
@@ -52,89 +57,92 @@ export class PerfilComponent implements OnInit {
     window.scrollTo(0, 0);
     this.getUser();
     this.closeModalProfile();
-    this.activatedRoute.params.subscribe( ({id}) => this.listarBlogsUser(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.listarfavoritessUser(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.listarBlogsUser(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.listarfavoritessUser(id));
   }
-  
-  getUserServer(id:string){
+
+  getUserServer(id: string) {
     if (id !== null && id !== undefined) {
       this.userService.getUserById(id).subscribe(
-        res =>{
+        res => {
           this.user = res[0];
         }
-        );
-      }
-      this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
+      );
+    }
+    this.activatedRoute.params.subscribe(({ id }) => this.listar(id));
 
   }
 
   getUser(): void {
-
     this.user = JSON.parse(localStorage.getItem('user'));
-    if(!this.user || this.user  === null ){
+    if (!this.user || this.user === null) {
       this.router.navigateByUrl('/login')
-   }
-   
-    this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.getUserSubcription(id));
+    }
+    this.activatedRoute.params.subscribe(({ id }) => this.listar(id));
+    this.activatedRoute.params.subscribe(({ id }) => this.getUserSubcription(id));
     this.getUserPagos();
-    
+
   }
 
-  getUserPagos(){
-
+  getUserPagos() {
+    this.isLoadingPagos = true;
     this.pagoService.getPagosbyUser(this.user.uid).subscribe((data: any) => {
       this.pagos = data;
+      this.isLoadingPagos = false;
     });
   }
 
-  listar(id:string){
-    if(!id == null || !id == undefined || id){
+  listar(id: string) {
+    this.isLoading = true;
+    if (!id == null || !id == undefined || id) {
       this.profileService.listarUsuario(id).subscribe(
-        (resp:Profile) =>{
+        (resp: Profile) => {
           this.profile = resp;
-          
-        if (typeof this.profile.redssociales === 'string') {
-          this.redssociales = JSON.parse(this.profile.redssociales);
-        } else {
-          this.redssociales = this.profile.redssociales || [];
-        }
+          this.isLoading = false;
+          if (typeof this.profile.redssociales === 'string') {
+            this.redssociales = JSON.parse(this.profile.redssociales);
+          } else {
+            this.redssociales = this.profile.redssociales || [];
+          }
         }
       );
-    }else{
+    } else {
       console.log('no hay registro')
     }
-    
+
   }
 
-  listarBlogsUser(id:string){
-    if(!id == null || !id == undefined || id){
+  listarBlogsUser(id: string) {
+    this.isLoadingBlog = true;
+    if (!id == null || !id == undefined || id) {
       this.postService.getByUser(id).subscribe(
-        response =>{
+        response => {
           this.blogs = response;
+          this.isLoadingBlog = false;
         }
       );
-    }else{
+    } else {
       console.log('no hay registro')
     }
-    
+
   }
 
-  listarfavoritessUser(id:string){
-    if(!id == null || !id == undefined || id){
+  listarfavoritessUser(id: string) {
+    this.isLoadingFavorite = true;
+    if (!id == null || !id == undefined || id) {
       this.favoriteService.listarUsuarioFavorites(id).subscribe(
-        response =>{
+        response => {
           this.favoritos = response;
-          // console.log('favoritos', this.favoritos);
+          this.isLoadingFavorite = false;
         }
       );
     }
-    
+
   }
 
-  deletFavoriteItem(_id:string):void{
-  this.favoriteService.deleteFavorito(_id).subscribe(
-      res=>{
+  deletFavoriteItem(_id: string): void {
+    this.favoriteService.deleteFavorito(_id).subscribe(
+      res => {
         // console.log(res);
         this.ngOnInit();
 
@@ -142,20 +150,21 @@ export class PerfilComponent implements OnInit {
     );
   }
 
-  getUserSubcription(id:string){
-
+  getUserSubcription(id: string) {
+    this.isLoadingSubs = true;
     this.subcriptionPaypalService.getByUser(this.user.uid).subscribe((data: any) => {
       this.subcriptionPaypal = data;
+      this.isLoadingSubs = false;
     });
   }
 
-  
-  closeModalProfile(){
-    var modaluser = document.getElementsByClassName("user-modal");
-      for (var i = 0; i<modaluser.length; i++) {
-         modaluser[i].classList.remove("user-modal-active");
 
-      }
+  closeModalProfile() {
+    var modaluser = document.getElementsByClassName("user-modal");
+    for (var i = 0; i < modaluser.length; i++) {
+      modaluser[i].classList.remove("user-modal-active");
+
+    }
   }
 
 

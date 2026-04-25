@@ -1,0 +1,40 @@
+.backbutton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: calc(78vw);
+}
+
+.pagetitle {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    float: left;
+}
+
+.pagetitle h1 {
+    font-size: 28px;
+}
+
+.buton {
+    width: 30%;
+    display: flex;
+    float: left;
+    height: 34px;
+    flex-direction: row;
+    align-items: end;
+    justify-content: end;
+}
+
+.buton .btn {
+    float: right;
+    right: 0;
+    position: relative;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+.backbutton a{
+    color: var(--vinotinto);
+}

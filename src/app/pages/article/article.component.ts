@@ -27,6 +27,7 @@ export class ArticleComponent implements OnInit {
   usuario:User;
   blogusuario:User;
   uid: string;
+  title: string;
   role: User;
   // @Input() product: Post;
 
@@ -59,6 +60,7 @@ export class ArticleComponent implements OnInit {
       res => {
         this.blog = res;
         this.blogusuario = res.usuario;
+        this.title = this.blog.name
         // console.log(this.blog);
       }
     );

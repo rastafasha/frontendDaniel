@@ -1,145 +1,59 @@
 <div class="aside ">
-    
+
     <!-- favoritos -->
-     <app-loading *ngIf="loading"></app-loading>
-    <div class="staff-pic"  *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' && favoritos && favoritos.length > 0 && !loading"  >
-        <div class="title-seccion">
-            <img src="./assets/svg/marcador.svg" alt="">
-            <h1>Mis Favoritos</h1>
-        </div>
-        <div class="listfavoritos">
-            <!-- favoritos -->
-            <div  *ngFor="let post of favoritos">
-                <div class="gridfavoritos" >
-                    <div class="got-image" style="background-image: url('{{imageUrl}}/blogs/{{post.blog.img}}')" title="{{post.blog.name}}" style="height: 50px; width: 50px;" ></div>
-                    <div class="info">
-                        <h4><a [routerLink]="['/blog', post.blog.slug]">
-                            {{post.blog.name}}
-                        </a></h4>
-                        <p><b>creado:</b> {{post.blog.createdAt | date: 'dd/mm/YYYY'}}</p>
-                    </div>
-                </div>
-            </div>
-            <!-- favoritos -->
-        </div>
-        <p><a [routerLink]="['/favoritos', usuario.uid]">Ver Todos</a></p>
+    <!-- *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR'"  -->
+    <div class="staff-pic">
+        <app-favorites-home></app-favorites-home>
     </div>
     <!-- favoritos -->
 
-    
-
-    <!-- staff-pic -->
-    <!-- <div *ngIf="usuario">
-    <div class="staff-pic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' "  >
-        <div class="title-seccion">
-            <img src="./assets/svg/mundo.svg" alt="">
-            <h1>Post Recientes</h1>
-        </div>
-        <div class="clear"></div>
-        <div *ngFor="let post of postrecientes">
-            <div class="posted" *ngIf="usuario">
-                <div class="userinfo">
-                    <p>{{post.usuario.username}}</p>
-                </div>
-                <h1><a [routerLink]="['/blog', post.slug]">{{post.name}}</a></h1>
-            </div>
-        </div>
-
-        <p><a [routerLink]="['/blogs']">Ver Todos</a></p>
-    </div>
-    </div> -->
-    <!-- staff-pic -->
     <!-- publicidad -->
     <app-sideadvertising></app-sideadvertising>
     <!-- publicidad -->
     <!-- tips -->
-    <div class="boxmember" *ngIf="!usuario">
-        <h1>Writing on Daniels'Proyect</h1>
+    <div class="boxmember" *ngIf="usuario.role !== 'EDITOR'">
+        <h1>Monetiza tus artículos!</h1>
         <ul>
-            <li><a href="#">New Writer FAQ</a></li>
-            <li><a href="#">Expert writing advice</a></li>
-            <li><a href="#">Grow your readership</a></li>
+            <li>Escribe y gana</li>
+            <li>Solicita Tu rol de Editor</li>
         </ul>
-        <button class="btn btn-vinotinto">
-            <a [routerLink]="['/login']">Start Writing</a>
-    </button>
+        <button class="btn btn-outline-danger" [routerLink]="['/login']">
+            Solicitar ya!
+        </button>
     </div>
     <!-- tips -->
     <!-- socialblock -->
     <div class="socialblock">
+        <h2>Descubre más información y eventos en nuestras Redes Sociales.</h2>
         <div class="tope">
             <img src="./assets/svg/logo.svg" alt="">
             <h1>+</h1>
-            <i class="fa fa-twitter"></i>
-            <i class="fa fa-instagram"></i>
+            <a href="https://twitter.com" target="_blank">
+                <i class="fa fa-twitter"></i>
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://instagram.com" target="_blank">
+                <i class="fa fa-instagram"></i>
+            </a>
         </div>
-        <h2>Descubre más información y eventos en nuestras Redes Sociales.</h2>
 
-        <div class="btn-group">
-            <button type="button" class="btn btn-outline-danger btn-vinotinto">Follows in &nbsp;<i class="fa fa-twitter"></i></button> &nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-outline-danger btn-vinotinto">Follows in &nbsp;<i class="fa fa-instagram"></i></button>
-        </div>
+        <!-- <div class="btn-group">
+            <button type="button" href="https://twitter.com" target="_blank" class="btn btn-outline-danger btn-vinotinto">Follows in &nbsp;<i
+                    class="fa fa-twitter"></i></button> &nbsp;&nbsp;&nbsp;
+            <button type="button" href="https://instagram.com" target="_blank" class="btn btn-outline-danger btn-vinotinto">Follows in &nbsp;<i
+                    class="fa fa-instagram"></i></button>
+        </div> -->
 
     </div>
     <!-- socialblock -->
     <!-- recomended-topic -->
     <div *ngIf="usuario">
-        <div class="recomended-topic" *ngIf="usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' ">
-            <div class="title-seccion">
-                <img src="./assets/svg/prismaticos.svg" alt="">
-                <h1>Categorías</h1>
-    
-            </div>
-            <div class="clear"></div>
-            <ul *ngFor="let category of categories">
-                <li class="topic badge badge-pill badge-light mr-1">
-                    <a [routerLink]="['/blog/category/', category._id]">{{category.nombre}}</a>
-                </li>
-            </ul>
-            <div class="clear"></div>
-            <p><a routerLink="../recommended-topics">Ver más categorías</a></p>
+        <div class="recomended-topic">
+            <app-categories-home></app-categories-home>
         </div>
     </div>
-    
-    <!-- recomended-topic -->
-    <!-- whotofollow -->
-    <!-- <div *ngIf="usuario">
-        <div class="whotofollow" *ngIf="usuario || usuario.role === 'MEMBER'||usuario.role === 'SUPERADMIN'||usuario.role === 'ADMIN'||usuario.role === 'EDITOR' ">
-            <div class="title-seccion">
-                <img src="./assets/svg/agregar-usuario.svg" alt="">
-                <h1>Editores</h1>
-            </div>
-            <div *ngFor="let editor of editores">
-                <div class="tofolow">
-    
-                    <div class="imagen">
-                        <a [routerLink]="['/editor', editor.uid]">
-                            <div *ngIf="!editor.profiles">
-                                <img class="img-responsive" src="./assets/img/no-image.jpg" alt=" {{editor.username}}" />
-                            </div>
-                            <div *ngIf="editor.profiles">
-                                <img class="img-responsive" [src]="editor.profiles.img | imagenPipe: 'profiles'" alt=" {{editor.username}}" />
-                            </div>
-                        </a>
-                    </div>
-                    <div class="info">
-                        <a [routerLink]="['/editor', editor.uid]">
-                            <h1>{{editor.username}}</h1>
-                        </a>
-                    </div>
-                    <div class="boton">
-                        <a [routerLink]="['/editor', editor.uid]">
-                            <button class="btn btn-outline-dark borderradius">+info</button>
-                        </a>
-                        <button class="btn btn-outline-dark borderradius">Follow</button>
-                    </div>
-                </div>
-            </div>
-            <p><a [routerLink]="['./who-to-follow']" >Ver todos</a></p>
-        </div>
-    </div> -->
-    
-    <!-- whotofollow -->
+
+
     <!-- readinglist -->
     <div class="readinglist">
         <ul>

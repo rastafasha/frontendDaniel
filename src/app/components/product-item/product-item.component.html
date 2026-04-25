@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="article-options">
-        <div class="topic badge badge-pill badge-light mr-1">
+        <div class="topic badge badge-pill badge-danger mr-1">
             {{product.categoria.nombre}}
         </div>
         <div class="options-icons">
@@ -34,7 +34,9 @@
             </div>
             <div *ngIf="usuario  ">
                 <a (click)="addToCart()">
-                    <button class="btn btn-outline-danger mr-1"> <i class="fa fa-shopping-cart"></i></button> 
+                    <button class="btn btn-outline-danger mr-1"> 
+                        <i class="fa fa-shopping-cart"></i>
+                    </button> 
                 </a>
                 <!-- <a data-toggle="modal" [attr.data-target]="'#' + product._id">
                     <button class="btn"><i class="fa fa-bitcoin"></i> pagar con binance usdt  </button> 

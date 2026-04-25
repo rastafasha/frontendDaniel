@@ -25,9 +25,11 @@ export class AllPlansComponent implements OnInit {
   public user: User;
   public profile: Profile;
   subcription:geSubcription;
+  isLoading = false;
 
   planConfig:planPaypalSubcription;
   planSeleccionado!: any | null;
+  title = 'Planes de Subcripciones'
 
   constructor(
     private paypalSubcription: PaypalSubcriptionService,
@@ -45,11 +47,12 @@ export class AllPlansComponent implements OnInit {
   }
 
   getPlanes(): void {
+    this.isLoading = true;
     this.paypalSubcription.getPlanPaypals().subscribe(
       res =>{
         this.planPaypals = res.plans;
         error => this.error = error
-        // console.log(this.planPaypals);
+        this.isLoading = false;
       }
     );
   }

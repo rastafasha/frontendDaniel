@@ -1,0 +1,16 @@
+.categorieshome p a{
+    color: var(--vinotinto);
+    text-decoration: none;
+    text-align: right;
+}
+.categorieshome li a{
+    text-decoration: none;
+    transition: all ease .5s;
+}
+.categorieshome li a:hover{
+    color: var(--vinotinto);
+    transition: all ease .5s;
+}
+.categorieshome {
+    text-align: right;
+}

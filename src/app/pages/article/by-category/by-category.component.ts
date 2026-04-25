@@ -21,6 +21,7 @@ export class ByCategoryComponent implements OnInit {
   error: string;
   imagenSerUrl = environment.apiUrlMedia;
   categoria: Category;
+  title ='Post por categoría:'
 
   constructor(
     private postService: PostService,

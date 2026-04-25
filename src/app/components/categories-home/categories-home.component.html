@@ -1,0 +1,16 @@
+<app-loading *ngIf="loading"></app-loading>
+<div class="categorieshome" *ngIf="!loading">
+    <div class="title-seccion">
+        <img src="./assets/svg/prismaticos.svg" alt="">
+        <h1>Categorías</h1>
+
+    </div>
+    <div class="clear"></div>
+    <ul *ngFor="let category of categories">
+        <li class="topic badge badge-pill badge-light mr-1">
+            <a [routerLink]="['/blog/category/', category._id]">{{category.nombre}}</a>
+        </li>
+    </ul>
+    <div class="clear"></div>
+    <p><a routerLink="../recommended-topics">Ver más categorías</a></p>
+</div>

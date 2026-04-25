@@ -18,6 +18,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { SideadvertisingComponent } from './sideadvertising/sideadvertising.component';
 import { SplashComponent } from './splash/splash.component';
 import { SharedModule } from '../shared/shared.module';
+import { CategoriesHomeComponent } from './categories-home/categories-home.component';
+import { FavoritesHomeComponent } from './favorites-home/favorites-home.component';
 // import {ScrollingModule} from '@angular/cdk/scrolling';
 @NgModule({ declarations: [
         ArticlesHomeComponent,
@@ -32,6 +34,8 @@ import { SharedModule } from '../shared/shared.module';
         ModalbinanceComponent,
         SideadvertisingComponent,
         SplashComponent,
+        CategoriesHomeComponent,
+        FavoritesHomeComponent
     ],
     exports: [
         ArticlesHomeComponent,
@@ -45,6 +49,8 @@ import { SharedModule } from '../shared/shared.module';
         ModalbinanceComponent,
         SideadvertisingComponent,
         SplashComponent,
+        CategoriesHomeComponent,
+        FavoritesHomeComponent
     ], imports: [
         CommonModule,
         RouterModule,
