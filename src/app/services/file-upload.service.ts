@@ -1,28 +1,25 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-
-const base_url = environment.apiUrlMedia;
+const base_url = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
 
-
   constructor() { }
 
   async actualizarFoto(
     archivo: File,
-    tipo: 'profiles'|'blogs'|'pagos'|'banners'|'sideadvertisings',
+    tipo: 'profiles'|'pagos',
     id: string
   ){
-
     try{
 
-      const url = `${base_url}/${tipo}/${id}`;
+      const url = `${base_url}/uploads/${tipo}/${id}`;
       const formData = new FormData();
-      formData.append('img', archivo);
+      formData.append('imagen', archivo);
 
       const resp = await fetch(url,{
         method: 'PUT',
@@ -47,7 +44,5 @@ export class FileUploadService {
       console.log(error);
       return false;
     }
-
   }
-
 }

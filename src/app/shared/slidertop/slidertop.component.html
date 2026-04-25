@@ -1,7 +1,7 @@
 <div class="slider">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-
-        <div class="carousel-inner">
+    <app-loading *ngIf="loading"></app-loading>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" *ngIf="!loading">
+        <div class="carousel-inner" >
             <div class="carousel-item " *ngFor="let banner of banners; let i=index " [ngClass]="(i === 0) ? 'active' : ''">
                 <div class="BannPpal">
                     <div class="container">

@@ -7,7 +7,8 @@
             <h1>Mis Favoritos</h1>
         </div>
         <div class="clear"></div>
-        <div class="listfavoritos">
+        <app-loading *ngIf="loading"></app-loading>
+        <div class="listfavoritos" *ngIf="!loading">
             <!-- favoritos -->
             <div  *ngFor="let post of favoritos">
                 <div class="gridfavoritos" >
@@ -73,7 +74,7 @@
             <i class="fa fa-twitter"></i>
             <i class="fa fa-instagram"></i>
         </div>
-        <h2>Descubre mas informacion y eventos en nuestros Social Networks.</h2>
+        <h2>Descubre más información y eventos en nuestras Redes Sociales.</h2>
 
         <div class="btn-group">
             <button type="button" class="btn btn-outline-danger btn-vinotinto">Follows in &nbsp;<i class="fa fa-twitter"></i></button> &nbsp;&nbsp;&nbsp;

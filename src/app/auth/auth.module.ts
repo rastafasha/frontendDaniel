@@ -10,7 +10,8 @@ import { NewpasswordComponent } from './newpassword/newpassword.component';
 import { RegistroComponent } from './registro/registro.component';
 import { ComponentsModule } from '../components/components.module';
 
-@NgModule({ declarations: [
+@NgModule({ 
+    declarations: [
         LoginComponent,
         PasswordresetComponent,
         NewpasswordComponent,
@@ -21,9 +22,12 @@ import { ComponentsModule } from '../components/components.module';
         PasswordresetComponent,
         NewpasswordComponent,
         RegistroComponent,
-    ], imports: [CommonModule,
+    ], imports: [
+        CommonModule,
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
-        ComponentsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        ComponentsModule
+    ], 
+    providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AuthModule { }

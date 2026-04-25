@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.disabled = true;
     
-      // this.getUser();
+      this.getUser();
     // this.getUserServer();
     if(this.storageService.existCart()){
       this.cartItems = this.storageService.getCart();

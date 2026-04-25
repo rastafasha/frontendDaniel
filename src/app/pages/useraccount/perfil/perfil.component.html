@@ -2,14 +2,14 @@
     <div class="container">
         <div class="col-xs-12 col-sm-4 col-sm-push-3">
             <h3>Completa tu perfil y Subcribete!</h3>
-    <a [routerLink]="['/user-account/edit/', user.uid]">
-        <button class="btn btn-primary">Editar</button>
-    </a>
+            <a [routerLink]="['/user-account/edit/', user.uid]">
+                <button class="btn btn-primary">Editar</button>
+            </a>
         </div>
     </div>
 </div>
 <div class="container mt-3 mb-3 pt-5" *ngIf="profile">
-    <div class="profile" >
+    <div class="profile">
         <div class="row gridperfil">
             <div class=" infodato">
                 <div class="card shadow">
@@ -20,20 +20,22 @@
                                 <button class="btn btn-primary">Editar</button>
                             </a>
                         </div>
-                        
+
                         <div class="tofolow">
                             <div class="imagen">
                                 <!-- <img src="./assets/img/user2.jpg" alt=""> -->
                                 <div *ngIf="!profile">
-                                    <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
+                                    <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;"
+                                        class="img-circle avatar">
                                 </div>
                                 <div *ngIf="profile">
-                                    <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
-            
+                                    <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;"
+                                        class="img-circle avatar">
+
                                 </div>
                             </div>
 
-                            
+
                             <div class="info">
                                 <h1>{{profile.first_name}} {{profile.last_name}}</h1>
                                 <p><b>Email:</b> {{user.email}}</p>
@@ -69,9 +71,9 @@
                         </div>
 
                     </div>
-                    
+
                 </div>
-                
+
             </div>
             <div class=" miscompras">
                 <div class="card shadow">
@@ -81,31 +83,39 @@
                         <div class="listfavoritos">
                             <div class="whotofollow" *ngFor="let userpayment of pagos ">
 
-                                
+
                                 <!-- tofolow -->
                                 <div class="shopping">
-                                    
+
                                     <div class="imagen">
                                         <a [routerLink]="['/user-account/payment-detail', userpayment._id]">
-                                            <img [src]="userpayment.img | imagenPipe: 'pagos'" alt="" style="width: 100%;">
+                                            <img [src]="userpayment.img | imagenPipe: 'pagos'" alt=""
+                                                style="width: 100%;">
                                         </a>
                                     </div>
                                     <div class="info">
-                                        <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]" class="cursor">{{userpayment.referencia}}</a></h1>
+                                        <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]"
+                                                class="cursor">{{userpayment.referencia}}</a></h1>
                                         <p>{{userpayment.monto | currency}}</p>
                                         <p>{{userpayment.blog.name}}</p>
-                                        
+
                                         <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
                                         <p><b>Status:</b>
-                                            <span class="badge bg-success" *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
-                                            <span class="badge bg-primary" *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
-                                            <span class="badge bg-danger" *ngIf="userpayment.status === 'REJECTED'">Rechazado</span>
+                                            <span class="badge bg-success"
+                                                *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
+                                            <span class="badge bg-primary"
+                                                *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
+                                            <span class="badge bg-danger"
+                                                *ngIf="userpayment.status === 'REJECTED'">Rechazado</span>
                                         </p>
-                    
+
                                         <p><b>Validación:</b>
-                                            <span class="badge bg-success" *ngIf="userpayment.validacion === 'APROVED'">Aprobado</span>
-                                            <span class="badge bg-primary" *ngIf="userpayment.validacion === 'PENDING'">Pendiente</span>
-                                            <span class="badge bg-danger" *ngIf="userpayment.validacion === 'REJECTED'">Rechazado</span>
+                                            <span class="badge bg-success"
+                                                *ngIf="userpayment.validacion === 'APROVED'">Aprobado</span>
+                                            <span class="badge bg-primary"
+                                                *ngIf="userpayment.validacion === 'PENDING'">Pendiente</span>
+                                            <span class="badge bg-danger"
+                                                *ngIf="userpayment.validacion === 'REJECTED'">Rechazado</span>
                                         </p>
                                     </div>
                                 </div>
@@ -113,7 +123,7 @@
                                 <hr>
                             </div>
                         </div>
-                        
+
                         <!-- whotofollow -->
 
                     </div>
@@ -129,26 +139,31 @@
                                 <!-- tofolow -->
                                 <div class="subcriptions">
                                     <div class="info">
-                                        <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]">{{userpayment.id}}</a></h1>
+                                        <h1><a
+                                                [routerLink]="['/user-account/payment-detail', userpayment._id]">{{userpayment.id}}</a>
+                                        </h1>
                                         <a [routerLink]="['/pasarela-subcripcion/', userpayment.plan_id]">
                                             <p>{{userpayment.plan_id}}</p>
                                         </a>
                                         <p>{{userpayment.monto | currency}}</p>
-                                        
+
                                         <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
                                         <p><b>Status:</b>
-                                            <span class="badge bg-success" *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
-                                            <span class="badge bg-primary" *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
-                                            <span class="badge bg-danger" *ngIf="userpayment.status === 'CANCELED'">Rechazado</span>
+                                            <span class="badge bg-success"
+                                                *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
+                                            <span class="badge bg-primary"
+                                                *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
+                                            <span class="badge bg-danger"
+                                                *ngIf="userpayment.status === 'CANCELED'">Rechazado</span>
                                         </p>
-                    
+
                                     </div>
                                 </div>
                                 <!-- tofolow -->
                                 <hr>
                             </div>
                         </div>
-                        
+
                         <!-- whotofollow -->
 
                     </div>
@@ -194,7 +209,8 @@
                                 <div class="favoritesss">
                                     <div class="imagen">
                                         <a [routerLink]="['/blog/', favorito.blog.slug]">
-                                            <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
+                                            <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt=""
+                                                style="width: 100%;">
                                         </a>
                                     </div>
                                     <div class="info">
@@ -203,13 +219,14 @@
                                         </a>
                                         <p>{{favorito.blog.description |slice: 0:45}}...</p>
                                     </div>
-                                    <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)" src="./assets/svg/icon-delete.svg" alt="delete">
+                                    <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)"
+                                        src="./assets/svg/icon-delete.svg" alt="delete">
                                 </div>
                                 <!-- tofolow -->
                                 <hr>
                             </div>
                         </div>
-                        
+
 
                     </div>
                 </div>
@@ -239,7 +256,7 @@
                                 <hr>
                             </div>
                         </div>
-                        
+
                         <!-- whotofollow -->
 
                     </div>
@@ -247,6 +264,6 @@
             </div>
 
         </div>
-        
+
     </div>
 </div>

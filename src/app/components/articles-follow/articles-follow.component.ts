@@ -16,6 +16,7 @@ export class ArticlesFollowComponent implements OnInit {
   slug: Post;
   error: string;
   imageUrl = environment.apiUrlMedia;
+  loading = false;
 
   constructor(
     private postService: PostService,
@@ -27,12 +28,12 @@ export class ArticlesFollowComponent implements OnInit {
   }
 
   getPosts(): void {
-    // return this.planesService.carga_info();
+    this.loading = true;
     this.postService.getDestacados().subscribe(
       res =>{
         this.posts = res;
         error => this.error = error
-        // console.log(this.posts);
+       this.loading = false;
       }
     );
   }

@@ -127,16 +127,16 @@ export class PasarelaSubcriptionComponent implements OnInit {
           data.purchase_units[0].amount.value,
           this.paypalplanId
         );
-        this.router.navigateByUrl(`/gracias`);
+        this.router.navigateByUrl(`/checkout/gracias`);
         
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
-        this.router.navigateByUrl(`/cancel-payment`);
+        this.router.navigateByUrl(`/checkout/cancel-payment`);
       },
       onError: err => {
         console.log('OnError', err);
-        this.router.navigateByUrl(`/fallo`);
+        this.router.navigateByUrl(`/checkout/fallo`);
       },
       onClick: (data, actions) => {
         console.log('onClick', data, actions);

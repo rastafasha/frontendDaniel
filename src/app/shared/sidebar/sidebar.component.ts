@@ -27,6 +27,7 @@ export class SidebarComponent implements OnInit {
   usuario: User;
   profiles: Profile;
   error: string;
+  loading = false;
 
   favoritos:any=[]=[];
   blogs:any=[]=[];
@@ -64,10 +65,12 @@ export class SidebarComponent implements OnInit {
   }
 
   listarfavoritessUser(){
+    this.loading = true;
     this.favoriteService.listarUsuarioFavorites(this.usuario.uid).subscribe(
       response =>{
         this.favoritos = response;
         this.blogs = response.blog;
+        this.loading = false;
       }
     );
     

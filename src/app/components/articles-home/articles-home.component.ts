@@ -22,7 +22,7 @@ export class ArticlesHomeComponent implements OnInit {
   // imagenSerUrl = environment.mediaUrlRemoto;
   query:string ='';
   user;
-
+  loading=false;
   blogs:Post;
   blog:any;
   tmpData:[];
@@ -40,10 +40,12 @@ export class ArticlesHomeComponent implements OnInit {
   }
 
   getPosts(): void {
+    this.loading = true;
     this.postService.getRecientes().subscribe(
       res =>{
         this.blogs = res;
-        error => this.error = error
+        error => this.error = error;
+        this.loading = false;
       }
     );
   }

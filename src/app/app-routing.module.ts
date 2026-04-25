@@ -61,10 +61,10 @@ const routes: Routes = [
   { path: 'pasarela-subcripcion/:id', component: PasarelaSubcriptionComponent },
   //pasarela-subcripcion/P-1PJ18025B84179353MTF4PKQ
   // { path: 'subscribir/:id', component: ArticleComponent },
-  { path: 'gracias', component: GraciasComponent },
-  { path: 'fallo', component: FalloComponent },
-  { path: 'cancel-payment', component: CancelPaymentComponent },
-  { path: 'execute-payment', component: ExecutePaymentComponent },
+  { path: 'checkout/gracias', component: GraciasComponent },
+  { path: 'checkout/fallo', component: FalloComponent },
+  { path: 'checkout/cancel-payment', component: CancelPaymentComponent },
+  { path: 'checkout/execute-payment', component: ExecutePaymentComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: HomeComponent },
 ];

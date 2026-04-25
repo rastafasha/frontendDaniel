@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PipesModule } from '../pipes/pipes.module';
 import { ComponentsModule } from '../components/components.module';
-// import { CintamiembroComponent } from './cintamiembro/cintamiembro.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -17,16 +17,19 @@ import { ComponentsModule } from '../components/components.module';
         FooterComponent,
         SidebarComponent,
         SlidertopComponent,
-        // CintamiembroComponent
+        LoadingComponent,
     ],
     exports: [
         HeaderComponent,
         FooterComponent,
         SidebarComponent,
         SlidertopComponent,
-        // CintamiembroComponent
-    ], imports: [CommonModule,
+        LoadingComponent,
+    ], imports: [
+        CommonModule,
         RouterModule,
         PipesModule,
-        ComponentsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        ComponentsModule
+    ], 
+    providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class SharedModule { }

@@ -17,6 +17,7 @@ import { ModalbinanceComponent } from './modalbinance/modalbinance.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { SideadvertisingComponent } from './sideadvertising/sideadvertising.component';
 import { SplashComponent } from './splash/splash.component';
+import { SharedModule } from '../shared/shared.module';
 // import {ScrollingModule} from '@angular/cdk/scrolling';
 @NgModule({ declarations: [
         ArticlesHomeComponent,
@@ -44,9 +45,13 @@ import { SplashComponent } from './splash/splash.component';
         ModalbinanceComponent,
         SideadvertisingComponent,
         SplashComponent,
-    ], imports: [CommonModule,
+    ], imports: [
+        CommonModule,
         RouterModule,
         PipesModule,
         FormsModule,
-        NgxPayPalModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        NgxPayPalModule,
+        // ScrollingModule
+    ], 
+        providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ComponentsModule { }

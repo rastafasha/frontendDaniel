@@ -11,6 +11,7 @@ import { BannerService } from 'src/app/services/banner.service';
 export class SlidertopComponent implements OnInit {
   banners: Banner;
   error:string;
+  loading = false;
 
   constructor(
     private bannerService: BannerService,
@@ -21,12 +22,12 @@ export class SlidertopComponent implements OnInit {
   }
 
   getBanner(): void {
-   
+   this.loading = true;
     this.bannerService.getBannerActivos().subscribe(
       res =>{
         this.banners = res;
         error => this.error = error
-        // console.log(this.banners);
+        this.loading = false;
       }
     );
   }
