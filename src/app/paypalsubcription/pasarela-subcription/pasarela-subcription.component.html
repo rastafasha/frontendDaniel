@@ -1,21 +1,22 @@
 <div class="modal animate fadeInUp" id="viewPlan" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg modal-quickview woocommerce" role="document">
+  <div class="modal-dialog modal-md modal-quickview woocommerce" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close" (click)="onClose()">
           <span aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
 
         <div class="container">
-          <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="col-xs-12">
             <h1 style="text-align: center">
-              Subscription Plan: {{planpaypal.name}}
+              Subscription Plan: <br>
+              {{planSeleccionado?.name}}
             </h1>
-            <h2>{{planpaypal.payment_preferences.setup_fee.value |currency}}</h2>
-            <p>{{planpaypal.fixed_price |currency}}</p>
-            <p>{{planpaypal.billing_cycles[0].frequency.interval_unit}}</p>
+            <h2>{{planpaypal?.payment_preferences.setup_fee.value |currency}}</h2>
+            <p>{{planpaypal?.fixed_price |currency}}</p>
+            <p>{{planpaypal?.billing_cycles[0].frequency.interval_unit}}</p>
 
             <ngx-paypal [config]="SubcriptionConfig"></ngx-paypal>
           </div>

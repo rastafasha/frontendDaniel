@@ -26,7 +26,6 @@ export class SideadvertisingComponent implements OnInit {
       res =>{
         this.sideadvices = res;
         error => this.error = error
-        console.log(this.sideadvices);
       }
     );
   }

@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
     "start:prod": "ng build && npx http-server dist/frontendDaniel/browser -p 8080 -P http://localhost:8080? --cors -a localhost",
     "watch": "ng build --watch --configuration development",
+    "build": "ng build",
+    "build:articleapp": "ng build --configuration articleapp",
     "test": "ng test"
   },
   "private": true,

@@ -41,9 +41,7 @@ export class AllPlansComponent implements OnInit {
     this.getPlanes();
     // this.getProductos();
     this.getUser();
-    this.getPlan();
-    
-    
+    // this.getPlan();
   }
 
   getPlanes(): void {
@@ -98,7 +96,6 @@ export class AllPlansComponent implements OnInit {
 
 openViewModal(plan: any): void {
     this.planSeleccionado = plan;
-
   }
 
 

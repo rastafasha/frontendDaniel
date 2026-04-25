@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';  
+import { Component, OnInit, ElementRef, ViewChild, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';  
 import {
   PayPalScriptService,
   IPayPalConfig,
@@ -28,6 +28,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
   @ViewChild('paypal') paypalElement: ElementRef;
   @ViewChild("advanced") advancedSubscription?: NgxPaypalComponent;
   @Input() planSeleccionado: any;
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
   private plans = [];
   public planes: planPaypalSubcription;
@@ -53,15 +54,31 @@ export class PasarelaSubcriptionComponent implements OnInit {
   }
 
   ngOnInit() { 
-    this.getPlanes();
-    this.planSeleccionado = this.planSeleccionado || this.plans[0];
-    this.getPlan();
-    this.iniciarPaypal();
     // this.activatedRoute.params.subscribe( ({id}) => this.getPlan(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.initConfig(id));
+    // this.activatedRoute.params.subscribe( ({id}) => this.initConfig(id));
 
     // this.initConfig();
   
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+  // Verificamos si planSeleccionado cambió y tiene valor
+  if (changes['planSeleccionado'] && changes['planSeleccionado'].currentValue) {
+    console.log('Plan recibido por Input:', this.planSeleccionado);
+    this.getPlan(); // Ahora sí tenemos el ID
+    this.initConfig(this.planSeleccionado?.id); // Ahora sí tenemos el ID
+  }
+}
+
+
+  getPlan(): void {
+    this.payPalService.getPlanPaypal(this.planSeleccionado?.id).subscribe(
+      res =>{
+        this.planpaypal = res;
+        error => this.error = error;
+        this.iniciarPaypal();
+      }
+    );
   }
 
   iniciarPaypal(){
@@ -152,25 +169,8 @@ export class PasarelaSubcriptionComponent implements OnInit {
       throw new Error('Method not implemented.');
     }
 
-
-    getPlanes(): void {
-    this.payPalService.getPlanPaypals().subscribe(
-      res =>{
-        this.planes = res.plans;
-        error => this.error = error
-        // console.log(this.planes);
-      }
-    );
-  }
-
-  getPlan(): void {
-    this.payPalService.getPlanPaypal(this.planSeleccionado).subscribe(
-      res =>{
-        this.planpaypal = res;
-        error => this.error = error;
-        // console.log(this.planpaypal);
-      }
-    );
+onClose() {
+    this.closeModal.emit();
   }
 
   openModal(orderID, status, email, payerID, amount, paypalplanId): void{

@@ -58,6 +58,51 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "articleapp": {
+              "outputPath": "dist/articleapp",
+              "index": {
+                "input": "src/env/articleapp/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.articleapp.ts"
+                }
+              ],
+             "assets": [
+                "src/assets",
+                {
+                  "glob": "_redirects",
+                  "input": "src",
+                  "output": "/"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/env/articleapp/assets",
+                  "output": "/assets"
+                },
+                {
+                  "glob": "manifest.webmanifest", 
+                  "input": "src/env/articleapp/", 
+                  "output": "/"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "75kb",
+                  "maximumError": "90kb"
+                }
+              ],
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json"
             }
           },
           "defaultConfiguration": "production"
