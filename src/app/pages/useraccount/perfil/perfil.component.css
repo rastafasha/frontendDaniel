@@ -55,3 +55,30 @@
     }
 }
 
+.social{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(245, 245, 245, 0.382);
+    padding: 20px;
+    border-radius: 100px;
+}
+
+.social li{
+    list-style: none;
+}
+
+.social li a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--vinotinto);
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}   
+

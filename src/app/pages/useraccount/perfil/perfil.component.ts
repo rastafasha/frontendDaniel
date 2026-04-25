@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FavoriteItemModel, Favorito } from 'src/app/models/favoriter-item-model';
 import { Payment } from 'src/app/models/payment';
 import { Post } from 'src/app/models/post';
-import { Profile } from 'src/app/models/profile';
+import { Profile, RedesSociales } from 'src/app/models/profile';
 import { subcriptionPaypal } from 'src/app/models/subcriptionPaypal';
 import { User } from 'src/app/models/user';
 import { FavoriteService } from 'src/app/services/favorite.service';
@@ -33,6 +33,8 @@ export class PerfilComponent implements OnInit {
   uid:User;
   subcriptionPaypal: subcriptionPaypal;
   pagosbl;
+
+  redssociales: RedesSociales[] = [];
 
   constructor(
     private userService: UserService,
@@ -75,9 +77,7 @@ export class PerfilComponent implements OnInit {
    
     this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
     this.activatedRoute.params.subscribe( ({id}) => this.getUserSubcription(id));
-    
     this.getUserPagos();
-    
     
   }
 
@@ -85,20 +85,20 @@ export class PerfilComponent implements OnInit {
 
     this.pagoService.getPagosbyUser(this.user.uid).subscribe((data: any) => {
       this.pagos = data;
-      // this.blogcomprados = data[0].blog;
-      // console.log(this.pagos);
-      // console.log(this.blogcomprados);
-     
     });
-
-    
   }
 
   listar(id:string){
     if(!id == null || !id == undefined || id){
       this.profileService.listarUsuario(id).subscribe(
-        response =>{
-          this.profile = response[0];
+        (resp:Profile) =>{
+          this.profile = resp;
+          
+        if (typeof this.profile.redssociales === 'string') {
+          this.redssociales = JSON.parse(this.profile.redssociales);
+        } else {
+          this.redssociales = this.profile.redssociales || [];
+        }
         }
       );
     }else{

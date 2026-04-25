@@ -27,6 +27,7 @@ export class AllPlansComponent implements OnInit {
   subcription:geSubcription;
 
   planConfig:planPaypalSubcription;
+  planSeleccionado!: any | null;
 
   constructor(
     private paypalSubcription: PaypalSubcriptionService,
@@ -95,7 +96,10 @@ export class AllPlansComponent implements OnInit {
     
   }
 
+openViewModal(plan: any): void {
+    this.planSeleccionado = plan;
 
+  }
 
 
 

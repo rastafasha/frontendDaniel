@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';  
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';  
 import {
   PayPalScriptService,
   IPayPalConfig,
@@ -27,6 +27,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
 
   @ViewChild('paypal') paypalElement: ElementRef;
   @ViewChild("advanced") advancedSubscription?: NgxPaypalComponent;
+  @Input() planSeleccionado: any;
 
   private plans = [];
   public planes: planPaypalSubcription;
@@ -53,7 +54,10 @@ export class PasarelaSubcriptionComponent implements OnInit {
 
   ngOnInit() { 
     this.getPlanes();
-    this.activatedRoute.params.subscribe( ({id}) => this.getPlan(id));
+    this.planSeleccionado = this.planSeleccionado || this.plans[0];
+    this.getPlan();
+    this.iniciarPaypal();
+    // this.activatedRoute.params.subscribe( ({id}) => this.getPlan(id));
     this.activatedRoute.params.subscribe( ({id}) => this.initConfig(id));
 
     // this.initConfig();
@@ -159,8 +163,8 @@ export class PasarelaSubcriptionComponent implements OnInit {
     );
   }
 
-  getPlan(id): void {
-    this.payPalService.getPlanPaypal(id).subscribe(
+  getPlan(): void {
+    this.payPalService.getPlanPaypal(this.planSeleccionado).subscribe(
       res =>{
         this.planpaypal = res;
         error => this.error = error;

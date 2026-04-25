@@ -6,11 +6,12 @@
                 <div class="BannPpal">
                     <div class="container">
                         <div class="inf">
-                            <h1 class="Up {{banner.is_activeText}}">{{banner.titulo}}</h1>
-                            <h4 class="Up {{banner.is_activeText}}">{{banner.subtitle}}</h4>
-                            <div [innerHtml]="banner.description | safe: 'html' "></div>
+                            <h1 [ngClass]="banner.color" class="Up {{banner.is_activeText}}">{{banner.titulo}}</h1>
+                            <div [ngClass]="banner.colortext"[innerHtml]="banner.description | safe: 'html' "></div>
                             <div class="text-center">
-                                <a href="{{banner.url}}" target="{{banner.target}}" class="btn btn-outline-dann {{banner.gotBoton}}">{{banner.botonName}}  </a>
+                                <a href="{{banner.url}}" target="{{banner.target}}" [ngClass]="banner.colortextboton" class="btn btn-outline-dann {{banner.gotBoton}}">
+                                    {{banner.botonName}}  
+                                </a>
 
                             </div>
                         </div>

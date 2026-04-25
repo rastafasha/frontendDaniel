@@ -1,0 +1,40 @@
+{
+    "iconos": [
+        {
+            "icono": "fa-facebook",
+            "name": "facebook"
+        },
+        {
+            "icono": "fa-twitter",
+            "name": "twitter"
+        },
+        {
+            "icono": "fa-instagram",
+            "name": "instagram"
+        },
+        {
+            "icono": "fa-linkedin",
+            "name": "linkedin"
+        },
+        {
+            "icono": "fa-github",
+            "name": "github"
+        },
+        {
+            "icono": "fa-youtube",
+            "name": "youtube"
+        },
+        {
+            "icono": "fa-pinterest",
+            "name": "pinterest"
+        },
+        {
+            "icono": "fa-snapchat",
+            "name": "snapchat"
+        },
+        {
+            "icono": "fa-tiktok",
+            "name": "tiktok"
+        }
+    ]
+}

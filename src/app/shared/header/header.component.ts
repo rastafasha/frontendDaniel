@@ -303,6 +303,36 @@ export class HeaderComponent implements OnInit {
     this.ngOnInit();
   }
 
+
+  darkmode(dark:string){
+    let body = document.querySelector('body');
+    let header = document.querySelector('header');
+    let aside = document.querySelector('aside');
+
+    const classExists = document.getElementsByClassName(
+      'dark'
+     ).length > 0;
+
+    var dayNight = document.getElementsByClassName("dayNight");
+      for (var i = 0; i<dayNight.length; i++) {
+        dayNight[i].classList.toggle("active");
+        body.classList.toggle('dark');
+        header.classList.toggle('dark');
+        aside.classList.toggle('dark');
+
+      }
+      // localStorage.setItem('dark', dark);
+
+      if (classExists) {
+        localStorage.removeItem('dark');
+        // console.log('✅ class exists on page, removido');
+      } else {
+        localStorage.setItem('dark', dark);
+        // console.log('⛔️ class does NOT exist on page, agregado');
+      }
+      // console.log('Pulsado');
+  }
+
   
 
 }

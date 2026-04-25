@@ -31,6 +31,7 @@
 @import url('profile.css');
 @import url('ns-style-growl.css');
 @import url('estilo-modalInvoice.css');
+@import url('darkmode.css');
 
 :root {
     --vinotinto: #930b32;

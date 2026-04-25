@@ -21,10 +21,7 @@ export class Profile {
     public nombrePaypal: string,
     // public emailBinance: string,
     // public userIdBinance: string,
-    public facebook: string,
-    public instagram: string,
-    public twitter: string,
-    public linkedin: string,
+    public redssociales: string,
     public createdAt: Date,
     public updatedAt: Date,
     public usuario?: User,
@@ -50,4 +47,13 @@ export class Profile {
     }
 
   }
+}
+
+export class RedesSociales{
+  constructor(
+    public index?: string,
+    public name_red?: string,
+    public icono?: string,
+    public usuario_red?: string,
+  ){}
 }

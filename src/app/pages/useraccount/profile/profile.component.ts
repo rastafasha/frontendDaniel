@@ -9,6 +9,9 @@ import { environment } from 'src/environments/environment';
 import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { PaisService } from 'src/app/services/pais.service';
+import { IconosService } from 'src/app/services/iconos.service';
+import { Icons } from 'src/app/models/Icons';
 
 
 @Component({
@@ -51,6 +54,9 @@ export class ProfileComponent implements OnInit {
   public msm_success = false;
   public pass_error = false;
 
+  option_selectedd: number = 1;
+    solicitud_selectedd: any = 1;
+
   public usuario: User;
 
   public perfilForm: FormGroup;
@@ -58,6 +64,12 @@ export class ProfileComponent implements OnInit {
   public imgTemp: any = null;
 
   public direcciones : Profile[];
+  redssociales: any; 
+  name_red:string;
+usuario_red:string;
+icono:string;
+
+listIcons:Icons;
 
   constructor(
     private location: Location,
@@ -66,7 +78,9 @@ export class ProfileComponent implements OnInit {
     private router : Router,
     private profileService: ProfileService,
     private fb: FormBuilder,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private paisService: PaisService,
+    private iconoService: IconosService,
 
   ) {
     this.usuario = this.userService.usuario;
@@ -81,9 +95,56 @@ export class ProfileComponent implements OnInit {
     this.activatedRoute.params.subscribe( ({id}) => this.getUserProfile(id));
     
    
-    // this.listar();
+    this.getPaises();
+    this.cargar_iconos();
     
   }
+
+  getPaises(){
+    this.paisService.getPaises().subscribe(
+      res =>{
+        this.paises = res;
+        // console.log('paises',this.paises);
+      }
+    );
+  }
+
+  cargar_iconos() {
+    this.iconoService.getIcons().subscribe(
+      (resp: any) => {
+        this.listIcons = resp.iconos;
+        // console.log(this.listIcons.iconos)
+
+      }
+    )
+  }
+   addRedSocial() {
+    if (this.redssociales) {
+      this.redssociales.push({
+        index: this.redssociales.length + 1,
+        name_red: this.name_red,
+        usuario_red: this.usuario_red,
+        icono: this.icono
+      });
+    } else {
+      this.redssociales = [
+        {
+          index: 1, // initial index
+          name_red: this.name_red,
+          usuario_red: this.usuario_red,
+          icono: this.icono
+        },
+      ];
+    }
+    this.name_red = '';
+    this.usuario_red = '';
+    this.icono = '';
+  }
+
+  deleteRed(i: any) {
+    this.redssociales.splice(i, 1);
+  }
+
   closeMenu(){
     var menuLateral = document.getElementsByClassName("sidebar");
       for (var i = 0; i<menuLateral.length; i++) {
@@ -150,10 +211,7 @@ export class ProfileComponent implements OnInit {
             shortdescription: this.profile.shortdescription,
             emailPaypal: this.profile.emailPaypal,
             nombrePaypal: this.profile.nombrePaypal,
-            facebook: this.profile.facebook,
-            instagram: this.profile.instagram,
-            twitter: this.profile.twitter,
-            linkedin: this.profile.linkedin,
+            redssociales: this.profile.redssociales,
             usuario: this.user.uid,
             img: this.profile.img
           });
@@ -183,10 +241,7 @@ export class ProfileComponent implements OnInit {
       shortdescription: ['', Validators.required],
       emailPaypal: [''],
       nombrePaypal: [''],
-      facebook: [''],
-      instagram: [''],
-      twitter: [''],
-      linkedin: [''],
+      redssociales: [''],
       usuario: [this.user.uid],
       id: [''],
     });
@@ -218,24 +273,16 @@ export class ProfileComponent implements OnInit {
   get emailPaypal() {
     return this.perfilForm.get('emailPaypal');
   }
-  get facebook() {
-    return this.perfilForm.get('facebook');
-  }
-  get instagram() {
-    return this.perfilForm.get('instagram');
-  }
-  get twitter() {
-    return this.perfilForm.get('twitter');
-  }
+  
+  
   get nombrePaypal() {
     return this.perfilForm.get('nombrePaypal');
-  }
-  get linkedin() {
-    return this.perfilForm.get('linkedin');
   }
   get image() {
     return this.perfilForm.get('adicional');
   }
+
+  
 
 
   cambiarImagen(file: File){
@@ -266,8 +313,12 @@ export class ProfileComponent implements OnInit {
 
 
 
-  guardarPerfil() {
-
+  guardarPerfil() :void{
+    if(!this.perfilForm.valid){
+      //mostramos las alertas de los campos requeridos
+      this.perfilForm.markAllAsTouched(); // Esto activa las validaciones visuales
+      return
+    }
     
     const formData = new FormData();
      formData.append('first_name', this.perfilForm.get('first_name').value);
@@ -279,10 +330,6 @@ export class ProfileComponent implements OnInit {
      formData.append('telmovil', this.perfilForm.get('telmovil').value);
      formData.append('shortdescription', this.perfilForm.get('shortdescription').value);
      formData.append('emailPaypal', this.perfilForm.get('emailPaypal').value);
-     formData.append('facebook', this.perfilForm.get('facebook').value);
-     formData.append('instagram', this.perfilForm.get('instagram').value);
-     formData.append('twitter', this.perfilForm.get('twitter').value);
-     formData.append('linkedin', this.perfilForm.get('linkedin').value);
 
 
     if (this.profile ) {
@@ -290,6 +337,7 @@ export class ProfileComponent implements OnInit {
         ...this.perfilForm.value,
         _id: this.profile._id,
         usuario: this.user.uid,
+        redssociales: this.redssociales
       }
       this.profileService.updateProfile(data).subscribe(
         res => {
@@ -313,8 +361,20 @@ export class ProfileComponent implements OnInit {
         error => this.errors = error
       );
     }
-    return false;
   }
+
+
+  optionSelected(value: number) {
+      this.option_selectedd = value;
+      if (this.option_selectedd === 1) {
+  
+        // this.ngOnInit();
+      }
+      if (this.option_selectedd === 2) {
+        this.solicitud_selectedd = null;
+      }
+    }
+
 
 
 

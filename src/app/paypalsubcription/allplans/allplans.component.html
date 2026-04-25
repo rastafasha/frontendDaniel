@@ -20,7 +20,11 @@
                                 <p>status: {{plan.status}}</p>
                             </div>
                             <div class="pricing-footer">
-                                <button  class="btn db-button-color-square btn-lg" [routerLink]="['/pasarela-subcripcion', plan.id]"> <i class="fa fa-cart"></i> Info</button>
+                                <!-- <button  class="btn db-button-color-square btn-lg" [routerLink]="['/pasarela-subcripcion', plan.id]"> <i class="fa fa-cart"></i> Info</button> -->
+                                 <button  class="btn db-button-color-square btn-lg" (click)="openViewModal(plan.id)"
+                                                                            href="javascript:void(0)"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#viewPlan"> <i class="fa fa-cart"></i> Info</button>
                             </div>
                         </div>
                     </div>
@@ -33,4 +37,5 @@
 
 
 
-<app-modalplans></app-modalplans>
+<!-- <app-modalplans></app-modalplans> -->
+ <app-pasarela-subcription [planSeleccionado]="planSeleccionado"></app-pasarela-subcription>

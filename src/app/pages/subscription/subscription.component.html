@@ -9,7 +9,7 @@
                     <div class="db-pricing-eleven" [style.background]="plan.color">
                         <div class="price">
                             <div *ngIf="plan.price ">
-                                <sup>$</sup>{{plan.price}}
+                                {{plan.price |currency}}
                             </div>
                             <div *ngIf="!plan.price ">
                                 <sup>$</sup>0
@@ -22,7 +22,9 @@
                         <div [innerHtml]="plan.description | safe: 'html'" class="description"></div>
                         <div class="pricing-footer">
                             <div *ngIf="plan.price ">
-                                <button href="#" class="btn db-button-color-square btn-lg" (click)="addToCart()"> <i class="fa fa-cart"></i> Subscribirme</button>
+                                <button href="#" class="btn db-button-color-square btn-lg" (click)="addToCart()"> 
+                                    <i class="fa fa-cart"></i> Subscribirme
+                                </button>
                             </div>
                             <div *ngIf="!plan.price ">
                                 <a routerLink="login" class="btn db-button-color-square">Registrarme</a>

@@ -12,6 +12,8 @@ export class SlidertopComponent implements OnInit {
   banners: Banner;
   error:string;
   loading = false;
+  light: string = 'white';
+  dark: string = 'black';
 
   constructor(
     private bannerService: BannerService,
