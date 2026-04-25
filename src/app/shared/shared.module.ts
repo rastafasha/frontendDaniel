@@ -9,6 +9,7 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { PipesModule } from '../pipes/pipes.module';
 import { ComponentsModule } from '../components/components.module';
 import { LoadingComponent } from './loading/loading.component';
+import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-installer.component';
 
 
 
@@ -18,6 +19,7 @@ import { LoadingComponent } from './loading/loading.component';
         SidebarComponent,
         SlidertopComponent,
         LoadingComponent,
+        PwaNotifInstallerComponent
     ],
     exports: [
         HeaderComponent,
@@ -25,6 +27,7 @@ import { LoadingComponent } from './loading/loading.component';
         SidebarComponent,
         SlidertopComponent,
         LoadingComponent,
+        PwaNotifInstallerComponent
     ], imports: [
         CommonModule,
         RouterModule,

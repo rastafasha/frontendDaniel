@@ -13,6 +13,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.2.21",
+    "@angular/cdk": "^19.2.19",
     "@angular/common": "^19.2.21",
     "@angular/compiler": "^19.2.21",
     "@angular/core": "^19.2.21",
@@ -44,7 +45,6 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.0" 
+    "typescript": "~5.7.0"
   }
-
 }
