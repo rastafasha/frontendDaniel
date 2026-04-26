@@ -9,7 +9,10 @@
                             <h1 [ngClass]="banner.color" class="Up {{banner.is_activeText}}">{{banner.titulo}}</h1>
                             <div [ngClass]="banner.colortext"[innerHtml]="banner.description | safe: 'html' "></div>
                             <div class="text-center">
-                                <a href="{{banner.url}}" target="{{banner.target}}" [ngClass]="banner.colortextboton" class="btn btn-outline-dann {{banner.gotBoton}}">
+                                <a *ngIf="banner.target ==='_blank'" href="{{banner.url}}" target="{{banner.target}}" [ngClass]="banner.colortextboton" class="btn btn-outline-dann {{banner.gotBoton}}">
+                                    {{banner.botonName}}  
+                                </a>
+                                <a *ngIf="banner.target ==='_self'" routerLink="{{banner.url}}" target="{{banner.target}}" [ngClass]="banner.colortextboton" class="btn btn-outline-dann {{banner.gotBoton}}">
                                     {{banner.botonName}}  
                                 </a>
 
