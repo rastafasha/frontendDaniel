@@ -12,7 +12,7 @@
                                 <a *ngIf="banner.target ==='_blank'" href="{{banner.url}}" target="{{banner.target}}" [ngClass]="banner.colortextboton" class="btn btn-outline-dann {{banner.gotBoton}}">
                                     {{banner.botonName}}  
                                 </a>
-                                <a *ngIf="banner.target ==='_self'" routerLink="{{banner.url}}" target="{{banner.target}}" [ngClass]="banner.colortextboton" class="btn btn-outline-dann {{banner.gotBoton}}">
+                                <a *ngIf="banner.target ==='_self'" [routerLink]="['/blog', banner.url]"  [ngClass]="banner.colortextboton" class="btn btn-outline-dann {{banner.gotBoton}}">
                                     {{banner.botonName}}  
                                 </a>
 
