@@ -29,7 +29,7 @@ export class PerfilComponent implements OnInit {
   blogcomprados: Post;
   favoritos: Favorito;
   favorito: Favorito;
-  pagos: any[] = [];
+  pagos: Payment;
   uid: User;
   subcriptionPaypal: subcriptionPaypal;
   pagosbl;
@@ -55,47 +55,29 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.getUser();
-    this.closeModalProfile();
-    this.activatedRoute.params.subscribe(({ id }) => this.listarBlogsUser(id));
-    this.activatedRoute.params.subscribe(({ id }) => this.listarfavoritessUser(id));
-  }
-
-  getUserServer(id: string) {
-    if (id !== null && id !== undefined) {
-      this.userService.getUserById(id).subscribe(
-        res => {
-          this.user = res[0];
-        }
-      );
-    }
-    this.activatedRoute.params.subscribe(({ id }) => this.listar(id));
-
-  }
-
-  getUser(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
+   this.user = JSON.parse(localStorage.getItem('user'));
     if (!this.user || this.user === null) {
       this.router.navigateByUrl('/login')
+    }else{
+      this.getProfile();
+      
+      // this.listarfavoritessUser();
     }
-    this.activatedRoute.params.subscribe(({ id }) => this.listar(id));
-    this.activatedRoute.params.subscribe(({ id }) => this.getUserSubcription(id));
-    this.getUserPagos();
-
+    this.closeModalProfile();
   }
 
-  getUserPagos() {
-    this.isLoadingPagos = true;
-    this.pagoService.getPagosbyUser(this.user.uid).subscribe((data: any) => {
-      this.pagos = data;
-      this.isLoadingPagos = false;
-    });
+  getUserServer() {
+    this.userService.getUserById(this.user.uid).subscribe(
+      res => {
+        this.user = res;
+      }
+    );
   }
 
-  listar(id: string) {
-    this.isLoading = true;
-    if (!id == null || !id == undefined || id) {
-      this.profileService.listarUsuario(id).subscribe(
+ 
+
+  getProfile() {
+   this.profileService.listarUsuario(this.user.uid).subscribe(
         (resp: Profile) => {
           this.profile = resp;
           this.isLoading = false;
@@ -104,39 +86,52 @@ export class PerfilComponent implements OnInit {
           } else {
             this.redssociales = this.profile.redssociales || [];
           }
+          
+          if(this.profile.blog ){
+            this.listarBlogsUser();
+          }
+          if(this.profile.pagos ){
+            this.getUserPagos();
+          }
+          if(this.profile.subcription ){
+            this.getUserSubcription();
+          }
+          if(this.profile.favoritos ){
+            this.listarfavoritessUser();
+          }
+      
         }
       );
-    } else {
-      console.log('no hay registro')
-    }
 
   }
 
-  listarBlogsUser(id: string) {
+  listarBlogsUser() {
     this.isLoadingBlog = true;
-    if (!id == null || !id == undefined || id) {
-      this.postService.getByUser(id).subscribe(
-        response => {
-          this.blogs = response;
-          this.isLoadingBlog = false;
-        }
-      );
-    } else {
-      console.log('no hay registro')
-    }
-
+    this.postService.getByUser(this.user.uid).subscribe(
+      response => {
+        this.blogs = response;
+        this.isLoadingBlog = false;
+      }
+    );
+   
+  }
+   getUserPagos() {
+    this.isLoadingPagos = true;
+    this.pagoService.getPagosbyUser(this.user.uid).subscribe((data: any) => {
+      this.pagos = data;
+      this.isLoadingPagos = false;
+    });
   }
 
-  listarfavoritessUser(id: string) {
+  listarfavoritessUser() {
     this.isLoadingFavorite = true;
-    if (!id == null || !id == undefined || id) {
-      this.favoriteService.listarUsuarioFavorites(id).subscribe(
-        response => {
-          this.favoritos = response;
-          this.isLoadingFavorite = false;
-        }
-      );
-    }
+    this.favoriteService.listarUsuarioFavorites(this.user.uid).subscribe(
+      response => {
+        this.favoritos = response;
+        this.isLoadingFavorite = false;
+      }
+    );
+   
 
   }
 
@@ -150,7 +145,7 @@ export class PerfilComponent implements OnInit {
     );
   }
 
-  getUserSubcription(id: string) {
+  getUserSubcription() {
     this.isLoadingSubs = true;
     this.subcriptionPaypalService.getByUser(this.user.uid).subscribe((data: any) => {
       this.subcriptionPaypal = data;

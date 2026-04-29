@@ -12,8 +12,8 @@
                 (click)="goBack()">Volver</button>
         </div>
     </div>
-
-    <form class="form-horizontal form-material" [formGroup]="perfilForm">
+    <app-loading *ngIf="isLoading"></app-loading>
+    <form  *ngIf="!isLoading" class="form-horizontal form-material" [formGroup]="perfilForm">
         <div class="tab-content-set">
             <ul class="nav">
                 <li>

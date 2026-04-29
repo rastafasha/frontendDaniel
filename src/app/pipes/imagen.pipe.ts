@@ -12,7 +12,7 @@ export class ImagenPipe implements PipeTransform {
   transform(img: string, tipo: 'users'|'pagos'|'posts'|'profiles'|'banners'): string {
 
     if(!img){
-      return `${base_url}/pagos/no-image.jpg`;
+      return `assets/img/no-image.jpg`;
     } else if(img.includes('https')){
       return img;
     } else if(img){

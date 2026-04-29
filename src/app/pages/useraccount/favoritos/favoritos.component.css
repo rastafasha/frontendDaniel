@@ -5,10 +5,16 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     height: 80px;
+    gap: 15px;
 }
 
 
 .whotofollow .tofolow h3{
     font-size: 1.3rem;
     color: var(--vinotinto);
+}
+.whotofollow .tofolow a {
+    font-size: 1.3rem;
+    color: var(--vinotinto);
+    text-decoration: none;
 }

@@ -37,7 +37,6 @@ export class SidebarComponent implements OnInit {
     private userService: UserService,
     private profileService: ProfileService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
 
   ) { }
 

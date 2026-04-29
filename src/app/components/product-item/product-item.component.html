@@ -46,18 +46,15 @@
         </div>
         <div *ngIf="usuario">
             <div class="options-icons" *ngIf="usuario.role === 'MEMBER' || usuario.role === 'ADMIN' || usuario.role === 'EDITOR' || usuario.role === 'SUPERADMIN'" >
-                <a class="pointer btn btn-outline-danger" id="notification-trigger" (click)="agregarLista()">
-                    <img src="./assets/svg/marcador.svg" alt="">
+                <a class="pointer btn btn-outline-danger" id="notification-trigger" (click)="agregarLista(product)">
+                    <i class="fa fa-bookmark-o"></i>
                 </a>
             </div>
         </div>
         
     </div>
 </div>
-<div class="notificacion">
-    <div class="cerrar" (click)="notificacionCerrar()"><i class="fa fa-close"></i></div>
-    <p>Artículo Agregado</p>
-</div>
+
 
 
 

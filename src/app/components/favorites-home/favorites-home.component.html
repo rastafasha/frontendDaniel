@@ -8,7 +8,7 @@
         <!-- favoritos -->
         <div *ngFor="let post of favoritos">
             <div class="gridfavoritos">
-                <div class="got-image" style="background-image: url('{{imageUrl}}/blogs/{{post.blog.img}}')"
+                <div class="got-image" [style.background-image]="'url(' + (post.blog.img | imagenPipe: 'blogs') + ')'"
                     title="{{post.blog.name}}" style="height: 50px; width: 50px;"></div>
                 <div class="info">
                     <h4><a [routerLink]="['/blog', post.blog.slug]">

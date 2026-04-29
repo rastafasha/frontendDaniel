@@ -268,13 +268,13 @@
   
   @media (max-width: 870px) {
     .logincontainer {
-      min-height: 800px;
+      min-height: 500px;
       height: 100vh;
     }
     .logincontainer .signin-signup {
       width: 100%;
       top: 95%;
-      transform: translate(-50%, -100%);
+      transform: translate(-50%, -130%);
       transition: 1s 0.8s ease-in-out;
     }
   
@@ -292,7 +292,7 @@
       flex-direction: row;
       justify-content: space-around;
       align-items: center;
-      padding: 2.5rem 8%;
+      padding: 2.5rem 5%;
       grid-column: 1 / 2;
     }
   
@@ -364,7 +364,7 @@
     }
   
     .logincontainer.sign-up-mode .signin-signup {
-      top: 5%;
+      top: 10%;
       transform: translate(-50%, 0);
     }
   }

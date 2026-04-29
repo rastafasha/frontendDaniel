@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
+import { Favorito } from 'src/app/models/favoriter-item-model';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
 import { CategoryService } from 'src/app/services/category.service';
+import { FavoriteService } from 'src/app/services/favorite.service';
 import { PostService } from 'src/app/services/post.service';
 import {environment} from 'src/environments/environment';
 
@@ -16,18 +19,22 @@ import {environment} from 'src/environments/environment';
 export class ByCategoryComponent implements OnInit {
 
   posts: Post;
+  post: Post;
   slug: Post;
   usuario: User;
   error: string;
   imagenSerUrl = environment.apiUrlMedia;
   categoria: Category;
-  title ='Post por categoría:'
+  title ='Post por categoría:';
+  favoriteItem: Favorito;
 
   constructor(
     private postService: PostService,
     private categoryService: CategoryService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private favoriteService: FavoriteService,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +77,22 @@ export class ByCategoryComponent implements OnInit {
       // console.log('no hay role')
     }
 
+  }
+
+  agregarLista(post:Post){
+    
+    const data = {
+      blog: post._id,
+      usuario: this.usuario.uid,
+    }
+    
+    this.favoriteService.createFavorite(data ).subscribe((res:any)=>{
+      this.favoriteItem = res;
+      console.log(this.favoriteItem);
+      // console.log('sending...', this.product.name)
+      this.toastr.success('Artículo agregado a Favoritos')
+      
+    });
   }
 
 }

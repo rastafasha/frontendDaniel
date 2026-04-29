@@ -5,19 +5,22 @@
         <form class="form-horizontal">
             <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                 <div class="input-group">
-                    <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.." [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                    <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar.."
+                        [(ngModel)]="query" aria-describedby="button-addon1" class="form-control border-0 bg-light">
                     <div class="input-group-append">
-                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" (click)="search()"
+                            name="submit" data-toggle="tooltip" title="mostrar todos"><i
+                                class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
         </form>
         <!-- buscador -->
         <!-- articles-->
-        <div  *ngIf="!usuario || usuario.role === 'USER'">
+        <div *ngIf="!usuario || usuario.role === 'USER'">
             <div class="col-xs-12 col-sm-6" *ngFor="let post of posts">
-                <div class="home-article " >
-    
+                <div class="home-article ">
+
                     <div class="article-info ">
                         <h1>{{post.name}}</h1>
                         <div class="introHome" [innerHtml]="post.introhome | safe: 'html' "></div>
@@ -26,28 +29,24 @@
                                 <div class="no-image"></div>
                             </div>
                             <div *ngIf="post">
-                                <div class="got-image" style="background-image: url('{{imagenSerUrl}}blogs/{{post.img}}'); height: 150px;" title="{{post.name}}"></div>
+                                <div class="got-image"
+                                    style="background-image: url('{{imagenSerUrl}}blogs/{{post.img}}'); height: 150px;"
+                                    title="{{post.name}}"></div>
                                 <!-- <img class="img-responsive" [src]="post.img | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
                             </div>
-                        </div>
-                    </div>
-                    <div class="article-options">
-                        <div class="options-icons">
-                            <!-- <a href="#">
-                                <img src="./assets/svg/marcador.svg" alt="">
-                            </a> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- articles-->
         <!-- article members-->
-        <div *ngIf="usuario || usuario.role === 'MEMBER' || usuario.role === 'ADMIN' || usuario.role === 'EDITOR' || usuario.role === 'SUPERADMIN'">
+        <div
+            *ngIf="usuario || usuario.role === 'MEMBER' || usuario.role === 'ADMIN' || usuario.role === 'EDITOR' || usuario.role === 'SUPERADMIN'">
             <div class="col-xs-12 col-sm-6" *ngFor="let post of posts">
                 <div class="home-article ">
-    
+
                     <div class="article-info ">
                         <h1><a [routerLink]="['/blog', post.slug]">{{post.name}}</a></h1>
                         <div class="introHome" [innerHtml]="post.introhome | safe: 'html' "></div>
@@ -57,7 +56,9 @@
                                     <div class="no-image"></div>
                                 </div>
                                 <div *ngIf="post">
-                                    <div class="got-image-s" style="background-image: url('{{imagenSerUrl}}blogs/{{post.img}}')" title="{{post.name}}"></div>
+                                    <div class="got-image-s"
+                                        style="background-image: url('{{imagenSerUrl}}blogs/{{post.img}}')"
+                                        title="{{post.name}}"></div>
                                     <!-- <img class="img-responsive" [src]="post.img | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
                                 </div>
                             </a>
@@ -65,15 +66,15 @@
                     </div>
                     <div class="article-options">
                         <div class="options-icons">
-                            <a href="#">
-                                <img src="./assets/svg/marcador.svg" alt="">
+                            <a (click)="agregarLista(post)">
+                                <i class="fa fa-bookmark-o"></i>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
 
         <!-- article -->
         <div class="boton-mas-articulos">

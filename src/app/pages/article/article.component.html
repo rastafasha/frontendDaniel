@@ -2,28 +2,25 @@
 
 
 <div class="container mt-3 mb-3">
-    <app-back-button [title]="title"></app-back-button>
+    <app-back-button [title]="blog.name"></app-back-button>
     <!-- left-side -->
     <div class="contenido ">
+        <app-loading *ngIf="isLoading"></app-loading>
         <!-- article -->
-        <div class="article">
+        <div class="article" *ngIf="!isLoading">
             <div class="userinfo">
                 <p><span class="resaltado">{{blogusuario.username}}</span>&nbsp; in &nbsp;<a
                         [routerLink]="['/blog/category/', blog.categoria._id]"
                         class="resaltado">{{blog.categoria.nombre}}</a>&nbsp;</p>
             </div>
             <div class="article-options">
-
                 <div class="time-story">
                     5 min read • Based on you reading history
                 </div>
                 <div class="options-icons">
                     <a class="pointer" (click)="addToFavorites()">
-                        <img src="./assets/svg/marcador.svg" alt="">
+                        <i class="fa fa-bookmark-o"></i>
                     </a>
-                    <!-- <a href="#">
-                        <img src="./assets/svg/agregar.svg" alt="">
-                    </a> -->
                     <a class="pointer">
                         <img src="./assets/svg/menu-puntos.svg" alt="">
                     </a>
@@ -38,7 +35,7 @@
                     <div *ngIf="blog">
                         <div class="got-image"
                             [style.background-image]="'url(' + (blog.img | imagenPipe: 'blogs') + ')'"
-                            style="height: 150px;" [title]="post.title">
+                            [title]="post.title">
                         </div>
                         <!-- <img class="img-responsive" [src]="blog.img | imagenPipe: 'posts'" alt=" {{blog.name}}" /> -->
                     </div>

@@ -7,13 +7,12 @@ import { LoginForm } from '../auth/interfaces/login-form.interface';
 import { CargarUsuario } from '../auth/interfaces/cargar-usuarios.interface';
 
 import {tap, map, catchError} from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 
 const base_url = environment.apiUrl;
 const userGoogle = environment.clientGoogle
-// declare const gapi: any;
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +20,18 @@ const userGoogle = environment.clientGoogle
 export class UserService {
 
   public auth2: any;
-  public usuario: User;
+  public usuario: User | null = null;
+  public estaAutenticado = false;
+
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private ngZone: NgZone
     ) {
-      // this.googleInit();
+      this.getLocalStorage();
   }
 
   get token():string{
@@ -36,11 +39,11 @@ export class UserService {
   }
 
   get role(): 'SUPERADMIN' | 'ADMIN' | 'EDITOR' | 'USER'|'MEMBER' {
-    return this.usuario.role;
+    return this.usuario?.role || 'USER';
   }
 
   get uid():string{
-    return this.usuario.uid || '';
+    return this.usuario?.uid || '';
   }
 
   get headers(){
@@ -51,44 +54,59 @@ export class UserService {
     }
   }
 
-
-
-  guardarLocalStorage(token: string, user: any){
+  guardarLocalStorage(token: string, userData: any){
     localStorage.setItem('token', token);
-    // localStorage.setItem('user', user);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(userData));
+    this.getLocalStorage();  // Populate service state and emit
   }
 
+  getLocalStorage() {
+    const authStr = localStorage.getItem('estaAutenticado');
+    this.estaAutenticado = authStr === 'true';
+    
+    const token = localStorage.getItem('token');
+    const userStr = localStorage.getItem('user');
+    
+    if (token && userStr) {
+      try {
+        const userData = JSON.parse(userStr);
+        // Create User instance from parsed data (match JSON shape)
+        this.usuario = new User(
+          userData.username || '',
+          userData.email || '',
+          userData.terminos || false,
+          undefined,  // password not stored
+          userData.google || false,
+          userData.role,
+          userData.uid,
+          userData.createdAt ? new Date(userData.createdAt) : undefined,
+          userData.updatedAt ? new Date(userData.updatedAt) : undefined
+        );
+        this.currentUserSubject.next(this.usuario);
+      } catch (e) {
+        console.error('Error parsing user from localStorage:', e);
+        this.usuario = null;
+        this.currentUserSubject.next(null);
+      }
+    } else {
+      this.usuario = null;
+      this.currentUserSubject.next(null);
+    }
+  }
 
-  // googleInit(){
-
-  //   return new Promise<void>((resolve) =>{
-
-  //     gapi.load('auth2', () =>{
-  //       this.auth2 = gapi.auth2.init({
-  //         client_id: userGoogle,
-  //         cookiepolicy: 'single_host_origin',
-  //       });
-  //       resolve();
-  //     });
-  //   });
-
-
-  // }
-
+  getEstaAutenticado(): boolean {
+    return this.estaAutenticado;
+  }
 
   logout(){
+    this.currentUserSubject.next(null);
     this.refresh();
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    // this.router.navigateByUrl('/home');
-    // this.auth2.signOut().then(()=>{
-    //   this.ngZone.run(()=>{
-    //     this.refresh();
-    //     this.router.navigateByUrl('/');
-    //   })
-    // })
-    
+    localStorage.removeItem('estaAutenticado');
+    this.usuario = null;
+    this.estaAutenticado = false;
+    this.router.navigateByUrl('/login');
   }
 
   refresh(): void {
@@ -104,10 +122,9 @@ export class UserService {
       }
     }).pipe(
       map((resp: any) => {
-        const { username, email, google, role,  uid} = resp.usuario;
+        const { username, email, google, role, uid } = resp.usuario;
 
-        this.usuario = new User(username, email, google, role, uid);
-
+        this.usuario = new User(username, email, !!google, undefined, !!google, role, uid);
         this.guardarLocalStorage(resp.token, resp.user);
         return true;
       }),
@@ -137,35 +154,25 @@ export class UserService {
 
     data = {
       ...data,
-      role: this.usuario.role
+      role: this.usuario?.role || 'USER'
     }
 
     return this.http.put(`${base_url}/usuarios/editar/${this.uid}`, data, this.headers);
   }
 
   update(user: User){
-    return this.http.put(`${base_url}/usuarios/editar/${user}`,this.headers);
+    return this.http.put(`${base_url}/usuarios/editar/${user.uid}`, user, this.headers);
   }
 
-  login(formData){
+  login(formData: any){
     return this.http.post(`${base_url}/auth/login`, formData)
     .pipe(
       tap((resp: any) => {
+        localStorage.setItem('estaAutenticado', 'true');
         this.guardarLocalStorage(resp.token, resp.user);
-        // this.refresh();
       })
     )
   }
-
-  // loginGoogle(token){
-  //   return this.http.post(`${base_url}/auth/google`, {token})
-  //   .pipe(
-  //     tap((resp: any) => {
-  //       this.guardarLocalStorage(resp.token, resp.user);
-  //       this.refresh();
-  //     })
-  //   )
-  // }
 
   cargarUsuarios(desde: number = 0){
 
@@ -200,18 +207,20 @@ export class UserService {
         map((resp:{ok: boolean, usuario: User}) => resp.usuario)
         );
   }
+
   getUsuarios()  {
     const url = `${base_url}/usuarios/all`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, usuarios: User}) => resp.usuarios)
+        map((resp:{ok: boolean, usuarios: User[]}) => resp.usuarios)
       )
   }
+
   getRecientes()  {
     const url = `${base_url}/usuarios/recientes`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, usuarios: User}) => resp.usuarios)
+        map((resp:{ok: boolean, usuarios: User[]}) => resp.usuarios)
       )
   }
 
@@ -223,53 +232,48 @@ export class UserService {
       )
   }
 
-
   deleteById(usuario: User){
-    const url = `${base_url}/usuarios/delete/${usuario}`;
+    const url = `${base_url}/usuarios/delete/${usuario.uid}`;
     return this.http.delete(url, this.headers)
   }
-
 
   editarRole(usuario: User){
     return this.http.put(`${base_url}/usuarios/editarRole/${usuario.uid}`, usuario, this.headers);
   }
+
   cambiarMembresia(usuario: User){
     return this.http.put(`${base_url}/usuarios/activarMiembro/${usuario.uid}`, usuario, this.headers);
   }
-
 
   closeMenu(){
     var menuLateral = document.getElementsByClassName("sidebar");
       for (var i = 0; i<menuLateral.length; i++) {
          menuLateral[i].classList.remove("active");
-
       }
   }
 
   searchUsers(usuario:any):Observable<any>{
-
     const url = `${base_url}/todo/coleccion/usuarios/${usuario}`;
     return this.http.get<any>(url, this.headers)
   }
-  set_recovery_token(email):Observable<any>{
 
+  set_recovery_token(email):Observable<any>{
     const url = `${base_url}/usuarios/user_token/set/${email}`;
     return this.http.get<any>(url, this.headers)
   }
 
-
-  verify_token(email,codigo):Observable<any>{
+  verify_token(email:string, codigo:string):Observable<any>{
     const url = `${base_url}/usuarios/user_verify/token/${email}/${codigo}`;
     return this.http.get<any>(url, this.headers)
   }
 
-  change_password(email,data):Observable<any>{debugger
+  change_password(email:string, data:any):Observable<any>{
     const url = `${base_url}/usuarios/user_password/change/${email}/${data}`;
-    return this.http.put<any>(url, this.headers)
-  }
-  forgotPassword(data):Observable<any>{debugger
-    const url = `${base_url}/usuarios/user_password/change/${data}`;
-    return this.http.put<any>(url, this.headers)
+    return this.http.put<any>(url, {}, this.headers)
   }
 
+  forgotPassword(data:any):Observable<any>{
+    const url = `${base_url}/usuarios/user_password/change/${data}`;
+    return this.http.put<any>(url, {}, this.headers)
+  }
 }

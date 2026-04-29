@@ -1,39 +1,40 @@
 <div class="container-header">
     <header class="header">
         <div class="left">
-            <div class="logo">
+            <div class="logo" *ngIf="usuario">
                 <a routerLink="/home">
                     <img src="./assets/svg/logo.svg" alt="logo ">
                 </a>
             </div>
+            <div class="logo" *ngIf="!usuario">
+                <img src="./assets/svg/logo.svg" alt="logo ">
+            </div>
         </div>
         <div class="right">
 
-            <div class="write" *ngIf="!user">
+            <!-- <div class="write" *ngIf="!user">
                 <a routerLink="login">
                     <i class="fa fa-user"></i>
                 </a>
+            </div> -->
+            <div class="notification" *ngIf="usuario" routerLink="/subcripciones">
+                <i class="fa fa-calendar-check-o"></i>
             </div>
-            <div class="notification" routerLink="subcripciones">
-                <i class="fa fa-bell-o"></i>
-            </div>
-            <div class="notification cart" *ngIf="user" (click)="openModalCart()">
+            <div class="notification cart" *ngIf="usuario" (click)="openModalCart()">
                 <div class="cart--notification">{{cartItems.length}}</div>
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <i class="fa fa-shopping-cart"></i>
             </div>
             <li class="nav-item">
-                    <div class="btns dayNight">
-                        <i class="fa fa-lightbulb-o" (click)="darkmode('dark')"></i>
-                    </div>
-                </li>
+                <div class="btns dayNight">
+                    <i class="fa fa-lightbulb-o" (click)="darkmode('dark')"></i>
+                </div>
+            </li>
             <div *ngIf="user">
                 <div class="user-header" (click)="openModalUser()">
-                    <!-- <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar"> -->
-                    <div *ngIf="!profile">
-                        <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
-                    </div>
-                    <div *ngIf="profile">
-                        <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                    
+                    <div >
+                        <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;"
+                            class="img-circle avatar">
 
                     </div>
                 </div>
@@ -57,7 +58,8 @@
                     <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;" class="img-circle avatar">
                 </div>
                 <div *ngIf="profile">
-                    <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;" class="img-circle avatar">
+                    <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;"
+                        class="img-circle avatar">
 
                 </div>
                 <div class="user-data">
@@ -92,7 +94,8 @@
             <img class="cart-modal__image" [src]="item.img | imagenPipe: 'blogs'" alt="">
             <div>
                 <p class="cart-modal__product">{{item.productName| slice: 0:10 }}...</p>
-                <p class="cart-modal__price">${{item.productPrice}} x{{item.quantity }} <span>${{item.quantity * item.productPrice| number: '1.1-2'}}</span> </p>
+                <p class="cart-modal__price">${{item.productPrice}} x{{item.quantity }} <span>${{item.quantity *
+                        item.productPrice| number: '1.1-2'}}</span> </p>
             </div>
             <img class="cart-modal__delete" (click)="deletItem(i)" src="./assets/svg/icon-delete.svg" alt="delete">
         </div>
@@ -100,7 +103,7 @@
             <p class="cart-empty">Your cart is empty</p>
         </div>
         <div *ngIf="cartItems.length > 0">
-            <p class="cart--button" routerLink="user/carrito" >Go to cart</p>
+            <p class="cart--button" routerLink="user/carrito">Go to cart</p>
         </div>
     </div>
 </div>
@@ -127,4 +130,3 @@
     </div>
 </div> -->
 <!-- fin cart modal -->
-

@@ -24,7 +24,7 @@ export class Payment {
    get imagenUrl(){
 
       if(!this.img){
-        return `${base_url}/pagos/no-image.jpg`;
+        return `assets/img/no-image.jpg`;
       } else if(this.img.includes('https')){
         return this.img;
       } else if(this.img){

@@ -28,10 +28,10 @@ export class Favorito {
 
   constructor(
 
-    public blog: Post,
-    public usuario: User,
-    public createdAt: Date,
-    public updatedAt: Date,
+    public createdAt?: Date,
+    public updatedAt?: Date,
+    public usuario?: User,
+    public blog?: Post,
     public img?: string,
     public _id?: string
 

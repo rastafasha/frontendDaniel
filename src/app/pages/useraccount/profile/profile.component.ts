@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
   passwordForm: FormGroup;
   errors:any = null;
   infoProfile: any;
+  isLoading = false;
 
   public formSumitted = false;
 
@@ -182,7 +183,7 @@ listIcons:Icons;
     if(!id == null || !id == undefined || id){
       this.profileService.listarUsuario(id).subscribe(
         response =>{
-          this.profile = response[0];
+          this.profile = response;
           // console.log('profileServer',this.profile);
         }
       );
@@ -320,6 +321,7 @@ listIcons:Icons;
       return
     }
     
+    
     const formData = new FormData();
      formData.append('first_name', this.perfilForm.get('first_name').value);
      formData.append('last_name', this.perfilForm.get('last_name').value);
@@ -339,8 +341,10 @@ listIcons:Icons;
         usuario: this.user.uid,
         redssociales: this.redssociales
       }
+      this.isLoading = true;
       this.profileService.updateProfile(data).subscribe(
         res => {
+          this.isLoading = false;
             Swal.fire('Guardado', 'Los cambios fueron actualizados', 'success');
             // this.ngOnInit();
             this.router.navigateByUrl(`/user-account/${this.user.uid}`);
@@ -352,8 +356,10 @@ listIcons:Icons;
         ...this.perfilForm.value,
         usuario: this.user.uid
       }
+      this.isLoading = true;
       this.profileService.createProfile(data).subscribe(
         res => {
+          this.isLoading = false;
             Swal.fire('Guardado', 'Los cambios fueron creados', 'success');
             // this.ngOnInit();
             this.router.navigateByUrl(`/user-account/${this.user.uid}`);

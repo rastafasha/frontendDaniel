@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Favorito } from 'src/app/models/favoriter-item-model';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
+import { FavoriteService } from 'src/app/services/favorite.service';
 import { PostService } from 'src/app/services/post.service';
 import { environment } from 'src/environments/environment';
 
@@ -19,10 +22,13 @@ export class AllComponent implements OnInit {
   error: string;
   imagenSerUrl = environment.apiUrlMedia;
   query:string ='';
+  favoriteItem: Favorito;
 
   constructor(
     private postService: PostService,
     private router: Router,
+     private favoriteService: FavoriteService,
+        public toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -58,6 +64,22 @@ export class AllComponent implements OnInit {
       // console.log('no hay role')
     }
 
+  }
+
+  agregarLista(post:Post){
+    
+    const data = {
+      blog: post._id,
+      usuario: this.usuario.uid,
+    }
+    
+    this.favoriteService.createFavorite(data ).subscribe((res:any)=>{
+      this.favoriteItem = res;
+      console.log(this.favoriteItem);
+      // console.log('sending...', this.product.name)
+      this.toastr.success('Artículo agregado a Favoritos')
+      
+    });
   }
 
 }

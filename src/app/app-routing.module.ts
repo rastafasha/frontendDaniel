@@ -24,12 +24,13 @@ import { ProfileComponent } from './pages/useraccount/profile/profile.component'
 import { RecommendedTopicComponent } from './pages/recommended-topic/recommended-topic.component';
 import { FavoritosComponent } from './pages/useraccount/favoritos/favoritos.component';
 import { BusquedaComponent } from './pages/busqueda/busqueda.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 
   {
     path: 'home',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: HomeComponent
   },
 

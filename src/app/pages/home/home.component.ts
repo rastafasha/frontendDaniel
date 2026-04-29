@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { SplashscreenService } from 'src/app/services/splashscreen.service';
 import { UserService } from 'src/app/services/user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
     selector: 'app-home',
@@ -10,36 +13,41 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./home.component.css'],
     standalone: false
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  user: User;
+  user: User | null = null;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private userService: UserService,
     private router: Router,
     private splashService:SplashscreenService
   ) { 
-    this.user = this.userService.usuario
   }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    // if(this.user){
-    //   this.refresh()
-    // }
-    
 
+    // Subscribe to reactive user from service
+    this.userService.currentUser$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(currentUser => {
+        this.user = currentUser;
+      });
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.splashService.stop();
+    }, 5000);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   refresh(): void {
     window.location.reload();
   }
-  ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    setTimeout(() => {
-      this.splashService.stop();
-   }, 5000);
-  }
-
 }

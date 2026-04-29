@@ -30,8 +30,7 @@ export class WhotofollowComponent implements OnInit {
     this.userService.getAllEditors().subscribe(
       res =>{
         this.editores = res;
-        error => this.error = error
-        console.log(this.editores);
+        error => this.error = error;
       }
     );
   }

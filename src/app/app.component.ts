@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { ConectividadService } from './services/conectividad.service';
 
 @Component({
     selector: 'app-root',
@@ -8,6 +9,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent{
   title = 'frontendDaniel';
-  
+  private connectivity = inject(ConectividadService);
   showSplash:boolean;
 }

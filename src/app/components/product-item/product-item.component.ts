@@ -11,6 +11,7 @@ import { Profile } from 'src/app/models/profile';
 import { ActivatedRoute } from '@angular/router';
 import { SubcriptionPaypalService } from 'src/app/services/subcriptionPaypal.service';
 import { subcriptionPaypal } from 'src/app/models/subcriptionPaypal';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -41,33 +42,24 @@ export class ProductItemComponent implements OnInit {
     private profileService: ProfileService,
     private activatedRoute: ActivatedRoute,
     private subcriptionPaypalService: SubcriptionPaypalService,
+    public toastr: ToastrService
     ) { 
       this.usuario = this.userService.usuario;
     }
 
   ngOnInit(): void {
-    this.getUser();
-    
-  }
-
-  addToCart(): void{
-    console.log('sending...')
-    this.messageService.sendMessage(this.product);
-  }
-
-  getUser(): void {
-
     this.usuario = JSON.parse(localStorage.getItem('user'));
     if(!this.usuario || !this.usuario.role || this.usuario.role === null ){
       // console.log('no hay role')
     }
     if(this.usuario){
 
-      this.activatedRoute.params.subscribe( ({id}) => this.listar(id));
+      this.activatedRoute.params.subscribe( ({id}) => this.getUsuarioRemoto(id));
       this.activatedRoute.params.subscribe( ({id}) => this.getUserSubcription(id));
     }
+    
   }
-
+  
   getUserSubcription(id:string){
 
     this.subcriptionPaypalService.getByUser(this.usuario.uid).subscribe((data: any) => {
@@ -75,7 +67,7 @@ export class ProductItemComponent implements OnInit {
     });
   }
 
-  listar(id:string){
+  getUsuarioRemoto(id:string){
   
     id = this.usuario.uid
     if(!id == null || !id == undefined || id){
@@ -89,47 +81,24 @@ export class ProductItemComponent implements OnInit {
     
   }
 
-  agregarLista(){
+  addToCart(): void{
+    this.messageService.sendMessage(this.product);
+    this.toastr.success('Artículo agregado al Carrito')
+  }
+
+
+  agregarLista(product:Post){
     
     const data = {
-      blog: this.product._id,
+      blog: product._id,
       usuario: this.usuario.uid,
     }
     
     this.favoriteService.createFavorite(data ).subscribe((res:any)=>{
       this.favoriteItem = res;
-      // console.log(this.favoriteItem);
-      console.log('sending...', this.product.name)
-      this.notificacion();
+      this.toastr.success('Artículo agregado a Favoritos')
       
     });
-  }
-
-  notificacion(){
-
-    setTimeout( function() {
-
-      var notificacioncuadro = document.getElementsByClassName("notificacion");
-        for (var i = 0; i<notificacioncuadro.length; i++) {
-          notificacioncuadro[i].classList.add("notificacion-show");
-        }
-    },1200 );
-  }
-
-  notificacionCerrar(){
-
-    setTimeout( function() {
-
-      var notificacioncuadro = document.getElementsByClassName("notificacion");
-        for (var i = 0; i<notificacioncuadro.length; i++) {
-          notificacioncuadro[i].classList.remove("notificacion-show");
-        }
-    } );
-    this.ngOnInit();
-  }
-
-  refresh(): void {
-    window.location.reload();
   }
 
   listarfavoritessUser(){

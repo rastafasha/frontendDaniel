@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="container " *ngIf="usuario">
-        <h2>Post por categoría:{{categoria.nombre}} </h2>
+        <h2>Post por categoría:{{categoria?.nombre}} </h2>
         <!-- article -->
         <div class="home-article col-xs-12 col-sm-6" *ngFor="let post of posts">
             <div class="article-info">
@@ -59,8 +59,8 @@
             </div>
             <div class="article-options">
                 <div class="options-icons">
-                    <a href="#">
-                        <img src="./assets/svg/marcador.svg" alt="">
+                    <a (click)="agregarLista(post)">
+                        <i class="fa fa-bookmark-o"></i>
                     </a>
                 </div>
             </div>

@@ -17,7 +17,8 @@ import { AuthModule } from './auth/auth.module';
 import { PaypalsubcriptionModule } from './paypalsubcription/paypalsubcription.module';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({ declarations: [
@@ -39,7 +40,14 @@ import { ModalModule } from 'ngx-bootstrap/modal';
           // Register the ServiceWorker as soon as the application is stable
           // or after 30 seconds (whichever comes first).
           registrationStrategy: 'registerImmediately'
-        })], providers: [
+        }),
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+            preventDuplicates: true,
+        }),
+    ], providers: [
         provideHttpClient(withInterceptorsFromDi())
     ] })
 export class AppModule { }

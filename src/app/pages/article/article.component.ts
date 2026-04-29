@@ -34,7 +34,7 @@ export class ArticleComponent implements OnInit {
   public user: User;
   public identity: User;
   favoriteItem: Favorito;
-
+isLoading= false;
   imagenSerUrl = environment.apiUrlMedia;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -55,13 +55,12 @@ export class ArticleComponent implements OnInit {
     this.slug = slug;
 
     this.getUser();
-
+    this.isLoading= true;
     this.postService.getBlogBySlug(slug).subscribe(
       res => {
         this.blog = res;
         this.blogusuario = res.usuario;
-        this.title = this.blog.name
-        // console.log(this.blog);
+        this.isLoading= false;
       }
     );
 

@@ -2,6 +2,8 @@ import { environment } from "src/environments/environment";
 import { Post } from "./post";
 import { User } from "./user";
 import { subcriptionPaypal } from "./subcriptionPaypal";
+import { Payment } from "./payment";
+import { Favorite } from "./favorite";
 const base_url = environment.mediaUrlRemoto;
 export class Profile {
 
@@ -26,6 +28,9 @@ export class Profile {
     public updatedAt: Date,
     public usuario?: User,
     public subcription?: subcriptionPaypal,
+    public blog?: Post,
+    public pagos?: Payment,
+    public favoritos?: Favorite,
     public img?: string,
     public _id?: string
 
@@ -36,7 +41,7 @@ export class Profile {
   get imagenUrl(){
 
     if(!this.img){
-      return `${base_url}/profiles/no-image.jpg`;
+      return `assets/img/no-image.jpg`;
     } else if(this.img.includes('https')){
       return this.img;
     } else if(this.img){
