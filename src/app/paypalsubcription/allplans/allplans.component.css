@@ -32,3 +32,62 @@
         width: 100%;
     } 
 }
+
+
+
+
+/* Color personalizado */
+/* Color Vinotinto Principal */
+.bg-vinotinto {
+    background: #800020 !important;
+}
+
+.btn-vinotinto {
+    background-color: #800020;
+    color: #fff;
+    border: none;
+    font-size: 0.9rem;
+}
+
+
+
+.btn-vinotinto:hover {
+    background-color: #600018;
+    color: #fff;
+    transform: scale(1.03);
+}
+
+/* Estilo de la Card */
+.card {
+    border-radius: 15px !important;
+    overflow: hidden; /* Para que el header redondeado se aplique bien */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+}
+
+/* Forzar que el header sea redondeado arriba */
+.card-header {
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+}
+
+
+.plan-icon i {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.badge {
+    z-index: 10;
+}
+
+/* Ajuste para que el texto de 'nouser' se vea mejor */
+.nouser {
+    text-align: center;
+    padding: 50px;
+    background: #f8f9fa;
+    border-radius: 15px;
+}

@@ -6,26 +6,26 @@ import { PostService } from 'src/app/services/post.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 import { MessageService } from 'src/app/services/message.service';
 import { Favorite } from 'src/app/models/favorite';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { Favorito } from 'src/app/models/favoriter-item-model';
 
 @Component({
-    selector: 'app-article',
-    templateUrl: './article.component.html',
-    styleUrls: ['./article.component.css'],
-    standalone: false
+  selector: 'app-article',
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.css'],
+  standalone: false
 })
 export class ArticleComponent implements OnInit {
   // @Input() favoriteItem: Favorite;
   product: Post;
   blog: Post;
-  error:string;
-  slug:any;
-  usuario:User;
-  blogusuario:User;
+  error: string;
+  slug: any;
+  usuario: User;
+  blogusuario: User;
   uid: string;
   title: string;
   role: User;
@@ -34,7 +34,7 @@ export class ArticleComponent implements OnInit {
   public user: User;
   public identity: User;
   favoriteItem: Favorito;
-isLoading= false;
+  isLoading = false;
   imagenSerUrl = environment.apiUrlMedia;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -42,7 +42,7 @@ isLoading= false;
     private userService: UserService,
     private messageService: MessageService,
     private favoriteService: FavoriteService,
-  ) { 
+  ) {
     this.usuario = this.userService.usuario;
   }
 
@@ -54,31 +54,28 @@ isLoading= false;
 
     this.slug = slug;
 
-    this.getUser();
-    this.isLoading= true;
+    this.usuario = JSON.parse(localStorage.getItem('user'));
+    if (!this.usuario || !this.usuario.role || this.usuario.role === null || this.role === null) {
+      // console.log('no hay role')
+      // this.user.role = 'USER';
+      console.log(this.usuario)
+    }
+    this.isLoading = true;
     this.postService.getBlogBySlug(slug).subscribe(
       res => {
         this.blog = res;
         this.blogusuario = res.usuario;
-        this.isLoading= false;
+        this.isLoading = false;
       }
     );
 
 
-    }
-    
-      
-  getUser(): void {
-    this.usuario = JSON.parse(localStorage.getItem('user'));
-    if(!this.usuario || !this.usuario.role || this.usuario.role === null || this.role === null){
-      // console.log('no hay role')
-      // this.user.role = 'USER';
-    }
   }
 
-  getUserServer(){
+
+  getUserServer() {
     this.userService.getUserById(this.user.uid).subscribe(
-      res =>{
+      res => {
         this.user = res;
         error => this.error = error
         // console.log(this.user);
@@ -86,20 +83,20 @@ isLoading= false;
     );
   }
 
-  addToCart(): void{
+  addToCart(): void {
     console.log('sending...')
     this.messageService.sendMessage(this.product);
   }
 
-  addToFavorites(){
+  addToFavorites() {
     const data = {
       // ...this.product,
       blog: this.product._id,
       usuario: this.usuario.uid,
     }
-    
 
-    this.favoriteService.createFavorite(data ).subscribe((res:any)=>{
+
+    this.favoriteService.createFavorite(data).subscribe((res: any) => {
       this.favoriteItem = res;
       // console.log(this.favoriteItem);
     });

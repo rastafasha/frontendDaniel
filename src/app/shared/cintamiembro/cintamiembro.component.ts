@@ -27,35 +27,30 @@ export class CintamiembroComponent implements OnInit {
     this.user = userService.usuario;
   }
   ngOnInit(): void {
-    this.getUser();
-    // this.getUserServer();
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.uid = this.user.uid;
+    this.getUserServer()
   }
 
   // ngDoCheck(): void {
   //   this.identity = this.userService.usuario;
   // }
 
-  getUser(): void {
+ 
 
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.uid = this.user.uid;
-    // console.log(this.user);
-    // this.activatedRoute.params.subscribe( ({id}) => this.getUserServer(id));
+
+  getUserServer(){
+    this.userService.getUserById(this.user.uid).subscribe(
+      res =>{
+        this.user = res;
+        error => this.error = error
+        console.log(this.userServer);
+      }
+    );
   }
 
-
-  // getUserServer(id){
-  //   this.userService.getUserById(this.user.uid).subscribe(
-  //     res =>{
-  //       this.user = res[0];
-  //       error => this.error = error
-  //       console.log(this.userServer);
-  //     }
-  //   );
-  // }
-
-  gotoCursos(){
-    this.router.navigateByUrl('/subcripciones');
+  gotoSubscripcion(){
+    this.router.navigateByUrl('/plan-subcripcion');
   }
   irAlLogin(){
     this.router.navigateByUrl('/login');

@@ -2,40 +2,66 @@
 
 <div *ngIf="!user || user === null || user === undefined && !isLoading">
     <div class="container nouser mt-3 mb-3">
-        <p>Registrate para Subscribirte!</p>
-        <button  class="btn btn-vinotinto btn-lg" [routerLink]="['/login']"> <i class="fa fa-user"></i> Registro</button>
-    </div>
-</div>
-<div *ngIf="user && !isLoading">
-    <div class="container mt-3 mb-3">
-        <app-back-button [title]="title"></app-back-button>
-        <div class="subcripcion">
-            <div class="row db-padding-btm db-attached" >
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" *ngFor="let plan of planPaypals">
-                    <div class="db-wrapper" *ngIf="plan.status === 'ACTIVE'" >
-                        <div class="db-pricing-eleven">
-                           
-                            <div class="type">
-                                {{plan.name}}
-                                <p>status: {{plan.status}}</p>
-                            </div>
-                            <div class="pricing-footer">
-                                <!-- <button  class="btn db-button-color-square btn-lg" [routerLink]="['/pasarela-subcripcion', plan.id]"> <i class="fa fa-cart"></i> Info</button> -->
-                                 <button  class="btn db-button-color-square btn-lg" (click)="openViewModal(plan)"
-                                                                            href="javascript:void(0)"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#viewPlan"> <i class="fa fa-cart"></i> Info</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="card">
+            <div class="card-body text-center bg-light">
+                <p>Registrate para Subscribirte!</p>
             </div>
-            <hr>
+
+            <div class="card-footer bg-light border-0 pb-4 pt-0">
+                <button class="btn btn-vinotinto btn-lg" [routerLink]="['/login']">
+                    <i class="fa fa-user"></i> Registro
+                </button>
+            </div>
+
         </div>
     </div>
 </div>
+<div class="container" *ngIf="!isLoading">
+    <!-- Añadimos p-4 al contenedor para que las sombras de los bordes no se corten -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-2 p-4">
+        <div class="col" *ngFor="let plan of planPaypals">
+            <div class="card h-100 shadow-sm border-0" *ngIf="plan.status === 'ACTIVE'">
+
+                <!-- Cabecera -->
+                <div class="card-header bg-vinotinto text-white text-center py-4 border-0">
+                    <div class="plan-icon mb-2">
+
+                        <i class="fa fa-3x" [ngClass]="{
+                            'fa-video-camera': plan.name.toLowerCase().includes('video'),
+                            'fa-paper-plane': plan.name.toLowerCase().includes('inicial'),
+                            'fa-calendar': plan.name.toLowerCase().includes('mensual'),
+                            'fa-star': plan.name.toLowerCase().includes('trimestral'),
+                            'fa-diamond': plan.name.toLowerCase().includes('anual'),
+                            'fa-flask': plan.name.toLowerCase().includes('prueba')
+                        }"></i>
+                    </div>
+                    <h5 class="fw-bold mb-0">{{plan.name}}</h5>
+                </div>
+
+                <div class="card-body text-center ">
+                    <p class="card-text  mb-0 small">Acceso ilimitado al contenido del plan.</p>
+                    <hr class="mx-5 opacity-25">
+                    <div class="features small">
+                        <p class="mb-2 "><i class="fa fa-check text-success me-2"></i>Soporte 24/7</p>
+                        <p class=""><i class="fa fa-check text-success me-2"></i>Contenido Premium</p>
+                    </div>
+                </div>
+
+                <div class="card-footer  border-0 pb-4 pt-0">
+                    <button class="btn btn-vinotinto w-100 rounded-pill shadow-sm" (click)="openViewModal(plan)"
+                        data-bs-toggle="modal" data-bs-target="#viewPlan">
+                        <i class="fa fa-shopping-cart me-2"></i> Obtener Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
 
 
 
 <!-- <app-modalplans></app-modalplans> -->
- <app-pasarela-subcription [planSeleccionado]="planSeleccionado"></app-pasarela-subcription>
+<app-pasarela-subcription [planSeleccionado]="planSeleccionado"></app-pasarela-subcription>

@@ -92,6 +92,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.favoriteItems = this.favoriteService.getFavorite();
     }
     this.getFavoriteItem();
+    if (localStorage.getItem('dark')) {
+      this.darkmode('dark');
+    }
   }
 
   ngOnDestroy(): void {

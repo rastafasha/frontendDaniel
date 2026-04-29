@@ -29,7 +29,7 @@ export class AllPlansComponent implements OnInit {
 
   planConfig:planPaypalSubcription;
   planSeleccionado!: any | null;
-  title = 'Planes de Subcripciones'
+  title = 'Planes de Subcripción'
 
   constructor(
     private paypalSubcription: PaypalSubcriptionService,

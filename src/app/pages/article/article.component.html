@@ -1,6 +1,4 @@
-<!-- <app-cintamiembro></app-cintamiembro> -->
-
-
+<app-cintamiembro></app-cintamiembro>
 <div class="container mt-3 mb-3">
     <app-back-button [title]="blog.name"></app-back-button>
     <!-- left-side -->
@@ -35,13 +33,23 @@
                     <div *ngIf="blog">
                         <div class="got-image"
                             [style.background-image]="'url(' + (blog.img | imagenPipe: 'blogs') + ')'"
-                            [title]="post.title">
+                            [title]="blog.name">
                         </div>
                         <!-- <img class="img-responsive" [src]="blog.img | imagenPipe: 'posts'" alt=" {{blog.name}}" /> -->
                     </div>
                 </div>
                 <h1>{{blog.name}}</h1>
-                <div class="desc" [innerHtml]="blog.description | safe: 'html' "></div>
+                <div class="desc" *ngIf="usuario.role === 'MEMBER'" [innerHtml]="blog.description | safe: 'html' ">
+                </div>
+
+                <div *ngIf="usuario.role !== 'MEMBER'">
+                    <div class="desc" [innerHtml]="blog.introhome | safe: 'html' "></div>...
+                    <div class="alert alert-warning mt-3" role="alert">
+                        <h4 class="alert-heading">Aviso</h4>
+                        <p>Subscribete o compra este artículo para verlo completo</p>
+                        <p class="mb-0"></p>
+                    </div>
+                </div>
 
 
             </div>

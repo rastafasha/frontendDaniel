@@ -3,8 +3,9 @@
         <p><span class="resaltado">{{product.usuario.username}}</span>&nbsp; in &nbsp;<span class="resaltado">ITNEXT</span>&nbsp; • &nbsp; <span class="resaltado">{{product.createdAt | date:'mediumDate'}}</span></p>
     </div>
     <div class="article-info">
-        
-        <h1>{{product.name}}</h1>
+       <a [routerLink]="['/blog', product.slug]">
+           <h1>{{product.name}}</h1>
+       </a>
         <!-- <h1><a [routerLink]="['/blog', product.slug]">{{product.name}}</a></h1> -->
         <div class="introHome"  [innerHtml]="product.introhome | safe: 'html'  "></div>
         <div class="image-article">
@@ -13,7 +14,7 @@
                     <div class="no-image"></div>
                 </div>
                 <div *ngIf="product.img">
-                    <div class="got-image-s" style="background-image: url('{{product.img}}');" title="{{product.name}}"></div>
+                    <div class="got-image-s" [style.background-image]="'url(' + (product.img | imagenPipe: 'blogs') + ')'" title="{{product.name}}"></div>
                     <!-- <img class="img-responsive" [src]="post.image | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
                 </div>
             <!-- </a> -->
@@ -45,7 +46,7 @@
             
         </div>
         <div *ngIf="usuario">
-            <div class="options-icons" *ngIf="usuario.role === 'MEMBER' || usuario.role === 'ADMIN' || usuario.role === 'EDITOR' || usuario.role === 'SUPERADMIN'" >
+            <div class="options-icons" >
                 <a class="pointer btn btn-outline-danger" id="notification-trigger" (click)="agregarLista(product)">
                     <i class="fa fa-bookmark-o"></i>
                 </a>

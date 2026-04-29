@@ -1,28 +1,28 @@
 <div *ngIf="!user.role">
     <div class="subcribe-bar">
-        <img src="./assets/svg/star.svg" alt="">
+        <i class="fa fa-star-o"></i>
         <p>Inicia sesión o registrate para ver el artículo.</p>
         <p><a (click)="irAlLogin()">Inicio / Registro</a></p>
-        <p><a routerLink="subcripciones">Become a member</a></p>
+        <p><a (click)="gotoSubscripcion()">Ver planes de Subscripción</a></p>
     </div>
 </div>
 
 <div *ngIf="user.role === 'USER' ">
     <!-- <div> -->
     <div class="subcribe-bar">
-        <img src="./assets/svg/star.svg" alt="">
-        <p>Get unlimited access to all of Medium for less than $1/week.</p>
-        <p><a routerLink="./subcripciones" (click)="gotoCursos()">Become a member</a></p>
+        <i class="fa fa-star-o"></i>
+        <p>Obten Acceso ilimitado de todo Article App por tan solo  $1/semanal.</p>
+        <p><a (click)="gotoSubscripcion()" >Ver planes de Subscripción</a></p>
     </div>
 </div>
 
 <div *ngIf="user.role === 'ADMIN' || user.role === 'EDITOR' || user.role === 'SUPERADMIN' ">
     <div class="subcribe-bar">
-        <img src="./assets/svg/star.svg" alt="">
-        <p *ngIf="user.role === 'MEMBER'">Welcome Member</p>
-        <p *ngIf="user.role === 'ADMIN'">Welcome Admin</p>
-        <p *ngIf="user.role === 'EDITOR' ">Welcome Editor</p>
-        <p *ngIf="user.role === 'SUPERADMIN' ">Welcome SuperAdmin</p>
+        <i class="fa fa-star-o"></i>
+        <p *ngIf="user.role === 'MEMBER'">Bienvenido Member</p>
+        <p *ngIf="user.role === 'ADMIN'">Bienvenido Admin</p>
+        <p *ngIf="user.role === 'EDITOR' ">Bienvenido Editor</p>
+        <p *ngIf="user.role === 'SUPERADMIN' ">Bienvenido SuperAdmin</p>
 
     </div>
 </div>

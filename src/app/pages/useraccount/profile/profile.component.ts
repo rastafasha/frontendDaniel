@@ -2,7 +2,6 @@ import { Component, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
@@ -12,6 +11,7 @@ import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PaisService } from 'src/app/services/pais.service';
 import { IconosService } from 'src/app/services/iconos.service';
 import { Icons } from 'src/app/models/Icons';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -82,6 +82,7 @@ listIcons:Icons;
     private fileUploadService: FileUploadService,
     private paisService: PaisService,
     private iconoService: IconosService,
+    public toastr: ToastrService,
 
   ) {
     this.usuario = this.userService.usuario;
@@ -305,9 +306,9 @@ listIcons:Icons;
     this.fileUploadService
     .actualizarFoto(this.imagenSubir, 'profiles', this.profile._id)
     .then(img => { this.profile.img = img;
-      Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
+      this.toastr.success('Guardado', 'La imagen fue actualizada')
     }).catch(err =>{
-      Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+      this.toastr.error('Error', 'No se pudo subir la imagen')
     })
     this.ngOnInit();
   }
@@ -345,7 +346,7 @@ listIcons:Icons;
       this.profileService.updateProfile(data).subscribe(
         res => {
           this.isLoading = false;
-            Swal.fire('Guardado', 'Los cambios fueron actualizados', 'success');
+            this.toastr.success('Guardado', 'Los cambios fueron actualizados')
             // this.ngOnInit();
             this.router.navigateByUrl(`/user-account/${this.user.uid}`);
         },
@@ -360,7 +361,7 @@ listIcons:Icons;
       this.profileService.createProfile(data).subscribe(
         res => {
           this.isLoading = false;
-            Swal.fire('Guardado', 'Los cambios fueron creados', 'success');
+            this.toastr.success('Guardado', 'Información guardada');
             // this.ngOnInit();
             this.router.navigateByUrl(`/user-account/${this.user.uid}`);
         },

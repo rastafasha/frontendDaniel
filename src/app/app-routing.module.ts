@@ -35,22 +35,22 @@ const routes: Routes = [
   },
 
   // { path: 'staff-pics', component: StaffpicsComponent },
-  { path: 'recommended-topics', component: RecommendedTopicComponent },
+  { path: 'recommended-topics', canActivate: [AuthGuard], component: RecommendedTopicComponent },
   { path: 'who-to-follow', component: WhotofollowComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'buscar', component: BusquedaComponent },
 
   //blog
-  { path: 'blogs', component: AllComponent },
-  { path: 'blog/:slug', component: ArticleComponent },
-  { path: 'blog/category/:id', component: ByCategoryComponent },
+  { path: 'blogs', canActivate: [AuthGuard], component: AllComponent },
+  { path: 'blog/:slug', canActivate: [AuthGuard], component: ArticleComponent },
+  { path: 'blog/category/:id', canActivate: [AuthGuard],component: ByCategoryComponent },
 
 
   { path: 'editor/:id', component: EditorComponent },
 
-  { path: 'user-account', component: PerfilComponent },
-  { path: 'user-account/:id', component: PerfilComponent },
+  { path: 'user-account', canActivate: [AuthGuard], component: PerfilComponent },
+  { path: 'user-account/:id', canActivate: [AuthGuard], component: PerfilComponent },
   { path: 'user-account/edit/:id', component: ProfileComponent },
   { path: 'user-account/payment-detail/:id', component: PaymentDetailsComponent },
   { path: 'user/carrito', component: CartComponent },
@@ -58,7 +58,7 @@ const routes: Routes = [
 
 
   // { path: 'subcripciones', component: SubscriptionComponent },
-  { path: 'subcripciones', component: AllPlansComponent },
+  { path: 'plan-subcripcion', canActivate: [AuthGuard], component: AllPlansComponent },
   { path: 'pasarela-subcripcion/:id', component: PasarelaSubcriptionComponent },
   //pasarela-subcripcion/P-1PJ18025B84179353MTF4PKQ
   // { path: 'subscribir/:id', component: ArticleComponent },

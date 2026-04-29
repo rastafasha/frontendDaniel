@@ -226,3 +226,22 @@ body .dark {
 .dark .cart-modal__title, .dark .btn-closemc, .dark .user-modal__title, .dark .btn-closeum {
     color: var(--white);
 }
+
+.dark .subcribe-bar {
+    border-top: 1px solid #555555;
+    border-bottom: 1px solid #4d4d4d;
+    background-color: var(--black)
+}
+.dark .home-article .article-options {
+    background: var(--black);
+    border: 1px solid #555555;
+}
+.dark .boxmember {
+    background-color: var(--black);
+    border: 1px solid #555555;
+}
+
+.dark .publicidad{
+    background-color: var(--black) !important;
+    border: 1px solid #555555;
+}

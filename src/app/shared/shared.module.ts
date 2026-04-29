@@ -11,17 +11,20 @@ import { ComponentsModule } from '../components/components.module';
 import { LoadingComponent } from './loading/loading.component';
 import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-installer.component';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { CintamiembroComponent } from './cintamiembro/cintamiembro.component';
 
 
 
-@NgModule({ declarations: [
+@NgModule({ 
+    declarations: [
         HeaderComponent,
         FooterComponent,
         SidebarComponent,
         SlidertopComponent,
         LoadingComponent,
         PwaNotifInstallerComponent,
-        BackButtonComponent
+        BackButtonComponent,
+        CintamiembroComponent
     ],
     exports: [
         HeaderComponent,
@@ -30,7 +33,8 @@ import { BackButtonComponent } from './back-button/back-button.component';
         SlidertopComponent,
         LoadingComponent,
         PwaNotifInstallerComponent,
-        BackButtonComponent
+        BackButtonComponent,
+        CintamiembroComponent
     ], imports: [
         CommonModule,
         RouterModule,

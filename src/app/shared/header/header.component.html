@@ -17,7 +17,7 @@
                     <i class="fa fa-user"></i>
                 </a>
             </div> -->
-            <div class="notification" *ngIf="usuario" routerLink="/subcripciones">
+            <div class="notification" style="cursor: pointer;" *ngIf="usuario" routerLink="/plan-subcripcion">
                 <i class="fa fa-calendar-check-o"></i>
             </div>
             <div class="notification cart" *ngIf="usuario" (click)="openModalCart()">

@@ -106,7 +106,7 @@ export class UserService {
     localStorage.removeItem('estaAutenticado');
     this.usuario = null;
     this.estaAutenticado = false;
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('./login');
   }
 
   refresh(): void {
