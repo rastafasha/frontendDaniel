@@ -1,4 +1,4 @@
- <app-loading *ngIf="isLoading"></app-loading>
+<app-loading *ngIf="isLoading"></app-loading>
 <div *ngIf="!profile && !isLoading">
     <div class="container">
         <app-back-button [title]="title"></app-back-button>
@@ -13,197 +13,315 @@
 
 <div class="container mt-3 mb-3 pt-5" *ngIf="profile">
     <app-back-button [title]="title"></app-back-button>
-    <div class="profile">
-        <div class="row gridperfil">
-            <!-- profile -->
-             <app-loading *ngIf="isLoading"></app-loading>
-            <div class=" infodato" *ngIf="!isLoading">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <div class="card-headerrr">
-                            <h2>Perfil de Usuario</h2>
-                            <a [routerLink]="['/user-account/edit/', profile.usuario.uid]">
-                                <button class="btn btn-primary">Editar</button>
-                            </a>
+
+    <div class="tab-content-set">
+        <ul class="nav">
+            <li>
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 1}"
+                    (click)="optionSelected(1)">
+                    <h3 class="btn btn-outline-info"> {{'Perfil'}}</h3>
+                </a>
+            </li>
+            <li *ngIf="pagos && pagos.length > 0">
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 2}"
+                    (click)="optionSelected(2)">
+                    <h3 class="btn btn-outline-info">{{'Compras'}}</h3>
+                </a>
+            </li>
+            <li *ngIf="subcriptionPaypal && subcriptionPaypal.length > 0 ">
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 3}"
+                    (click)="optionSelected(3)">
+                    <h3 class="btn btn-outline-info">{{'Subscripciones'}}</h3>
+                </a>
+            </li>
+            <li *ngIf="user.role === 'EDITOR' || user.role === 'SUPERADMIN' || user.role === 'ADMIN' && blogs && blogs.length > 0 ">
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 4}"
+                    (click)="optionSelected(4)">
+                    <h3 class="btn btn-outline-info">{{'Blogs Creados'}}</h3>
+                </a>
+            </li>
+            <li *ngIf="favoritos && favoritos.length > 0 ">
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 5}"
+                    (click)="optionSelected(5)">
+                    <h3 class="btn btn-outline-info">{{'Favoritos'}}</h3>
+                </a>
+            </li>
+            <li *ngIf="blogcomprados && blogcomprados.length > 0">
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 6}"
+                    (click)="optionSelected(6)">
+                    <h3 class="btn btn-outline-info">{{'Blogs Comprados'}}</h3>
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
+    <!-- profile -->
+    <div *ngIf="option_selectedd == 1">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <div class=" infodato profile" *ngIf="!isLoading">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="card-headerrr">
+                        <h2>Perfil de Usuario</h2>
+                        <a [routerLink]="['/user-account/edit/', profile.usuario.uid]">
+                            <button class="btn btn-primary">Editar</button>
+                        </a>
+                    </div>
+
+                    <div class="tofolow">
+                        <div class="imagen">
+                            <!-- <img src="./assets/img/user2.jpg" alt=""> -->
+                            <div *ngIf="!profile">
+                                <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;"
+                                    class="img-circle avatar">
+                            </div>
+                            <div *ngIf="profile">
+                                <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;"
+                                    class="img-circle avatar">
+
+                            </div>
                         </div>
 
-                        <div class="tofolow">
-                            <div class="imagen">
-                                <!-- <img src="./assets/img/user2.jpg" alt=""> -->
-                                <div *ngIf="!profile">
-                                    <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;"
-                                        class="img-circle avatar">
-                                </div>
-                                <div *ngIf="profile">
-                                    <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;"
-                                        class="img-circle avatar">
 
-                                </div>
-                            </div>
-
-
-                            <div class="info">
-                                <h1>{{profile.first_name}} {{profile.last_name}}</h1>
-                                <p><b>Email:</b> {{user.email}}</p>
-                                <p><b>Miembro desde:</b> {{user.createdAt | date: 'dd/mm/YYYY'}}</p>
-                                <p><b>Role:</b> {{user.role}}</p>
-                                <div *ngIf="
+                        <div class="info">
+                            <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+                            <p><b>Email:</b> {{user.email}}</p>
+                            <p><b>Miembro desde:</b> {{user.createdAt | date: 'dd/mm/YYYY'}}</p>
+                            <p><b>Role:</b> {{user.role}}</p>
+                            <div *ngIf="
                                 user.role == 'MEMBER' ||
                                 user.role == 'EDITOR' ||
                                 user.role == 'SUPERADMIN' ||
                                 user.role == 'ADMIN'
                               ">
-                                    <p *ngIf="profile.emailPaypal"><b>emailPaypal:</b> {{profile.emailPaypal}}</p>
-                                    <p *ngIf="profile.nombrePaypal"><b>nombrePaypal:</b> {{profile.nombrePaypal}}</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6">
-                                <p><b>País:</b> {{profile.pais}}</p>
-                                <p><b>Ciudad:</b> {{profile.ciudad}}</p>
-                                <p><b>Estado:</b> {{profile.estado}}</p>
-                                <p><b>Descripción:</b> {{profile.shortdescription}}</p>
-                                
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <p><b>Telefono Casa:</b> {{profile.telhome}}</p>
-                                <p><b>Móvil:</b> {{profile.telmovil}}</p>
-                            </div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="redssociales && redssociales.length > 0">
-                                <h4>Redes sociales:</h4>
-                                <ul class="footer-links social">
-                                    <li *ngFor="let red of redssociales">
-                                        <a [href]="'https://' +red.name_red +'.com/'+red.usuario_red" target="_blank">
-                                            <i class="fa {{red.icono}}"></i>
-                                            <!-- {{red.name_red}} -->
-                                        </a>
-                                    </li>
-                                </ul>
+                                <p *ngIf="profile.emailPaypal"><b>emailPaypal:</b> {{profile.emailPaypal}}</p>
+                                <p *ngIf="profile.nombrePaypal"><b>nombrePaypal:</b> {{profile.nombrePaypal}}</p>
                             </div>
                         </div>
 
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <p><b>País:</b> {{profile.pais}}</p>
+                            <p><b>Ciudad:</b> {{profile.ciudad}}</p>
+                            <p><b>Estado:</b> {{profile.estado}}</p>
+                            <p><b>Descripción:</b> {{profile.shortdescription}}</p>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <p><b>Telefono Casa:</b> {{profile.telhome}}</p>
+                            <p><b>Móvil:</b> {{profile.telmovil}}</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6" *ngIf="redssociales && redssociales.length > 0">
+                            <h4>Redes sociales:</h4>
+                            <ul class="footer-links social">
+                                <li *ngFor="let red of redssociales">
+                                    <a [href]="'https://' +red.name_red +'.com/'+red.usuario_red" target="_blank">
+                                        <i class="fa {{red.icono}}"></i>
+                                        <!-- {{red.name_red}} -->
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                 </div>
 
             </div>
-            <!-- miscompras -->
-             <app-loading *ngIf="isLoadingPagos"></app-loading>
-            <div class=" miscompras" *ngIf="pagos && pagos.length > 0 && !isLoadingPagos">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h2>Mis Compras</h2>
-                        <!-- whotofollow -->
-                        <div class="listfavoritos">
-                            <div class="whotofollow" *ngFor="let userpayment of pagos ">
+
+        </div>
+    </div>
+    <!-- miscompras -->
+    <div *ngIf="option_selectedd == 2">
+        <app-loading *ngIf="isLoadingPagos"></app-loading>
+        <div class=" miscompras profile" *ngIf="!isLoadingPagos">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2>Mis Compras</h2>
+                    <!-- whotofollow -->
+                    <div class="listfavoritos">
+                        <div class="whotofollow" *ngFor="let userpayment of pagos ">
 
 
-                                <!-- tofolow -->
-                                <div class="shopping">
+                            <!-- tofolow -->
+                            <div class="shopping">
 
-                                    <div class="imagen">
-                                        <a [routerLink]="['/user-account/payment-detail', userpayment._id]">
-                                            <img [src]="userpayment.img | imagenPipe: 'pagos'" alt=""
-                                                style="width: 100%;">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]"
-                                                class="cursor">{{userpayment.referencia}}</a></h1>
-                                        <p>{{userpayment.monto | currency}}</p>
-                                        <p>{{userpayment.blog.name}}</p>
-
-                                        <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
-                                        <p><b>Status:</b>
-                                            <span class="badge bg-success"
-                                                *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
-                                            <span class="badge bg-primary"
-                                                *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
-                                            <span class="badge bg-danger"
-                                                *ngIf="userpayment.status === 'REJECTED'">Rechazado</span>
-                                        </p>
-
-                                        <p><b>Validación:</b>
-                                            <span class="badge bg-success"
-                                                *ngIf="userpayment.validacion === 'APROVED'">Aprobado</span>
-                                            <span class="badge bg-primary"
-                                                *ngIf="userpayment.validacion === 'PENDING'">Pendiente</span>
-                                            <span class="badge bg-danger"
-                                                *ngIf="userpayment.validacion === 'REJECTED'">Rechazado</span>
-                                        </p>
-                                    </div>
+                                <div class="imagen">
+                                    <a [routerLink]="['/user-account/payment-detail', userpayment._id]">
+                                        <img [src]="userpayment.img | imagenPipe: 'pagos'" alt="" style="width: 100%;">
+                                    </a>
                                 </div>
-                                <!-- tofolow -->
-                                <hr>
+                                <div class="info">
+                                    <h1><a [routerLink]="['/user-account/payment-detail', userpayment._id]"
+                                            class="cursor">{{userpayment.referencia}}</a></h1>
+                                    <p>{{userpayment.monto | currency}}</p>
+                                    <p>{{userpayment.blog.name}}</p>
+
+                                    <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
+                                    <p><b>Status:</b>
+                                        <span class="badge bg-success"
+                                            *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
+                                        <span class="badge bg-primary"
+                                            *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger"
+                                            *ngIf="userpayment.status === 'REJECTED'">Rechazado</span>
+                                    </p>
+
+                                    <p><b>Validación:</b>
+                                        <span class="badge bg-success"
+                                            *ngIf="userpayment.validacion === 'APROVED'">Aprobado</span>
+                                        <span class="badge bg-primary"
+                                            *ngIf="userpayment.validacion === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger"
+                                            *ngIf="userpayment.validacion === 'REJECTED'">Rechazado</span>
+                                    </p>
+                                </div>
                             </div>
+                            <!-- tofolow -->
+                            <hr>
                         </div>
-
-                        <!-- whotofollow -->
-
                     </div>
+
+                    <!-- whotofollow -->
+
                 </div>
             </div>
-            <!-- missubcripciones -->
-             <app-loading *ngIf="isLoadingSubs"></app-loading>
-            <div class="missubcripciones" *ngIf="subcriptionPaypal && subcriptionPaypal.length > 0 && !isLoadingSubs">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h2>Mis Subcripciones</h2>
-                        <!-- whotofollow -->
-                        <div class="listfavoritos">
-                            <div class="whotofollow" *ngFor="let userpayment of subcriptionPaypal ">
-                                <!-- tofolow -->
-                                <div class="subcriptions">
-                                    <div class="info">
-                                        <h1><a
-                                                [routerLink]="['/user-account/payment-detail', userpayment._id]">{{userpayment.id}}</a>
-                                        </h1>
-                                        <a [routerLink]="['/pasarela-subcripcion/', userpayment.plan_id]">
-                                            <p>{{userpayment.plan_id}}</p>
-                                        </a>
-                                        <p>{{userpayment.monto | currency}}</p>
+        </div>
+    </div>
+    <!-- missubcripciones -->
+    <div *ngIf="option_selectedd == 3">
+        <app-loading *ngIf="isLoadingSubs"></app-loading>
+        <div class="missubcripciones profile" *ngIf="!isLoadingSubs">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2>Mis Subcripciones</h2>
+                    <!-- whotofollow -->
+                    <div class="listfavoritos">
+                        <div class="whotofollow" *ngFor="let userpayment of subcriptionPaypal ">
+                            <!-- tofolow -->
+                            <div class="subcriptions">
+                                <div class="info">
+                                    <h1><a
+                                            [routerLink]="['/user-account/payment-detail', userpayment._id]">{{userpayment.id}}</a>
+                                    </h1>
+                                    <a [routerLink]="['/pasarela-subcripcion/', userpayment.plan_id]">
+                                        <p>{{userpayment.plan_id}}</p>
+                                    </a>
+                                    <p>{{userpayment.monto | currency}}</p>
 
-                                        <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
-                                        <p><b>Status:</b>
-                                            <span class="badge bg-success"
-                                                *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
-                                            <span class="badge bg-primary"
-                                                *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
-                                            <span class="badge bg-danger"
-                                                *ngIf="userpayment.status === 'CANCELED'">Rechazado</span>
-                                        </p>
+                                    <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
+                                    <p><b>Status:</b>
+                                        <span class="badge bg-success"
+                                            *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
+                                        <span class="badge bg-primary"
+                                            *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
+                                        <span class="badge bg-danger"
+                                            *ngIf="userpayment.status === 'CANCELED'">Rechazado</span>
+                                    </p>
 
-                                    </div>
                                 </div>
-                                <!-- tofolow -->
-                                <hr>
                             </div>
+                            <!-- tofolow -->
+                            <hr>
                         </div>
-
-                        <!-- whotofollow -->
-
                     </div>
+
+                    <!-- whotofollow -->
+
                 </div>
             </div>
-            <!-- misblog -->
-             <app-loading *ngIf="isLoadingBlog"></app-loading>
-            <div class="misblog" *ngIf="user.role === 'EDITOR' || user.role === 'SUPERADMIN' || user.role === 'ADMIN' && blogs && blogs.length > 0 && !isLoadingBlog">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h2>Blogs Creados</h2>
-                        <!-- whotofollow -->
+        </div>
+    </div>
+    <!-- misblog -->
+    <div *ngIf="option_selectedd == 4">
+        <app-loading *ngIf="isLoadingBlog"></app-loading>
+        <div class="misblog profile" *ngIf="!isLoadingBlog">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2>Blogs Creados</h2>
+                    <!-- whotofollow -->
+                     <div class="doscols">
                         <div class="whotofollow" *ngFor="let blog of blogs ">
+                        <!-- tofolow -->
+                        <div class="tofolow">
+                            <div class="imagen">
+                                <a [routerLink]="['/blog/', blog.slug]">
+                                    <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
+                                </a>
+                            </div>
+                            <div class="info">
+                                <a [routerLink]="['/blog/', blog.slug]">
+                                    <h1>{{blog.name}}</h1>
+                                </a>
+                                <p>{{blog.description |slice: 0:45}}...</p>
+                            </div>
+                        </div>
+                        <!-- tofolow -->
+                        <hr>
+                    </div>
+                     </div>
+                    
+                    <!-- whotofollow -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- favorites -->
+    <div *ngIf="option_selectedd == 5">
+        <app-loading *ngIf="isLoadingFavorite"></app-loading>
+        <div class="profile" *ngIf="!isLoadingFavorite">
+            <div class="card shadow">
+                <div class="card-body ">
+                    <h2>Favorites Articles</h2>
+                    <div class="doscols">
+                        <div class="whotofollow " *ngFor="let favorito of favoritos ">
+                        <!-- tofolow -->
+                        <div class="tofolow">
+                            <div class="imagen">
+                                <a [routerLink]="['/blog/', favorito.blog.slug]">
+                                    <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt=""
+                                        style="width: 100%;">
+                                </a>
+                            </div>
+                            <div class="info">
+                                <a [routerLink]="['/blog/', favorito.blog.slug]">
+                                    <h1>{{favorito.blog.name}}</h1>
+                                </a>
+                                <p>{{favorito.blog.description |slice: 0:45}}...</p>
+                            </div>
+                            <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)"
+                                src="./assets/svg/icon-delete.svg" alt="delete">
+                        </div>
+                        <!-- tofolow -->
+                        <hr>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- blogcomrados -->
+    <div *ngIf="option_selectedd == 6">
+        <app-loading *ngIf="isLoadingPagos"></app-loading>
+        <div class="blogcomrados profile" *ngIf="!isLoadingPagos">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2>Blogs Comprados</h2>
+                    <!-- whotofollow -->
+                    <div class="doscols">
+                        <div class="whotofollow" *ngFor="let blog of pagos ">
                             <!-- tofolow -->
                             <div class="tofolow">
                                 <div class="imagen">
-                                    <a [routerLink]="['/blog/', blog.slug]">
+                                    <a [routerLink]="['/blog/', blog.name]">
                                         <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
                                     </a>
                                 </div>
                                 <div class="info">
-                                    <a [routerLink]="['/blog/', blog.slug]">
+                                    <a [routerLink]="['/blog/', blog.name]">
                                         <h1>{{blog.name}}</h1>
                                     </a>
                                     <p>{{blog.description |slice: 0:45}}...</p>
@@ -212,80 +330,12 @@
                             <!-- tofolow -->
                             <hr>
                         </div>
-                        <!-- whotofollow -->
-
                     </div>
+
+                    <!-- whotofollow -->
+
                 </div>
             </div>
-            <!-- favorites -->
-             <app-loading *ngIf="isLoadingFavorite"></app-loading>
-            <div class="favorites" *ngIf="favoritos && favoritos.length > 0 && !isLoadingFavorite">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h2>Favorites Articles</h2>
-                        <div class="listfavoritos">
-                            <div class="whotofollow" *ngFor="let favorito of favoritos ">
-                                <!-- tofolow -->
-                                <div class="favoritesss">
-                                    <div class="imagen">
-                                        <a [routerLink]="['/blog/', favorito.blog.slug]">
-                                            <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt=""
-                                                style="width: 100%;">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <a [routerLink]="['/blog/', favorito.blog.slug]">
-                                            <h1>{{favorito.blog.name}}</h1>
-                                        </a>
-                                        <p>{{favorito.blog.description |slice: 0:45}}...</p>
-                                    </div>
-                                    <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)"
-                                        src="./assets/svg/icon-delete.svg" alt="delete">
-                                </div>
-                                <!-- tofolow -->
-                                <hr>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-            <!-- blogcomrados -->
-             <app-loading *ngIf="isLoadingPagos"></app-loading>
-            <div class="blogcomrados" *ngIf="blogcomprados && blogcomprados.length > 0 && !isLoadingPagos">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h2>Blogs Comprados</h2>
-                        <!-- whotofollow -->
-                        <div class="listfavoritos">
-                            <div class="whotofollow" *ngFor="let blog of pagos ">
-                                <!-- tofolow -->
-                                <div class="tofolow">
-                                    <div class="imagen">
-                                        <a [routerLink]="['/blog/', blog.name]">
-                                            <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <a [routerLink]="['/blog/', blog.name]">
-                                            <h1>{{blog.name}}</h1>
-                                        </a>
-                                        <p>{{blog.description |slice: 0:45}}...</p>
-                                    </div>
-                                </div>
-                                <!-- tofolow -->
-                                <hr>
-                            </div>
-                        </div>
-
-                        <!-- whotofollow -->
-
-                    </div>
-                </div>
-            </div>
-
         </div>
-
     </div>
 </div>

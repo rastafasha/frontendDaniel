@@ -38,6 +38,8 @@ export class PerfilComponent implements OnInit {
   isLoadingBlog = false;
   isLoadingSubs = false;
   isLoadingPagos = false;
+  option_selectedd: number = 1;
+    solicitud_selectedd: any = 1;
 
   redssociales: RedesSociales[] = [];
 
@@ -161,6 +163,31 @@ export class PerfilComponent implements OnInit {
 
     }
   }
+
+  optionSelected(value: number) {
+      this.option_selectedd = value;
+      if (this.option_selectedd === 1) {
+  
+        // this.ngOnInit();
+      }
+      if (this.option_selectedd === 2) {
+        this.solicitud_selectedd = null;
+      }
+      if (this.option_selectedd === 3) {
+        this.solicitud_selectedd = null;
+      }
+      if (this.option_selectedd === 4) {
+        this.solicitud_selectedd = null;
+      }
+      if (this.option_selectedd === 5) {
+        this.solicitud_selectedd = null;
+      }
+      if (this.option_selectedd === 6) {
+        this.solicitud_selectedd = null;
+      }
+    }
+
+
 
 
 }
