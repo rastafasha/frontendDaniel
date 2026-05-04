@@ -15,7 +15,7 @@
                 <div class="time-story">
                     5 min read • Based on you reading history
                 </div>
-                <div class="options-icons">
+                <div class="options-icons" *ngIf="usuario">
                     <a class="pointer" (click)="addToFavorites()">
                         <i class="fa fa-bookmark-o"></i>
                     </a>

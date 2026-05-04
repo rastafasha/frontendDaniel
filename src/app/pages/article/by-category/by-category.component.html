@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          <a (click)="agregarLista(post)" style="cursor: pointer;">
+          <a (click)="agregarLista(post)" *ngIf="usuario" style="cursor: pointer;">
             <i class="fa fa-bookmark-o"></i>
           </a>
         </div>
