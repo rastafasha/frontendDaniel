@@ -27,7 +27,7 @@ export class ProductItemComponent implements OnInit {
   usuario;
   favoriteItem: Favorito;
   profile:Profile;
-  subcriptionPaypal: subcriptionPaypal;
+  subcriptionPaypal!: subcriptionPaypal;
 
   imageUrl = environment.mediaUrlRemoto;
 
@@ -55,20 +55,18 @@ export class ProductItemComponent implements OnInit {
     if(this.usuario){
 
       this.activatedRoute.params.subscribe( ({id}) => this.getUsuarioRemoto(id));
-      this.activatedRoute.params.subscribe( ({id}) => this.getUserSubcription(id));
+      this.getUserSubcription();
     }
     
   }
   
-  getUserSubcription(id:string){
-
+  getUserSubcription(){
     this.subcriptionPaypalService.getByUser(this.usuario.uid).subscribe((data: any) => {
-      this.subcriptionPaypal = data[0];
+      this.subcriptionPaypal = data || null;
     });
   }
 
   getUsuarioRemoto(id:string){
-  
     id = this.usuario.uid
     if(!id == null || !id == undefined || id){
       this.profileService.listarUsuario(id).subscribe(

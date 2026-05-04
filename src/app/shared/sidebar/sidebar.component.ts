@@ -41,7 +41,7 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPosts();
+    // this.getPosts();
     this.getEditors();
     this.usuario = JSON.parse(localStorage.getItem('user'));
   }
@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit {
 
   getPosts(): void {
     // return this.planesService.carga_info();
-    this.postService.getRecientes().subscribe(
+    this.postService.getRecientesSidebar().subscribe(
       res =>{
         this.postrecientes = res;
         error => this.error = error

@@ -1,47 +1,69 @@
 <div class="container mt-3 mb-3 pt-5">
-    <!-- left-side -->
-    <div class="container">
-        <h2>Post por categoría:{{categoria?.nombre}} </h2>
-        <!-- article -->
-         <app-loading *ngIf="isLoading"></app-loading>
-         <div *ngIf="!isLoading && posts.length === 0">
-            <p>No Existe Post por esta Categoría</p>
-         </div>
-         <div *ngIf="!isLoading">
-             <div class="home-article col-xs-12 col-sm-6" *ngFor="let post of posts">
-                 <div class="article-info">
-                     <h1><a [routerLink]="['/blog', post.slug]">{{post.name}}</a></h1>
-                     <div class="introHome" [innerHtml]="post.introhome | safe: 'html' "></div>
-                     <div class="image-article">
-                         <a [routerLink]="['/blog', post.slug]">
-                             <div *ngIf="!post.img">
-                                 <div class="no-image"></div>
-                             </div>
-                             <div *ngIf="post.img">
-     
-                                 <div class="got-image-s"
-                                     [style.background-image]="'url(' + (post.img | imagenPipe: 'blogs') + ')'"
-                                     style="height: 150px;" [title]="post.title">
-                                 </div>
-     
-                             </div>
-                         </a>
-                     </div>
-                 </div>
-                 <div class="article-options">
-                     <div class="options-icons">
-                         <a (click)="agregarLista(post)">
-                             <i class="fa fa-bookmark-o"></i>
-                         </a>
-                     </div>
-                 </div>
-                 <div class="boton-mas-articulos">
-                     <button class="btn btn-vinotinto">Cargar más</button>
-                 </div>
-             </div>
-         </div>
+  <div class="container">
+    <h2>Post por categoría: {{ categoria?.nombre }}</h2>
 
-        <!-- article -->
+    <!-- 1. Caso: No hay posts -->
+    @if (posts().length === 0 && !loading()) {
+      <div>
+        <p>No existen posts para esta categoría.</p>
+      </div>
+    }
 
+    <!-- 2. Contenedor del Infinite Scroll -->
+    <div class="row" 
+         infiniteScroll 
+         [infiniteScrollDistance]="2" 
+         [infiniteScrollThrottle]="50" 
+         (scrolled)="onScroll()">
+      
+      @for (post of posts(); track post._id) {
+        <div class="home-article col-xs-12 col-sm-6 mb-4">
+          <div class="article-info">
+            <h1>
+              <a [routerLink]="['/blog', post.slug]">{{ post.name }}</a>
+            </h1>
+            
+            <div class="introHome" [innerHtml]="post.introhome | safe: 'html'"></div>
+            
+            <div class="image-article">
+              <a [routerLink]="['/blog', post.slug]">
+                @if (!post.img) {
+                  <div class="no-image"></div>
+                } @else {
+                  <div class="got-image-s" 
+                       [style.background-image]="'url(' + (post.img | imagenPipe: 'blogs') + ')'" 
+                       style="height: 150px;" 
+                       [title]="post.title">
+                  </div>
+                }
+              </a>
+            </div>
+          </div>
+
+          <div class="article-options">
+            <div class="options-icons">
+              <a (click)="agregarLista(post)" style="cursor: pointer;">
+                <i class="fa fa-bookmark-o"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      }
     </div>
+
+    <!-- 3. Indicador de carga al final -->
+    @if (loading()) {
+      <div class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando más artículos...</span>
+        </div>
+        <p>Buscando más contenido...</p>
+      </div>
+    }
+
+    <!-- 4. Mensaje si ya no hay más -->
+    @if (!hasMore() && posts().length > 0) {
+      <p class="text-center text-muted">Has llegado al final de la categoría.</p>
+    }
+  </div>
 </div>

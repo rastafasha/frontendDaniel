@@ -17,10 +17,9 @@ import { ModalbinanceComponent } from './modalbinance/modalbinance.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { SideadvertisingComponent } from './sideadvertising/sideadvertising.component';
 import { SplashComponent } from './splash/splash.component';
-import { SharedModule } from '../shared/shared.module';
 import { CategoriesHomeComponent } from './categories-home/categories-home.component';
 import { FavoritesHomeComponent } from './favorites-home/favorites-home.component';
-// import {ScrollingModule} from '@angular/cdk/scrolling';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @NgModule({ declarations: [
         ArticlesHomeComponent,
         ArticlesFollowComponent,
@@ -57,7 +56,7 @@ import { FavoritesHomeComponent } from './favorites-home/favorites-home.componen
         PipesModule,
         FormsModule,
         NgxPayPalModule,
-        // ScrollingModule
+        InfiniteScrollModule
     ], 
         providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ComponentsModule { }

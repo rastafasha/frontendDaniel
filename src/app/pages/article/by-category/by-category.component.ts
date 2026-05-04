@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
@@ -8,26 +8,30 @@ import { User } from 'src/app/models/user';
 import { CategoryService } from 'src/app/services/category.service';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { PostService } from 'src/app/services/post.service';
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-by-category',
-    templateUrl: './by-category.component.html',
-    styleUrls: ['./by-category.component.css'],
-    standalone: false
+  selector: 'app-by-category',
+  templateUrl: './by-category.component.html',
+  styleUrls: ['./by-category.component.css'],
+  standalone: false
 })
 export class ByCategoryComponent implements OnInit {
 
-  posts: Post;
   post: Post;
   slug: Post;
   usuario: User;
   error: string;
   imagenSerUrl = environment.apiUrlMedia;
   categoria: Category;
-  title ='Post por categoría:';
+  title = 'Post por categoría:';
   favoriteItem: Favorito;
-  isLoading = false;
+
+  tmpData: [];
+  posts = signal<any[]>([]);
+  loading = signal<boolean>(false);
+  hasMore = signal<boolean>(true);
+  page = 1;
 
   constructor(
     private postService: PostService,
@@ -40,27 +44,53 @@ export class ByCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-     this.usuario = JSON.parse(localStorage.getItem('user'));
+    this.usuario = JSON.parse(localStorage.getItem('user'));
     // this.getPosts();
-    this.activatedRoute.params.subscribe( ({id}) => this.getPosts(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.getCategory(id));
+    // Escuchamos el cambio de ID
+    const slug = this.activatedRoute.snapshot.paramMap.get('slug');
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.resetPagination(); // <--- REINICIAR AQUÍ
+      this.getPosts(id);
+      this.getCategory(id);
+    });
+  }
+  resetPagination() {
+    this.posts.set([]);    // Vaciamos la lista
+    this.page = 1;         // Volvemos a la página 1
+    this.hasMore.set(true); // Reactivamos el scroll
   }
 
-  getPosts(id): void {
-    this.isLoading = true;
-    this.postService.getByCategoria(id).subscribe(
-      res =>{
-        this.posts = res;
-        error => this.error = error;
-        this.isLoading = false;
-      }
-    );
+  getPosts(id: string): void {
+    if (this.loading() || !this.hasMore()) return;
+
+    this.loading.set(true);
+
+    this.postService.getByCategoria(this.page, id).subscribe({
+      next: (newData: Post[]) => {
+        if (newData.length === 0) {
+          this.hasMore.set(false);
+        } else {
+          // En Angular 19, 'update' es lo más eficiente para Signals
+          this.posts.update(prev => [...prev, ...newData]);
+          this.page++;
+        }
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
   }
+
+  // Tu función de scroll debe capturar el ID actual de la URL
+  onScroll(): void {
+    const currentId = this.activatedRoute.snapshot.params['id'];
+    this.getPosts(currentId);
+  }
+
 
   getCategory(id): void {
     // return this.planesService.carga_info();
     this.categoryService.getCategory(id).subscribe(
-      res =>{
+      res => {
         this.categoria = res;
         error => this.error = error
         // console.log(this.category);
@@ -68,24 +98,21 @@ export class ByCategoryComponent implements OnInit {
     );
   }
 
-  selectedPost(slug: Post){
-    this.router.navigate(['/post/', slug])
-  }
 
 
-  agregarLista(post:Post){
-    
+  agregarLista(post: Post) {
+
     const data = {
       blog: post._id,
       usuario: this.usuario.uid,
     }
-    
-    this.favoriteService.createFavorite(data ).subscribe((res:any)=>{
+
+    this.favoriteService.createFavorite(data).subscribe((res: any) => {
       this.favoriteItem = res;
       console.log(this.favoriteItem);
       // console.log('sending...', this.product.name)
       this.toastr.success('Artículo agregado a Favoritos')
-      
+
     });
   }
 

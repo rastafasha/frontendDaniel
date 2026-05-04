@@ -1,5 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -20,7 +20,6 @@ export class CintamiembroComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
 
   ) {
@@ -32,19 +31,11 @@ export class CintamiembroComponent implements OnInit {
     this.getUserServer()
   }
 
-  // ngDoCheck(): void {
-  //   this.identity = this.userService.usuario;
-  // }
-
- 
-
-
   getUserServer(){
     this.userService.getUserById(this.user.uid).subscribe(
       res =>{
         this.user = res;
         error => this.error = error
-        console.log(this.userServer);
       }
     );
   }

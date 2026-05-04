@@ -20,7 +20,7 @@ import { PaymentDetailsComponent } from './useraccount/payment-details/payment-d
 import { ProfileComponent } from './useraccount/profile/profile.component';
 import { FavoritosComponent } from './useraccount/favoritos/favoritos.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -65,7 +65,8 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     RouterModule,
     ComponentsModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InfiniteScrollModule
   ]
 })
 export class PagesModule { }
