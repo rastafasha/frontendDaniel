@@ -27,6 +27,7 @@ export class SidebarComponent implements OnInit {
   usuario: User;
   profiles: Profile;
   error: string;
+  role: string;
   loading = false;
   blogs:any=[]=[];
   favorito:Favorito;
@@ -44,6 +45,7 @@ export class SidebarComponent implements OnInit {
     // this.getPosts();
     this.getEditors();
     this.usuario = JSON.parse(localStorage.getItem('user'));
+    this.role = this.usuario.role || null;
   }
 
   

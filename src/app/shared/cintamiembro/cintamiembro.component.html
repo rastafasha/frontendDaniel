@@ -1,4 +1,5 @@
-<div *ngIf="!user.role">
+<div *ngIf="!role || !user">
+    <!-- <div> -->
     <div class="subcribe-bar">
         <i class="fa fa-star-o"></i>
         <p>Inicia sesión o registrate para ver el artículo.</p>
@@ -7,7 +8,7 @@
     </div>
 </div>
 
-<div *ngIf="user.role === 'USER' ">
+<div *ngIf="user && user.role === 'USER' ">
     <!-- <div> -->
     <div class="subcribe-bar">
         <i class="fa fa-star-o"></i>
@@ -16,13 +17,13 @@
     </div>
 </div>
 
-<div *ngIf="user.role === 'ADMIN' || user.role === 'EDITOR' || user.role === 'SUPERADMIN' ">
+<div *ngIf="user && role === 'ADMIN' || role === 'EDITOR' || role === 'SUPERADMIN' ">
     <div class="subcribe-bar">
         <i class="fa fa-star-o"></i>
-        <p *ngIf="user.role === 'MEMBER'">Bienvenido {{user.username}}!</p>
-        <p *ngIf="user.role === 'ADMIN'">Bienvenido {{user.username}}!</p>
-        <p *ngIf="user.role === 'EDITOR' ">Bienvenido {{user.username}}!</p>
-        <p *ngIf="user.role === 'SUPERADMIN' ">Bienvenido {{user.username}}!</p>
+        <p *ngIf="role === 'MEMBER'">Bienvenido {{user.username}}!</p>
+        <p *ngIf="role === 'ADMIN'">Bienvenido {{user.username}}!</p>
+        <p *ngIf="role === 'EDITOR' ">Bienvenido {{user.username}}!</p>
+        <p *ngIf="role === 'SUPERADMIN' ">Bienvenido {{user.username}}!</p>
 
     </div>
 </div>

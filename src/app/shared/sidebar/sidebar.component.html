@@ -6,12 +6,17 @@
         <app-favorites-home></app-favorites-home>
     </div>
     <!-- favoritos -->
-
+     <!-- categorias -->
+    <div >
+        <div class="recomended-topic">
+            <app-categories-home></app-categories-home>
+        </div>
+    </div>
     <!-- publicidad -->
     <app-sideadvertising></app-sideadvertising>
     <!-- publicidad -->
     <!-- tips -->
-    <div class="boxmember" *ngIf="usuario.role !== 'EDITOR'">
+    <div class="boxmember" *ngIf="usuario && role !== 'EDITOR'">
         <h1>Monetiza tus artículos!</h1>
         <ul>
             <li>Escribe y gana</li>
@@ -46,12 +51,7 @@
 
     </div>
     <!-- socialblock -->
-    <!-- recomended-topic -->
-    <div *ngIf="usuario">
-        <div class="recomended-topic">
-            <app-categories-home></app-categories-home>
-        </div>
-    </div>
+   
 
 
     <!-- readinglist -->

@@ -1,6 +1,6 @@
 <div class="container mt-3 mb-3 pt-5">
-  <div class="container">
-    <h2>Post por categoría: {{ categoria?.nombre }}</h2>
+  <div class="contenido">
+    <app-back-button [title]="`Post por categoría: ${categoria?.nombre}`"></app-back-button>
 
     <!-- 1. Caso: No hay posts -->
     @if (posts().length === 0 && !loading()) {
@@ -40,13 +40,9 @@
             </div>
           </div>
 
-          <div class="article-options">
-            <div class="options-icons">
-              <a (click)="agregarLista(post)" style="cursor: pointer;">
-                <i class="fa fa-bookmark-o"></i>
-              </a>
-            </div>
-          </div>
+          <a (click)="agregarLista(post)" style="cursor: pointer;">
+            <i class="fa fa-bookmark-o"></i>
+          </a>
         </div>
       }
     </div>
@@ -66,4 +62,7 @@
       <p class="text-center text-muted">Has llegado al final de la categoría.</p>
     }
   </div>
+  <!-- right side -->
+    <app-sidebar></app-sidebar>
+    <!-- endright side -->
 </div>

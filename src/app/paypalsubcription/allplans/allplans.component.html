@@ -1,16 +1,18 @@
 <app-loading *ngIf="isLoading"></app-loading>
 
 <div *ngIf="!user || user === null || user === undefined && !isLoading">
-    <div class="container nouser mt-3 mb-3">
-        <div class="card">
-            <div class="card-body text-center bg-light">
-                <p>Registrate para Subscribirte!</p>
-            </div>
+    <div class="container  mt-3 mb-3 d-flex justify-center ">
+        <div class="col-xs-12">
+            <div class="card">
+                <div class="card-body text-center bg-light">
+                    <p>Registrate para Subscribirte!</p>
+                </div>
 
-            <div class="card-footer bg-light border-0 pb-4 pt-0">
-                <button class="btn btn-vinotinto btn-lg" [routerLink]="['/login']">
-                    <i class="fa fa-user"></i> Registro
-                </button>
+                <div class="card-footer bg-light border-0 pb-4 pt-0 d-flex justify-center">
+                    <button class="btn btn-vinotinto btn-lg" [routerLink]="['/login']">
+                        <i class="fa fa-user"></i> Registro
+                    </button>
+                </div>
             </div>
 
         </div>

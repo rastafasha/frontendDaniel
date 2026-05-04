@@ -104,6 +104,7 @@ export class UserService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('estaAutenticado');
+    localStorage.removeItem('cart');
     this.usuario = null;
     this.estaAutenticado = false;
     this.router.navigateByUrl('./login');

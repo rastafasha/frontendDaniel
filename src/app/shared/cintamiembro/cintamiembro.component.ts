@@ -10,11 +10,12 @@ import { UserService } from 'src/app/services/user.service';
     standalone: false
 })
 export class CintamiembroComponent implements OnInit {
-  public user: User;
+  public user!: User;
   public userServer: User;
   error: string;
-  uid: string;
-  roleid:number;
+  uid!: string;
+  role: string;
+  roleid!:number;
   public identity: User;
 
 
@@ -27,6 +28,7 @@ export class CintamiembroComponent implements OnInit {
   }
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.role = this.user.role || null;
     this.uid = this.user.uid;
     this.getUserServer()
   }

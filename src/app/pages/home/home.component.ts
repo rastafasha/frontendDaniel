@@ -29,11 +29,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     window.scrollTo(0, 0);
 
     // Subscribe to reactive user from service
-    this.userService.currentUser$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(currentUser => {
-        this.user = currentUser;
-      });
+    // this.userService.currentUser$
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(currentUser => {
+    //     this.user = currentUser;
+    //   });
   }
 
   ngAfterViewInit(): void {

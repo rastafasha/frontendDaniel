@@ -49,6 +49,7 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     height: 140px;
+    gap: 15px
 }
 
 .home-article .article-info h1 {

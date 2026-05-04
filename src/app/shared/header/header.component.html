@@ -1,42 +1,36 @@
 <div class="container-header">
     <header class="header">
         <div class="left">
-            <div class="logo" *ngIf="usuario">
+            <div class="logo">
                 <a routerLink="/home">
                     <img src="./assets/svg/logo.svg" alt="logo ">
                 </a>
             </div>
-            <div class="logo" *ngIf="!usuario">
-                <img src="./assets/svg/logo.svg" alt="logo ">
-            </div>
+            
         </div>
         <div class="right">
-
-            <!-- <div class="write" *ngIf="!user">
-                <a routerLink="login">
-                    <i class="fa fa-user"></i>
-                </a>
-            </div> -->
-            <div class="notification" style="cursor: pointer;" *ngIf="usuario" routerLink="/plan-subcripcion">
+            <div style="cursor: pointer;"  routerLink="/plan-subcripcion">
                 <i class="fa fa-calendar-check-o"></i>
             </div>
-            <div class="notification cart" *ngIf="usuario" (click)="openModalCart()">
-                <div class="cart--notification">{{cartItems.length}}</div>
-                <i class="fa fa-shopping-cart"></i>
-            </div>
-            <li class="nav-item">
+            
+            <div >
                 <div class="btns dayNight">
                     <i class="fa fa-lightbulb-o" (click)="darkmode('dark')"></i>
                 </div>
-            </li>
-            <div *ngIf="user">
+            </div>
+            <div class=" cart" *ngIf="usuario"  (click)="openModalCart()">
+                <div class="cart--notification">{{cartItems.length}}</div>
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div  *ngIf="!usuario">
+                <a routerLink="/login">
+                    <i class="fa fa-user-circle-o" style="color:var(--vinotinto)"></i>
+                </a>
+            </div>
+            <div *ngIf="usuario">
                 <div class="user-header" (click)="openModalUser()">
-                    
-                    <div >
-                        <img [src]="profile?.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;"
-                            class="img-circle avatar">
-
-                    </div>
+                    <img [src]="profile?.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;"
+                        class="img-circle avatar">
                 </div>
             </div>
         </div>
