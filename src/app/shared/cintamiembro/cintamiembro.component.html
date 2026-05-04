@@ -19,10 +19,10 @@
 <div *ngIf="user.role === 'ADMIN' || user.role === 'EDITOR' || user.role === 'SUPERADMIN' ">
     <div class="subcribe-bar">
         <i class="fa fa-star-o"></i>
-        <p *ngIf="user.role === 'MEMBER'">Bienvenido Member</p>
-        <p *ngIf="user.role === 'ADMIN'">Bienvenido Admin</p>
-        <p *ngIf="user.role === 'EDITOR' ">Bienvenido Editor</p>
-        <p *ngIf="user.role === 'SUPERADMIN' ">Bienvenido SuperAdmin</p>
+        <p *ngIf="user.role === 'MEMBER'">Bienvenido {{user.username}}!</p>
+        <p *ngIf="user.role === 'ADMIN'">Bienvenido {{user.username}}!</p>
+        <p *ngIf="user.role === 'EDITOR' ">Bienvenido {{user.username}}!</p>
+        <p *ngIf="user.role === 'SUPERADMIN' ">Bienvenido {{user.username}}!</p>
 
     </div>
 </div>

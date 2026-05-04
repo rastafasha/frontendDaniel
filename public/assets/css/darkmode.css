@@ -245,3 +245,22 @@ body .dark {
     background-color: var(--black) !important;
     border: 1px solid #555555;
 }
+
+.dark .logincontainer, .dark .home-article, .dark .navbarM, .dark .carritoo{
+    background-color: var(--black) !important;
+}
+
+.dark .modal-content{
+    background-color: var(--black) !important;
+}
+
+.dark .modal-body h2, .dark .modal-body p, .dark .modal-title, .dark .btn-close{
+    color: var(--blanco);
+}
+
+.dark .breadcrumb-item.active, .dark .time-story{
+    color: var(--blanco) !important;
+}
+.dark .alert-warning h4, .dark .alert-warning p{
+    color: var(--black) !important;
+}

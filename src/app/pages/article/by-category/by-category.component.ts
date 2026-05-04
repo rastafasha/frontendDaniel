@@ -27,6 +27,7 @@ export class ByCategoryComponent implements OnInit {
   categoria: Category;
   title ='Post por categoría:';
   favoriteItem: Favorito;
+  isLoading = false;
 
   constructor(
     private postService: PostService,
@@ -39,18 +40,19 @@ export class ByCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.getUser();
+     this.usuario = JSON.parse(localStorage.getItem('user'));
     // this.getPosts();
     this.activatedRoute.params.subscribe( ({id}) => this.getPosts(id));
     this.activatedRoute.params.subscribe( ({id}) => this.getCategory(id));
   }
 
   getPosts(id): void {
+    this.isLoading = true;
     this.postService.getByCategoria(id).subscribe(
       res =>{
         this.posts = res;
-        error => this.error = error
-        // console.log(this.posts);
+        error => this.error = error;
+        this.isLoading = false;
       }
     );
   }
@@ -70,14 +72,6 @@ export class ByCategoryComponent implements OnInit {
     this.router.navigate(['/post/', slug])
   }
 
-  getUser(): void {
-
-    this.usuario = JSON.parse(localStorage.getItem('user'));
-    if(!this.usuario || !this.usuario.role || this.usuario.role === null ){
-      // console.log('no hay role')
-    }
-
-  }
 
   agregarLista(post:Post){
     

@@ -4,8 +4,6 @@ import { ArticleComponent } from './pages/article/article.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PerfilComponent } from './pages/useraccount/perfil/perfil.component';
 import { EditorComponent } from './pages/editor/editor.component';
-import { SubscriptionComponent } from './pages/subscription/subscription.component';
-import { StaffpicsComponent } from './pages/staffpics/staffpics.component';
 import { WhotofollowComponent } from './pages/whotofollow/whotofollow.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
@@ -18,7 +16,6 @@ import { ExecutePaymentComponent } from './paypalsubcription/execute-payment/exe
 import { AllPlansComponent } from './paypalsubcription/allplans/allplans.component';
 import { PaymentDetailsComponent } from './pages/useraccount/payment-details/payment-details.component';
 import { PasarelaSubcriptionComponent } from './paypalsubcription/pasarela-subcription/pasarela-subcription.component';
-import { CarritoComponent } from './pages/carrito/carrito.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProfileComponent } from './pages/useraccount/profile/profile.component';
 import { RecommendedTopicComponent } from './pages/recommended-topic/recommended-topic.component';

@@ -79,7 +79,7 @@ p {
 
 a, h4 a {
     color: var(--vinotinto);
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 b {

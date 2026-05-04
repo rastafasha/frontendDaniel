@@ -92,6 +92,13 @@
     margin-bottom: 20px;
 }
 
+.article .article-options i,
+.article-options .options-icons i
+{
+    color: var(--vinotinto);
+    font-size: 25px;
+}
+
 .article .article-options .time-story {
     display: flex;
     color: var(--gris);
@@ -226,10 +233,7 @@
         justify-content: flex-end;
         margin-top: 20px;
     }
-    .article .article-options .time-story,
-    .article .article-options .topic {
-        display: none;
-    }
+    
     .boton-mas-articulos {
         display: flex;
         justify-content: center;

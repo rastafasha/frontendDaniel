@@ -39,17 +39,12 @@
     display: flex;
     justify-content: space-between;
     float: right;
-    width: 150px;
+    /* width: 150px; */
     align-items: center;
+    gap: 15px;
 }
-
-.write img,
-.cart img,
-.notification img {
-    display: flex;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+.header .right i{
+    font-size: 20px;
 }
 
 .user-header img {

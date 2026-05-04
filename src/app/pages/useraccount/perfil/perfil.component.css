@@ -82,7 +82,7 @@
     text-decoration: none;
 }  
 
-
+/* tab-conten */
 
 .tab-content-set {
     display: flex;
@@ -121,5 +121,18 @@
 .doscols{
     column-gap: 5px;
     column-count: 2;
+}
+
+@media (max-width:768px){
+    .tab-content-set, .tab-content-set .nav {
+    gap: 5px;
+}
+
+.doscols{
+    column-gap: 5px;
+    column-count: 1;
+}
+
+
 }
 

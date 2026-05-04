@@ -12,7 +12,6 @@ import { ComponentsModule } from '../components/components.module';
 import { SharedModule } from '../shared/shared.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { RouterModule } from '@angular/router';
-import { CarritoComponent } from './carrito/carrito.component';
 import { CondicionesComponent } from './condiciones/condiciones.component';
 import { ByCategoryComponent } from './article/by-category/by-category.component';
 import { AllComponent } from './article/all/all.component';
@@ -34,7 +33,6 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     RecommendedTopicComponent,
     SubscriptionComponent,
     WhotofollowComponent,
-    CarritoComponent,
     CondicionesComponent,
     ByCategoryComponent,
     AllComponent,
@@ -52,7 +50,6 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     RecommendedTopicComponent,
     SubscriptionComponent,
     WhotofollowComponent,
-    CarritoComponent,
     CondicionesComponent,
     ByCategoryComponent,
     AllComponent,
