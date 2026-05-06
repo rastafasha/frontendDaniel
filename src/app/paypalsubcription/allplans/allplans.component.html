@@ -18,49 +18,81 @@
         </div>
     </div>
 </div>
-<div class="container" *ngIf="!isLoading && user">
-    <!-- Añadimos p-4 al contenedor para que las sombras de los bordes no se corten -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mt-2 p-4">
-        <div class="col" *ngFor="let plan of planPaypals">
-            <div class="card h-100 shadow-sm border-0" *ngIf="plan.status === 'ACTIVE'">
 
-                <!-- Cabecera -->
-                <div class="card-header bg-vinotinto text-white text-center py-4 border-0">
+<div class="container py-5" *ngIf="!isLoading && user">
+    <!-- Forzamos una sola fila que alinee todo al centro y arriba -->
+    <div class="row g-4 justify-content-center align-items-stretch">
+
+        <!-- 1. PLAN GRATUITO (Ocupa 3/12 columnas en Desktop) -->
+        <div class="col-12 col-md-6 col-lg-3 d-flex">
+            <div class="card w-100 shadow-sm border-0 h-100">
+                <div class="card-header bg-info text-white text-center py-4 border-0">
                     <div class="plan-icon mb-2">
-
-                        <i class="fa fa-3x" [ngClass]="{
-                            'fa-video-camera': plan.name.toLowerCase().includes('video'),
-                            'fa-paper-plane': plan.name.toLowerCase().includes('inicial'),
-                            'fa-calendar': plan.name.toLowerCase().includes('mensual'),
-                            'fa-star': plan.name.toLowerCase().includes('trimestral'),
-                            'fa-diamond': plan.name.toLowerCase().includes('anual'),
-                            'fa-flask': plan.name.toLowerCase().includes('prueba')
-                        }"></i>
+                        <i class="fa fa-3x fa-gift"></i>
                     </div>
-                    <h5 class="fw-bold mb-0">{{plan.name}}</h5>
+                    <h5 class="fw-bold mb-0">Plan Gratuito</h5>
+                    <p class="small mb-0">$0 / mes</p>
                 </div>
-
-                <div class="card-body text-center ">
-                    <p class="card-text  mb-0 small">Acceso ilimitado al contenido del plan.</p>
-                    <hr class="mx-5 opacity-25">
-                    <div class="features small">
-                        <p class="mb-2 "><i class="fa fa-check text-success me-2"></i>Soporte 24/7</p>
-                        <p class=""><i class="fa fa-check text-success me-2"></i>Contenido Premium</p>
+                <div class="card-body text-center d-flex flex-column">
+                    <p class="card-text mb-3 small">Ideal para empezar a leer.</p>
+                    <div class="features small mb-auto">
+                        <p class="mb-2"><i class="fa fa-check text-success me-2"></i>3 artículos al mes</p>
+                        <p class="mb-2"><i class="fa fa-check text-success me-2"></i>Soporte básico</p>
                     </div>
                 </div>
-
-                <div class="card-footer  border-0 pb-4 pt-0">
-                    <button class="btn btn-vinotinto w-100 rounded-pill shadow-sm" (click)="openViewModal(plan)"
-                        data-bs-toggle="modal" data-bs-target="#viewPlan">
-                        <i class="fa fa-shopping-cart me-2"></i> Obtener Plan
+                <div class="card-footer bg-white border-0 pb-4">
+                    <button class="btn w-100 rounded-pill fw-bold"
+                        [ngClass]="perfil.plan === 'free' ? 'btn-light disabled' : 'btn-outline-info'"
+                        (click)="activarPlanGratis()">
+                        {{ perfil.plan === 'free' ? 'Tu Plan Actual' : 'Activar Gratis' }}
                     </button>
                 </div>
             </div>
         </div>
+
+        <!-- 2. PLANES DE PAYPAL (Cada uno ocupa 3/12 columnas en Desktop) -->
+        <ng-container *ngFor="let plan of planPaypals">
+            <div class="col-12 col-md-6 col-lg-3 d-flex" *ngIf="plan.status === 'ACTIVE'">
+                <div class="card w-100 shadow-sm border-0 h-100">
+                    <div class="card-header bg-vinotinto text-white text-center py-4 border-0">
+                        <div class="plan-icon mb-2">
+                            <i class="fa fa-3x" [ngClass]="{
+                'fa-calendar': plan.name.toLowerCase().includes('mensual'),
+                'fa-star': plan.name.toLowerCase().includes('trimestral'),
+                'fa-diamond': plan.name.toLowerCase().includes('anual')
+              }"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">{{plan.name}}</h5>
+                        <p class="small mb-0">Premium</p>
+                    </div>
+                    <div class="position-relative" *ngIf="plan.name.toLowerCase().includes('mensual')">
+                        <span
+                            class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark shadow-sm">
+                            MÁS POPULAR
+                        </span>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column">
+                        <p class="card-text mb-3 small">Acceso ilimitado al contenido.</p>
+                        <div class="features small mb-auto">
+                            <p class="mb-2"><i class="fa fa-check text-success me-2"></i>Soporte 24/7</p>
+                            <p class="mb-2"><i class="fa fa-check text-success me-2"></i>Contenido Premium</p>
+                            <p><i class="fa fa-check text-success me-2"></i>Sin publicidad</p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-4">
+                        <button class="btn btn-vinotinto w-100 rounded-pill shadow-sm fw-bold"
+                            (click)="openViewModal(plan)">
+                            Obtener Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
     </div>
-
-
 </div>
+
+
 
 
 

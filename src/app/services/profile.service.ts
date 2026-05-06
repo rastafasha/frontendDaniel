@@ -82,4 +82,10 @@ export class ProfileService {
     return this.http.delete(url, this.headers);
   }
 
+  activarPlanGratuito() {
+    const url = `${baseUrl}/profiles/plangratuito`;
+    return this.http.post(url, this.headers);
+
+  }
+
 }

@@ -33,6 +33,8 @@ export class ArticleComponent implements OnInit {
   limiteAlcanzado: boolean = false;
   articulosRestantes: number = 0;
 
+  articulosVistos: number = 0;
+
   public user: User;
   public identity: User;
   favoriteItem: Favorito;
@@ -77,6 +79,9 @@ export class ArticleComponent implements OnInit {
         this.blogusuario = resp.blog.usuario;
         this.fullContent = resp.fullContent;
         this.isLoading = false;
+        // Si la lectura fue exitosa y descontó un crédito
+        this.articulosVistos++;
+        this.verificarLimite();
       },
       error: (err) => {
         if (err.status === 403 && err.error.limiteAlcanzado) {
@@ -87,6 +92,18 @@ export class ArticleComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  verificarLimite() {
+    // 1. Calculamos si ya llegó al tope
+    if (this.articulosVistos >= 3) {
+      this.limiteAlcanzado = true;
+    } else {
+      this.limiteAlcanzado = false;
+    }
+
+    // 2. Opcional: Guardar en el LocalStorage para que sea instantáneo al recargar
+    localStorage.setItem('articulosVistos', this.articulosVistos.toString());
   }
 
   addToCart(): void {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,  Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { geSubcription, planPaypalSubcription, productPaypalSubcription, subcriptionGenerated } from 'src/app/models/planPaypalSubcription';
 import { Profile } from 'src/app/models/profile';
 import { User } from 'src/app/models/user';
@@ -26,6 +27,11 @@ export class AllPlansComponent implements OnInit {
   public profile: Profile;
   subcription:geSubcription;
   isLoading = false;
+  perfil: any = {};
+
+   articulosVistos: number = 0;
+   limiteAlcanzado: boolean = false;
+   planActivado = false;
 
   planConfig:planPaypalSubcription;
   planSeleccionado!: any | null;
@@ -34,6 +40,8 @@ export class AllPlansComponent implements OnInit {
   constructor(
     private paypalSubcription: PaypalSubcriptionService,
     private profileService: ProfileService,
+    private toastr: ToastrService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +59,8 @@ export class AllPlansComponent implements OnInit {
       }
     );
   }
+
+
 
   getUser(): void {
 
@@ -76,6 +86,20 @@ export class AllPlansComponent implements OnInit {
 openViewModal(plan: any): void {
     this.planSeleccionado = plan;
   }
+
+   activarPlanGratis() {
+  this.profileService.activarPlanGratuito().subscribe({
+    next: (resp) => {
+      // 1. Actualizas la vista para que el contador aparezca (3 - 0 = 3)
+      this.articulosVistos = 0;
+      this.limiteAlcanzado = false;
+      this.planActivado = true;
+      
+      // 2. Avisas al usuario
+      this.toastr.success('¡Ya tienes acceso a 3 artículos gratis este mes!');
+    }
+  });
+}
 
 
 

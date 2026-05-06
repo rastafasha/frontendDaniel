@@ -9,12 +9,12 @@
 
 <!-- USUARIO LOGUEADO (Rol USER) -->
 <div *ngIf="user && role === 'USER'">
-  <div class="subcribe-bar">
+  <div class="subcribe-bar" [ngClass]="{'bg-success': !limiteAlcanzado, 'bg-danger': limiteAlcanzado}">
     <i class="fa fa-star-o"></i>
-    
+
     <!-- Caso A: Le quedan artículos -->
     <ng-container *ngIf="!limiteAlcanzado">
-      <p>Te quedan <strong>&nbsp;{{ 3 - articulosVistos }}&nbsp;</strong> lecturas gratuitas este mes.</p>
+      <p>Te quedan <strong>&nbsp;{{ (3 - articulosVistos > 0) ? (3 - articulosVistos) : 0 }}&nbsp;</strong> lecturas gratuitas este mes.</p>
       <p><a (click)="gotoSubscripcion()">¡Pásate a Premium por $1/semanal!</a></p>
     </ng-container>
 
@@ -22,6 +22,13 @@
     <ng-container *ngIf="limiteAlcanzado">
       <p>Has agotado tus lecturas gratuitas.</p>
       <p><a (click)="gotoSubscripcion()" class="text-warning">Suscríbete ahora para acceso ilimitado</a></p>
+    </ng-container>
+    <!-- Caso C: Usuario nuevo que aún no ha activado nada -->
+    <ng-container *ngIf="articulosVistos === 0 && !planActivado">
+      <p>¿Quieres leer gratis?</p>
+      <p><a (click)="activarPlanGratis()" class="text-warning">
+        Activar 3 lecturas gratis
+      </a></p>
     </ng-container>
   </div>
 </div>
