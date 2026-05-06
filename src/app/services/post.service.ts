@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Post } from '../models/post';
@@ -76,8 +76,8 @@ export class PostService {
       )
   }
 
- 
-   getDestacados(page: number = 1) {
+
+  getDestacados(page: number = 1) {
     // Configuramos los parámetros de la URL (ej: /blogs/recientes?page=2)
     const params = new HttpParams().set('page', page.toString());
 
@@ -85,26 +85,16 @@ export class PostService {
 
     return this.http.get<any>(url, { params }).pipe(
       map((resp: { ok: boolean, blogs: any[] }) => {
-        // Importante: Asegúrate de que 'blogs' sea el array que esperas
         return resp.ok ? resp.blogs : [];
       })
     );
   }
 
-  getBySlug(slug: string) {
-    const url = `${baseUrl}/blogs/find_by_slug/${slug}`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp: { ok: boolean, blogs: Post }) => resp.blogs)
-      )
-  }
+
 
   getBlogBySlug(slug: string) {
     const url = `${baseUrl}/blogs/find_by_slug/${slug}`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp: { ok: boolean, blog: Post }) => resp.blog)
-      )
+    return this.http.get<any>(url);
   }
 
   getByUser(usuario: string) {
@@ -115,15 +105,9 @@ export class PostService {
       )
   }
 
-  // getByCategoria(nombre: any) {
-  //   const url = `${baseUrl}/blogs/blog_categoria/${nombre}`;
-  //   return this.http.get<any>(url, this.headers)
-  //     .pipe(
-  //       map((resp: { ok: boolean, blogs: Post }) => resp.blogs)
-  //     )
-  // }
 
-   getByCategoria(page: number = 1, nombre:any) {
+
+  getByCategoria(page: number = 1, nombre: any) {
     // Configuramos los parámetros de la URL (ej: /blogs/recientes?page=2)
     const params = new HttpParams().set('page', page.toString());
 
@@ -131,7 +115,6 @@ export class PostService {
 
     return this.http.get<any>(url, { params }).pipe(
       map((resp: { ok: boolean, blogs: any[] }) => {
-        // Importante: Asegúrate de que 'blogs' sea el array que esperas
         return resp.ok ? resp.blogs : [];
       })
     );

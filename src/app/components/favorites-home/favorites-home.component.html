@@ -11,9 +11,7 @@
                 <div class="got-image" [style.background-image]="'url(' + (post.blog.img | imagenPipe: 'blogs') + ')'"
                     title="{{post.blog.name}}" style="height: 50px; width: 50px;"></div>
                 <div class="info">
-                    <h4><a [routerLink]="['/blog', post.blog.slug]">
-                            {{post.blog.name}}
-                        </a></h4>
+                    <h4><a  [routerLink]="['/blog', post.blog.slug]"> {{post.blog.name}} </a></h4>
                     <p><b>creado:</b> {{post.blog.createdAt | date: 'dd/mm/YYYY'}}</p>
                 </div>
             </div>

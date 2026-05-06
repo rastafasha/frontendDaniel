@@ -2,15 +2,18 @@
     height: 100vh;
 }
 
-.desc{
-    
-}
+
 .desc img, 
 .image,
 figure .image, 
 .image img{
     width: 100% !important;
     margin: auto;
+}
+
+.desc-limited {
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
 
 

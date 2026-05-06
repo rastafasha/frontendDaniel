@@ -20,6 +20,8 @@ import { SplashComponent } from './splash/splash.component';
 import { CategoriesHomeComponent } from './categories-home/categories-home.component';
 import { FavoritesHomeComponent } from './favorites-home/favorites-home.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+
 @NgModule({ declarations: [
         ArticlesHomeComponent,
         ArticlesFollowComponent,

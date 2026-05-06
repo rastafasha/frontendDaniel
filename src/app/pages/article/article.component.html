@@ -7,7 +7,7 @@
         <!-- article -->
         <div class="article" *ngIf="!isLoading">
             <div class="userinfo">
-                <p><span class="resaltado">{{blogusuario.username}}</span>&nbsp; in &nbsp;<a
+                <p><span class="resaltado">{{blogusuario?.username}}</span>&nbsp; in &nbsp;<a
                         [routerLink]="['/blog/category/', blog.categoria._id]"
                         class="resaltado">{{blog.categoria.nombre}}</a>&nbsp;</p>
             </div>
@@ -19,9 +19,9 @@
                     <a class="pointer" (click)="addToFavorites()">
                         <i class="fa fa-bookmark-o"></i>
                     </a>
-                    <a class="pointer">
+                    <!-- <a class="pointer">
                         <i class="fa fa-th-list"></i>
-                    </a>
+                    </a> -->
                 </div>
             </div>
             <div class="article-info">
@@ -35,27 +35,41 @@
                             [style.background-image]="'url(' + (blog.img | imagenPipe: 'blogs') + ')'"
                             [title]="blog.name">
                         </div>
-                        <!-- <img class="img-responsive" [src]="blog.img | imagenPipe: 'posts'" alt=" {{blog.name}}" /> -->
                     </div>
                 </div>
                 <h1>{{blog.name}}</h1>
-                <div class="desc" *ngIf="usuario && usuario.role === 'MEMBER'" [innerHtml]="blog.description | safe: 'html' ">
-                </div>
+                <!-- SI EL SERVER DIJO QUE TIENE ACCESO TOTAL -->
+                <div *ngIf="fullContent">
+                    <div class="desc" [innerHtml]="blog.description | safe: 'html'"></div>
 
-                <div *ngIf="!usuario">
-                    <div class="desc" [innerHtml]="blog.introhome | safe: 'html' "></div>...
-                    <div class="alert alert-warning mt-3" role="alert">
-                        <h4 class="alert-heading">Aviso</h4>
-                        <p>Subscribete o compra este artículo para verlo completo</p>
-                        <p class="mb-0"></p>
+                    <!-- Mensaje opcional de éxito -->
+                    <div class="alert alert-success mt-3" *ngIf="!usuario?.role === 'MEMBER'">
+                        Estás leyendo este artículo gracias a tus 3 créditos gratuitos.
                     </div>
                 </div>
-                <div *ngIf="usuario && usuario.role !== 'MEMBER'">
-                    <div class="desc" [innerHtml]="blog.introhome | safe: 'html' "></div>...
-                    <div class="alert alert-warning mt-3" role="alert">
-                        <h4 class="alert-heading">Aviso</h4>
-                        <p>Subscribete o compra este artículo para verlo completo</p>
-                        <p class="mb-0"></p>
+
+                <!-- SI EL CONTENIDO ESTÁ LIMITADO (Invitados o Límite alcanzado) -->
+                <div *ngIf="!fullContent">
+                    <!-- Mostramos solo el avance -->
+                    <div class="desc-limited" [innerHtml]="blog.introhome | safe: 'html'"></div>
+                    <p>...</p>
+
+                    <!-- CASO A: Llegó al límite de 3 -->
+                    <div *ngIf="limiteAlcanzado" class="paywall-card">
+                        <div class="alert alert-warning">
+                            <h4>🔒 Límite alcanzado</h4>
+                            <p>Has disfrutado de tus 3 artículos gratuitos. Suscríbete para seguir leyendo.</p>
+                            <button (click)="gotoSubscripcion()" class="btn btn-primary">Ver Planes PayPal</button>
+                        </div>
+                    </div>
+
+                    <!-- CASO B: Es invitado (No está logueado) -->
+                    <div *ngIf="!limiteAlcanzado && !user" class="paywall-card">
+                        <div class="alert alert-info">
+                            <h4>📖 ¿Quieres leer más?</h4>
+                            <p>Regístrate y obtén 3 artículos gratuitos cada mes.</p>
+                            <button (click)="irAlLogin()" class="btn btn-outline-primary">Crear Cuenta Gratis</button>
+                        </div>
                     </div>
                 </div>
 

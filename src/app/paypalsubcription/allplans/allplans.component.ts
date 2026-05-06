@@ -33,17 +33,12 @@ export class AllPlansComponent implements OnInit {
 
   constructor(
     private paypalSubcription: PaypalSubcriptionService,
-    private activatedRoute: ActivatedRoute,
     private profileService: ProfileService,
-    private subcriptionService: SubcriptionPaypalService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getPlanes();
-    // this.getProductos();
     this.getUser();
-    // this.getPlan();
   }
 
   getPlanes(): void {
@@ -53,25 +48,6 @@ export class AllPlansComponent implements OnInit {
         this.planPaypals = res.plans;
         error => this.error = error
         this.isLoading = false;
-      }
-    );
-  }
-
-  getPlan(): void {
-    this.paypalSubcription.getPlanPaypal('P-1PJ18025B84179353MTF4PKQ').subscribe(
-      res =>{
-        this.planPaypal = res;
-        error => this.error = error;
-      }
-    );
-  }
-
-  getProductos(): void {
-    this.paypalSubcription.getProductPaypals().subscribe(
-      res =>{
-        this.products = res.products;
-        error => this.error = error
-        // console.log(this.products);
       }
     );
   }
@@ -90,7 +66,7 @@ export class AllPlansComponent implements OnInit {
   listar(){
     this.profileService.listarUsuario(this.user.uid).subscribe(
       response =>{
-        this.profile = response[0];
+        this.profile = response;
         // console.log('profileServer',this.profile);
       }
     );

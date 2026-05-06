@@ -19,9 +19,11 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { PaywallInterceptor } from './http-interceptors/paypal-interceptor';
 
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
@@ -36,10 +38,10 @@ import { ToastrModule } from 'ngx-toastr';
         NgxPayPalModule,
         ModalModule.forRoot(),
         ServiceWorkerModule.register('ngsw-worker.js', {
-          enabled: !isDevMode(), 
-          // Register the ServiceWorker as soon as the application is stable
-          // or after 30 seconds (whichever comes first).
-          registrationStrategy: 'registerImmediately'
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerImmediately'
         }),
         BrowserAnimationsModule,
         ToastrModule.forRoot({
@@ -48,6 +50,17 @@ import { ToastrModule } from 'ngx-toastr';
             preventDuplicates: true,
         }),
     ], providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor, // Primero añade el Token
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: PaywallInterceptor, // Luego maneja errores de acceso/límites
+            multi: true
+        },
         provideHttpClient(withInterceptorsFromDi())
-    ] })
+    ]
+})
 export class AppModule { }

@@ -51,6 +51,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     component: ByCategoryComponent },
 
+  { path: 'favoritos/:id', component: FavoritosComponent },
 
   { path: 'editor/:id', component: EditorComponent },
 
@@ -63,7 +64,7 @@ const routes: Routes = [
   { path: 'user-account/edit/:id', component: ProfileComponent },
   { path: 'user-account/payment-detail/:id', component: PaymentDetailsComponent },
   { path: 'user/carrito', component: CartComponent },
-  { path: 'favoritos/:id', component: FavoritosComponent },
+
 
 
   // { path: 'subcripciones', component: SubscriptionComponent },

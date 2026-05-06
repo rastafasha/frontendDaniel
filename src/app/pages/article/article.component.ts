@@ -11,6 +11,7 @@ import { MessageService } from 'src/app/services/message.service';
 import { Favorite } from 'src/app/models/favorite';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { Favorito } from 'src/app/models/favoriter-item-model';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -19,7 +20,6 @@ import { Favorito } from 'src/app/models/favoriter-item-model';
   standalone: false
 })
 export class ArticleComponent implements OnInit {
-  // @Input() favoriteItem: Favorite;
   product: Post;
   blog: Post;
   error: string;
@@ -29,13 +29,17 @@ export class ArticleComponent implements OnInit {
   uid: string;
   title: string;
   role: User;
-  // @Input() product: Post;
+  fullContent: boolean = false;
+  limiteAlcanzado: boolean = false;
+  articulosRestantes: number = 0;
 
   public user: User;
   public identity: User;
   favoriteItem: Favorito;
   isLoading = false;
-  imagenSerUrl = environment.apiUrlMedia;
+
+  private destroy$ = new Subject<void>();
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private postService: PostService,
@@ -47,40 +51,42 @@ export class ArticleComponent implements OnInit {
   }
 
   ngOnInit() {
-
     window.scrollTo(0, 0);
-    // this.activatedRoute.params.subscribe( ({slug}) => this.getPost(slug));
-    const slug = this.activatedRoute.snapshot.paramMap.get('slug');
-
-    this.slug = slug;
-
     this.usuario = JSON.parse(localStorage.getItem('user'));
-    if (!this.usuario || !this.usuario.role || this.usuario.role === null || this.role === null) {
-      // console.log('no hay role')
-      // this.user.role = 'USER';
-      console.log(this.usuario)
-    }
-    this.isLoading = true;
-    this.postService.getBlogBySlug(slug).subscribe(
-      res => {
-        this.blog = res;
-        this.blogusuario = res.usuario;
-        this.isLoading = false;
+    this.activatedRoute.paramMap.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((params: ParamMap) => {
+      const slug = params.get('slug');
+      if (slug) {
+        this.slug = slug;
+        this.loadBlog(slug);
       }
-    );
-
-
+    });
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
-  getUserServer() {
-    this.userService.getUserById(this.user.uid).subscribe(
-      res => {
-        this.user = res;
-        error => this.error = error
-        // console.log(this.user);
+  private loadBlog(slug: string) {
+    this.isLoading = true;
+    this.postService.getBlogBySlug(slug).subscribe({
+      next: (resp: any) => {
+        this.blog = resp.blog;
+        this.blogusuario = resp.blog.usuario;
+        this.fullContent = resp.fullContent;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        if (err.status === 403 && err.error.limiteAlcanzado) {
+          this.limiteAlcanzado = true;
+          this.fullContent = false;
+          this.blog = err.error.blog;
+        }
+        this.isLoading = false;
       }
-    );
+    });
   }
 
   addToCart(): void {
@@ -94,15 +100,9 @@ export class ArticleComponent implements OnInit {
       blog: this.product._id,
       usuario: this.usuario.uid,
     }
-
-
     this.favoriteService.createFavorite(data).subscribe((res: any) => {
       this.favoriteItem = res;
       // console.log(this.favoriteItem);
     });
   }
-
-
 }
-
-

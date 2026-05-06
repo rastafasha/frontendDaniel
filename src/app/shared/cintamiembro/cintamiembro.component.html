@@ -1,29 +1,35 @@
+<!-- USUARIO NO LOGUEADO -->
 <div *ngIf="!role || !user">
-    <!-- <div> -->
-    <div class="subcribe-bar">
-        <i class="fa fa-star-o"></i>
-        <p>Inicia sesión o registrate para ver el artículo.</p>
-        <p><a (click)="irAlLogin()">Inicio / Registro</a></p>
-        <p><a (click)="gotoSubscripcion()">Ver planes de Subscripción</a></p>
-    </div>
+  <div class="subcribe-bar">
+    <i class="fa fa-star-o"></i>
+    <p>Inicia sesión o regístrate para leer tus 3 artículos gratuitos.</p>
+    <p><a (click)="irAlLogin()">Inicio / Registro</a></p>
+  </div>
 </div>
 
-<div *ngIf="user && user.role === 'USER' ">
-    <!-- <div> -->
-    <div class="subcribe-bar">
-        <i class="fa fa-star-o"></i>
-        <p>Obten Acceso ilimitado de todo Article App por tan solo  $1/semanal.</p>
-        <p><a (click)="gotoSubscripcion()" >Ver planes de Subscripción</a></p>
-    </div>
+<!-- USUARIO LOGUEADO (Rol USER) -->
+<div *ngIf="user && role === 'USER'">
+  <div class="subcribe-bar">
+    <i class="fa fa-star-o"></i>
+    
+    <!-- Caso A: Le quedan artículos -->
+    <ng-container *ngIf="!limiteAlcanzado">
+      <p>Te quedan <strong>&nbsp;{{ 3 - articulosVistos }}&nbsp;</strong> lecturas gratuitas este mes.</p>
+      <p><a (click)="gotoSubscripcion()">¡Pásate a Premium por $1/semanal!</a></p>
+    </ng-container>
+
+    <!-- Caso B: Límite alcanzado -->
+    <ng-container *ngIf="limiteAlcanzado">
+      <p>Has agotado tus lecturas gratuitas.</p>
+      <p><a (click)="gotoSubscripcion()" class="text-warning">Suscríbete ahora para acceso ilimitado</a></p>
+    </ng-container>
+  </div>
 </div>
 
-<div *ngIf="user && role === 'ADMIN' || role === 'EDITOR' || role === 'SUPERADMIN' ">
-    <div class="subcribe-bar">
-        <i class="fa fa-star-o"></i>
-        <p *ngIf="role === 'MEMBER'">Bienvenido {{user.username}}!</p>
-        <p *ngIf="role === 'ADMIN'">Bienvenido {{user.username}}!</p>
-        <p *ngIf="role === 'EDITOR' ">Bienvenido {{user.username}}!</p>
-        <p *ngIf="role === 'SUPERADMIN' ">Bienvenido {{user.username}}!</p>
-
-    </div>
+<!-- ROLES ADMINISTRATIVOS / PREMIUM -->
+<div *ngIf="user && (role === 'ADMIN' || role === 'EDITOR' || role === 'SUPERADMIN' || role === 'MEMBER')">
+  <div class="subcribe-bar">
+    <i class="fa fa-star-o"></i>
+    <p>¡Bienvenido de nuevo, {{user.username}}! Disfruta de tu acceso ilimitado.</p>
+  </div>
 </div>

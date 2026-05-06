@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Favorito } from 'src/app/models/favoriter-item-model';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
@@ -41,6 +42,8 @@ export class FavoritesHomeComponent {
     );
     
   }
+
+  
 
 
 }
