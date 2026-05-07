@@ -78,14 +78,19 @@ export class ProfileService {
   }
 
   deleteProfile(_id: string) {
-    const url = `${baseUrl}/profiles/borrar/${_id}`;
+    const url = `${baseUrl}/profile/borrar/${_id}`;
     return this.http.delete(url, this.headers);
   }
 
   activarPlanGratuito() {
-    const url = `${baseUrl}/profiles/plangratuito`;
+    const url = `${baseUrl}/profile/plangratuito`;
     return this.http.post(url, this.headers);
 
   }
+
+  saveSubscriptionId(uid: string, subscriptionId: string) {
+  const url = `${baseUrl}/profile/save-subscription`; // Ajusta tu URL
+  return this.http.post(url, { uid, subscriptionId });
+}
 
 }
