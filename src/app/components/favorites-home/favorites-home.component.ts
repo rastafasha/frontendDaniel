@@ -4,6 +4,7 @@ import { Favorito } from 'src/app/models/favoriter-item-model';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
 import { FavoriteService } from 'src/app/services/favorite.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-favorites-home',
@@ -17,8 +18,10 @@ export class FavoritesHomeComponent {
   loading = false;
   favoritos:Favorito[];
   blogs:Post;
+  profile:any ={};
 
   private favoriteService = inject(FavoriteService);
+  private profileService = inject(ProfileService);
 
   ngOnInit(){
      this.usuario = JSON.parse(localStorage.getItem('user'));
@@ -41,6 +44,12 @@ export class FavoritesHomeComponent {
       }
     );
     
+  }
+
+  getPerfilUsuario(){
+    this.profileService.getByUser(this.usuario.uid).subscribe((resp:any)=>{
+      this.profile = resp
+    })
   }
 
   

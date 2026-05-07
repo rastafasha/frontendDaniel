@@ -95,6 +95,9 @@ export class CintamiembroComponent implements OnInit {
   irAlLogin() {
     this.router.navigateByUrl('/login');
   }
+  irAlProfile() {
+    this.router.navigate(['/user-acount', this.user.uid] );
+  }
 
   activarPlanGratis() {
   this.profileService.activarPlanGratuito().subscribe({

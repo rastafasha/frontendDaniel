@@ -1,3 +1,12 @@
+<!-- USUARIO NO Profile -->
+<div *ngIf="!profile">
+  <div class="subcribe-bar">
+    <i class="fa fa-star-o"></i>
+    <p>Llena tu perfil para tener una optima experiencia.</p>
+    <p><a [routerLink]="['/user-account', user.uid]">Llenar perfil</a></p>
+  </div>
+</div>
+
 <!-- USUARIO NO LOGUEADO -->
 <div *ngIf="!role || !user">
   <div class="subcribe-bar">

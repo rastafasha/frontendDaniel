@@ -1,22 +1,25 @@
-<div class="home-article" >
+<div class="home-article">
     <div class="userinfo">
-        <p><span class="resaltado">{{product.usuario.username}}</span>&nbsp; in &nbsp;<span class="resaltado">ITNEXT</span>&nbsp; • &nbsp; <span class="resaltado">{{product.createdAt | date:'mediumDate'}}</span></p>
+        <p><span class="resaltado">{{product.usuario.username}}</span>&nbsp; in &nbsp;<span
+                class="resaltado">ITNEXT</span>&nbsp; • &nbsp; <span class="resaltado">{{product.createdAt |
+                date:'mediumDate'}}</span></p>
     </div>
     <div class="article-info">
-       <a [routerLink]="['/blog', product.slug]">
-           <h1>{{product.name}}</h1>
-       </a>
+        <a [routerLink]="['/blog', product.slug]">
+            <h1>{{product.name}}</h1>
+        </a>
         <!-- <h1><a [routerLink]="['/blog', product.slug]">{{product.name}}</a></h1> -->
-        <div class="introHome"  [innerHtml]="product.introhome | safe: 'html'  "></div>
+        <div class="introHome" [innerHtml]="product.introhome | safe: 'html'  "></div>
         <div class="image-article">
             <!-- <a [routerLink]="['/blog', product.slug]"> -->
-                <div *ngIf="!product.img">
-                    <div class="no-image"></div>
-                </div>
-                <div *ngIf="product.img">
-                    <div class="got-image-s" [style.background-image]="'url(' + (product.img | imagenPipe: 'blogs') + ')'" title="{{product.name}}"></div>
-                    <!-- <img class="img-responsive" [src]="post.image | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
-                </div>
+            <div *ngIf="!product.img">
+                <div class="no-image"></div>
+            </div>
+            <div *ngIf="product.img">
+                <div class="got-image-s" [style.background-image]="'url(' + (product.img | imagenPipe: 'blogs') + ')'"
+                    title="{{product.name}}"></div>
+                <!-- <img class="img-responsive" [src]="post.image | imagenPipe: 'posts'" alt=" {{post.title}}" /> -->
+            </div>
             <!-- </a> -->
         </div>
     </div>
@@ -26,38 +29,35 @@
         </div>
         <div class="options-icons">
             {{product.price|currency}}
-            
+
         </div>
         <div class="options-buttons">
-            
+
             <div *ngIf="!usuario || usuario.role === 'undefined' || usuario.role === 'null'">
                 Registrate para comprar
             </div>
-            <div *ngIf="usuario  ">
+            <div *ngIf="usuario && profile ">
                 <a (click)="addToCart()">
-                    <button class="btn btn-outline-danger mr-1"> 
+                    <button class="btn btn-outline-danger mr-1">
                         <i class="fa fa-shopping-cart"></i>
-                    </button> 
+                    </button>
                 </a>
                 <!-- <a data-toggle="modal" [attr.data-target]="'#' + product._id">
                     <button class="btn"><i class="fa fa-bitcoin"></i> pagar con binance usdt  </button> 
                 </a> -->
             </div>
-            
+
         </div>
-        <div *ngIf="usuario">
-            <div class="options-icons" >
-                <a class="pointer btn btn-outline-danger" id="notification-trigger" (click)="agregarLista(product)">
+        <div *ngIf="usuario && !esFavorito && profile">
+            <div class="options-icons">
+                <a class="pointer btn btn-outline-danger" id="notification-trigger" (click)="addToFavorites(product)">
                     <i class="fa fa-bookmark-o"></i>
                 </a>
             </div>
         </div>
-        
+        <span *ngIf="usuario && esFavorito && profile" class="text-danger">
+            <i class="fa fa-heart"></i> Ya en tus favoritos
+        </span>
+
     </div>
 </div>
-
-
-
-
-
-

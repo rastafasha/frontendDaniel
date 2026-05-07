@@ -62,20 +62,39 @@ ngOnInit(){
 
 
 // Registro
-crearUsuario(){
+// No olvides inyectar el Router en el constructor: private router: Router
+crearUsuario() {
   this.formSumitted = true;
-  this.usuarioService.crearUsuario(this.registerForm.value).subscribe(
-    resp =>{
-      Swal.fire('Registrado!', `Ya puedes ingresar`, 'success');
-      this.ngOnInit();
-    },(error) => {
+
+  if (this.registerForm.invalid) return;
+
+  this.usuarioService.crearUsuario(this.registerForm.value).subscribe({
+    next: (resp: any) => {
+      // 1. Guardamos el token para que ya esté logueado
+      localStorage.setItem('token', resp.token);
+      
+      // 2. Obtenemos el UID (puedes sacarlo de la respuesta 'resp.usuario.uid' 
+      // o del servicio si ya lo tienes procesado)
+      const uid = resp.usuario.uid; 
+
+      Swal.fire({
+        title: '¡Cuenta creada!',
+        text: 'Vamos a configurar tu perfil para activar tus 3 lecturas gratuitas.',
+        icon: 'success',
+        confirmButtonText: 'Configurar perfil'
+      }).then(() => {
+        // 3. Redirección dinámica usando el UID recibido
+        this.router.navigateByUrl(`/dashboard/user-account/${uid}`);
+      });
+    },
+    error: (error) => {
       Swal.fire('Error', error.error.msg, 'error');
-      this.errors = error.error;
     }
-  );
-  return false;
+  });
 
 }
+
+
 
 campoNoValido(campo: string): boolean {
   if(this.registerForm.get(campo).invalid && this.formSumitted){

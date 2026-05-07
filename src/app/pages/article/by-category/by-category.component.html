@@ -4,65 +4,62 @@
 
     <!-- 1. Caso: No hay posts -->
     @if (posts().length === 0 && !loading()) {
-      <div>
-        <p>No existen posts para esta categoría.</p>
-      </div>
+    <div>
+      <p>No existen posts para esta categoría.</p>
+    </div>
     }
 
     <!-- 2. Contenedor del Infinite Scroll -->
-    <div class="row" 
-         infiniteScroll 
-         [infiniteScrollDistance]="2" 
-         [infiniteScrollThrottle]="50" 
-         (scrolled)="onScroll()">
-      
-      @for (post of posts(); track post._id) {
-        <div class="home-article col-xs-12 col-sm-6 mb-4">
-          <div class="article-info">
-            <h1>
-              <a [routerLink]="['/blog', post.slug]">{{ post.name }}</a>
-            </h1>
-            
-            <div class="introHome" [innerHtml]="post.introhome | safe: 'html'"></div>
-            
-            <div class="image-article">
-              <a [routerLink]="['/blog', post.slug]">
-                @if (!post.img) {
-                  <div class="no-image"></div>
-                } @else {
-                  <div class="got-image-s" 
-                       [style.background-image]="'url(' + (post.img | imagenPipe: 'blogs') + ')'" 
-                       style="height: 150px;" 
-                       [title]="post.title">
-                  </div>
-                }
-              </a>
-            </div>
-          </div>
+    <div class="row" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
 
-          <a (click)="agregarLista(post)" *ngIf="usuario" style="cursor: pointer;">
-            <i class="fa fa-bookmark-o"></i>
-          </a>
+      @for (post of posts(); track post._id) {
+      <div class="home-article col-xs-12 col-sm-6 mb-4">
+        <div class="article-info">
+          <h1 >
+            <a [routerLink]="['/blog', post.slug]">{{ post.name }}</a>
+          </h1>
+
+          <div class="introHome" [innerHtml]="post.introhome | safe: 'html'"></div>
+
+          <div class="image-article">
+            <a [routerLink]="['/blog', post.slug]">
+              @if (!post.img) {
+              <div class="no-image"></div>
+              } @else {
+              <div class="got-image-s" [style.background-image]="'url(' + (post.img | imagenPipe: 'blogs') + ')'"
+                style="height: 150px;" [title]="post.title">
+              </div>
+              }
+            </a>
+          </div>
         </div>
+
+        <a (click)="addToFavorites(post)" *ngIf="usuario && !esFavorito && profile" style="cursor: pointer;">
+          <i class="fa fa-bookmark-o"></i>
+        </a>
+        <span *ngIf="usuario && esFavorito && profile" class="text-danger">
+          <i class="fa fa-heart"></i> Ya en tus favoritos
+        </span>
+      </div>
       }
     </div>
 
     <!-- 3. Indicador de carga al final -->
     @if (loading()) {
-      <div class="text-center my-4">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Cargando más artículos...</span>
-        </div>
-        <p>Buscando más contenido...</p>
+    <div class="text-center my-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando más artículos...</span>
       </div>
+      <p>Buscando más contenido...</p>
+    </div>
     }
 
     <!-- 4. Mensaje si ya no hay más -->
     @if (!hasMore() && posts().length > 0) {
-      <p class="text-center text-muted">Has llegado al final de la categoría.</p>
+    <p class="text-center text-muted">Has llegado al final de la categoría.</p>
     }
   </div>
   <!-- right side -->
-    <app-sidebar></app-sidebar>
-    <!-- endright side -->
+  <app-sidebar></app-sidebar>
+  <!-- endright side -->
 </div>

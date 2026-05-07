@@ -1,4 +1,4 @@
-<app-cintamiembro></app-cintamiembro>
+<!-- <app-cintamiembro></app-cintamiembro> -->
 <div class="container mt-3 mb-3">
     <app-back-button [title]="blog.name"></app-back-button>
     <!-- left-side -->
@@ -15,13 +15,17 @@
                 <div class="time-story">
                     5 min read • Based on you reading history
                 </div>
-                <div class="options-icons" *ngIf="usuario">
+                <div class="options-icons" *ngIf="usuario && !esFavorito && profile">
                     <a class="pointer" (click)="addToFavorites()">
                         <i class="fa fa-bookmark-o"></i>
                     </a>
                     <!-- <a class="pointer">
                         <i class="fa fa-th-list"></i>
                     </a> -->
+                </div>
+                <!-- Si YA es favorito, mostramos un mensaje o el icono lleno -->
+                <div class="options-icons text-danger" *ngIf="usuario && esFavorito && profile">
+                    <i class="fa fa-heart" ></i>
                 </div>
             </div>
             <div class="article-info">
@@ -81,6 +85,6 @@
     </div>
     <!-- end left-side -->
     <!-- right side -->
-    <app-sidebar></app-sidebar>
+    <app-sidebar ></app-sidebar>
     <!-- endright side -->
 </div>

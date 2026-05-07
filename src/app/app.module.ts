@@ -46,7 +46,7 @@ import { PaywallInterceptor } from './http-interceptors/paypal-interceptor';
         BrowserAnimationsModule,
         ToastrModule.forRoot({
             timeOut: 3000,
-            positionClass: 'toast-top-right',
+            positionClass: 'toast-bottom-right',
             preventDuplicates: true,
         }),
     ], providers: [

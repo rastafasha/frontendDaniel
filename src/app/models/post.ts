@@ -19,6 +19,7 @@ export class Post {
     public status: boolean,
     public usuario: User,
     public isFeatured: boolean,
+    public esFavorito: boolean,
     public createdAt: Date,
     public updatedAt: Date,
     public img?: string,

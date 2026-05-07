@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, DoCheck, EventEmitter, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
@@ -12,6 +12,9 @@ import { Favorite } from 'src/app/models/favorite';
 import { FavoriteService } from 'src/app/services/favorite.service';
 import { Favorito } from 'src/app/models/favoriter-item-model';
 import { Subject, takeUntil } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { ProfileService } from 'src/app/services/profile.service';
+import { Profile } from 'src/app/models/profile';
 
 @Component({
   selector: 'app-article',
@@ -20,6 +23,9 @@ import { Subject, takeUntil } from 'rxjs';
   standalone: false
 })
 export class ArticleComponent implements OnInit {
+
+  @Output() refreshFavoriteList: EventEmitter<void> = new EventEmitter<void>();
+
   product: Post;
   blog: Post;
   error: string;
@@ -31,6 +37,7 @@ export class ArticleComponent implements OnInit {
   role: User;
   fullContent: boolean = false;
   limiteAlcanzado: boolean = false;
+  esFavorito: boolean = false;
   articulosRestantes: number = 0;
 
   articulosVistos: number = 0;
@@ -39,6 +46,7 @@ export class ArticleComponent implements OnInit {
   public identity: User;
   favoriteItem: Favorito;
   isLoading = false;
+  profile:Profile;
 
   private destroy$ = new Subject<void>();
 
@@ -48,6 +56,8 @@ export class ArticleComponent implements OnInit {
     private userService: UserService,
     private messageService: MessageService,
     private favoriteService: FavoriteService,
+    private toastr: ToastrService,
+    private profileService: ProfileService,
   ) {
     this.usuario = this.userService.usuario;
   }
@@ -55,6 +65,7 @@ export class ArticleComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     this.usuario = JSON.parse(localStorage.getItem('user'));
+    this.getPerfilUsuario()
     this.activatedRoute.paramMap.pipe(
       takeUntil(this.destroy$)
     ).subscribe((params: ParamMap) => {
@@ -64,6 +75,11 @@ export class ArticleComponent implements OnInit {
         this.loadBlog(slug);
       }
     });
+  }
+   getPerfilUsuario(){
+    this.profileService.getByUser(this.usuario.uid).subscribe((resp:any)=>{
+      this.profile = resp
+    })
   }
 
   ngOnDestroy() {
@@ -76,8 +92,10 @@ export class ArticleComponent implements OnInit {
     this.postService.getBlogBySlug(slug).subscribe({
       next: (resp: any) => {
         this.blog = resp.blog;
+        console.log('Respuesta recibida:', resp);
         this.blogusuario = resp.blog.usuario;
         this.fullContent = resp.fullContent;
+        this.esFavorito = resp.esFavorito;
         this.isLoading = false;
         // Si la lectura fue exitosa y descontó un crédito
         this.articulosVistos++;
@@ -108,18 +126,29 @@ export class ArticleComponent implements OnInit {
 
   addToCart(): void {
     console.log('sending...')
-    this.messageService.sendMessage(this.product);
+    this.messageService.sendMessage(this.blog);
   }
 
   addToFavorites() {
     const data = {
       // ...this.product,
-      blog: this.product._id,
+      blog: this.blog._id,
       usuario: this.usuario.uid,
     }
-    this.favoriteService.createFavorite(data).subscribe((res: any) => {
-      this.favoriteItem = res;
-      // console.log(this.favoriteItem);
+    this.favoriteService.createFavorite(data).subscribe({
+      next: (res: any) => {
+        this.favoriteItem = res;
+        this.toastr.success('¡Añadido a favoritos!');
+        this.esFavorito = true;
+        this.ngOnInit();
+      },
+      error: (err) => {
+        // Aquí capturamos el error del backend
+        // Si el backend envió res.status(400), el mensaje está en err.error.msg
+        const mensaje = err.error?.msg || 'Error al guardar';
+        this.toastr.warning(mensaje, 'Atención');
+      }
     });
   }
+  
 }
