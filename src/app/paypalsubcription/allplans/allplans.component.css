@@ -91,3 +91,16 @@
     background: #f8f9fa;
     border-radius: 15px;
 }
+
+.avisoregistro{
+    margin: 100px auto; 
+    width: 30vw; 
+    text-align: center;
+}
+
+@media (max-width:768px){
+    .avisoregistro{
+    margin: 100px auto; 
+    width: 70vw; 
+}
+}

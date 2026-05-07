@@ -18,12 +18,7 @@ export class FooterComponent implements OnInit {
   }
 
   getUser(): void {
-
     this.user = JSON.parse(localStorage.getItem('user'));
-    if(!this.user || !this.user.role || this.user.role === null ){
-      //  this.router.navigateByUrl('/login')
-    }
-
   }
 
 

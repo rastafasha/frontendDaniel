@@ -3,7 +3,7 @@ import { FavoriteItemModel, Favorito } from '../models/favoriter-item-model';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map, tap } from 'rxjs';
 import { Profile } from '../models/profile';
 import { Post } from '../models/post';
 import { Favorite } from '../models/favorite';
@@ -15,12 +15,24 @@ const baseUrl = environment.apiUrl;
   providedIn: 'root'
 })
 export class FavoriteService {
+  // Usamos Subject para emitir el evento de refresco
+  private refreshSource = new Subject<void>();
+
+  // Observable que los componentes escucharán
+  refresh$ = this.refreshSource.asObservable();
+
+  triggerRefresh() {
+    this.refreshSource.next();
+  }
+
+  
 
   public user: User;
   public favorite: FavoriteItemModel;
 
   constructor(private http: HttpClient) { }
 
+  
   get token():string{
     return localStorage.getItem('token') || '';
   }
@@ -59,13 +71,25 @@ export class FavoriteService {
     )
 
   }
-  createFavorite(favorite:any) {
-    const url = `${baseUrl}/favoritos/crear`;
-    return this.http.post(url, favorite, this.headers);
-  }
+  
+  createFavorite(favorite: any) {
+  const url = `${baseUrl}/favoritos/crear`;
+  return this.http.post(url, favorite, this.headers).pipe(
+    tap(() => {
+      this.triggerRefresh(); // Esto avisará al sidebar automáticamente
+    })
+  );
+}
+
+ 
+  
+
   deleteFavorito(_id: any) {
-    const url = `${baseUrl}/favoritos/borrar/${_id}`;
-    return this.http.delete(url, this.headers);
+    return this.http.delete(`${baseUrl}/favoritos/borrar/${_id}`).pipe(
+      tap(() => {
+        this.refresh$; // ¡Avisamos a todos!
+      })
+    );
   }
 
 

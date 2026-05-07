@@ -125,6 +125,7 @@ export class ByCategoryComponent implements OnInit {
         this.favoriteItem = res;
         this.toastr.success('¡Añadido a favoritos!');
         this.esFavorito = true;
+        this.favoriteService.triggerRefresh();
         this.ngOnInit();
       },
       error: (err) => {

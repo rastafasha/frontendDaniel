@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Favorito } from 'src/app/models/favoriter-item-model';
 import { Post } from 'src/app/models/post';
@@ -30,7 +31,8 @@ export class SidebarComponent implements OnInit {
   role: string;
   loading = false;
   blogs:any=[]=[];
-  favorito:Favorito;
+  favoritos: any[] = [];
+  private subscription: Subscription;
 
   constructor(
     private postService: PostService,
@@ -38,6 +40,7 @@ export class SidebarComponent implements OnInit {
     private userService: UserService,
     private profileService: ProfileService,
     private router: Router,
+    private favoriteService: FavoriteService
 
   ) { }
 
@@ -46,6 +49,24 @@ export class SidebarComponent implements OnInit {
     this.getEditors();
     this.usuario = JSON.parse(localStorage.getItem('user'));
     this.role = this.usuario.role || null;
+    // Nos suscribimos al canal de avisos
+    this.subscription = this.favoriteService.refresh$.subscribe(() => {
+      this.cargarDatos(); // Se recarga cuando el otro componente borra/agrega
+    });
+
+  }
+
+  cargarDatos() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      this.favoriteService.listarUsuarioFavorites(user.uid).subscribe(res => {
+        this.favoritos = res;
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe(); // Limpieza para evitar fugas de memoria
   }
 
   

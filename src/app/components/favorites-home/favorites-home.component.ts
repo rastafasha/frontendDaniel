@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Favorito } from 'src/app/models/favoriter-item-model';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
@@ -14,6 +15,8 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class FavoritesHomeComponent {
 
+  private refreshSub: Subscription;
+  
   usuario: User;
   loading = false;
   favoritos:Favorito[];
@@ -30,6 +33,10 @@ export class FavoritesHomeComponent {
     }
     if(this.usuario){
       this.listarfavoritessUser();
+      // Nos suscribimos al "aviso" del servicio
+    this.refreshSub = this.favoriteService.refresh$.subscribe(() => {
+      this.listarfavoritessUser(); // Se ejecuta cuando el otro componente borra
+    });
     }
   }
 
@@ -44,6 +51,12 @@ export class FavoritesHomeComponent {
       }
     );
     
+  }
+
+  ngOnDestroy() {
+    if (this.refreshSub) {
+      this.refreshSub.unsubscribe(); // Evita fugas de memoria
+    }
   }
 
   getPerfilUsuario(){

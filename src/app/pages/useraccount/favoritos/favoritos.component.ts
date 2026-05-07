@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Favorito, FavoriteItemModel } from 'src/app/models/favoriter-item-model';
 import { User } from 'src/app/models/user';
 import { FavoriteService } from 'src/app/services/favorite.service';
@@ -11,7 +12,9 @@ import { FavoriteService } from 'src/app/services/favorite.service';
     standalone: false
 })
 export class FavoritosComponent implements OnInit {
-  
+
+ 
+ 
   @Input() favoriteItem: FavoriteItemModel;
   favoritos:Favorito;
   favorito:Favorito;
@@ -29,6 +32,8 @@ export class FavoritosComponent implements OnInit {
     window.scrollTo(0, 0);
     this.getUser();
     this.activatedRoute.params.subscribe( ({id}) => this.listarfavoritessUser(id));
+
+    
   }
 
   getUser(): void {
@@ -57,7 +62,8 @@ export class FavoritosComponent implements OnInit {
     this.favoriteService.deleteFavorito(_id).subscribe(
         res=>{
           // console.log(res);
-          this.ngOnInit();
+          this.listarfavoritessUser(this.user.uid); // Actualiza la lista principal
+    this.favoriteService.triggerRefresh();    // Avisa al sidebar que actualice
   
         }
       );

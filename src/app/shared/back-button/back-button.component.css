@@ -15,6 +15,8 @@
 
 .pagetitle h1 {
     font-size: 28px;
+    margin: 0;
+    padding: 0;
 }
 
 .buton {
@@ -37,4 +39,37 @@
 }
 .backbutton a{
     color: var(--vinotinto);
+}
+
+@media (max-width:768px){
+    .backbutton {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    width: calc(90vw);
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+.backbutton a{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+.pagetitle {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    float: left;
+}
+.pagetitle h1 {
+    font-size: 20px;
+    
+}
+.breadcrumb{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
 }

@@ -63,6 +63,14 @@
     margin-bottom: 20px;
 }
 
+.title-seccion i {
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    color: var(--vinotinto);
+}
+
 .title-seccion img {
     display: block;
     width: 25px;
@@ -283,7 +291,6 @@
     }
     .contenido {
         width: 100%;
-        margin-top: 60px;
         padding: 0px;
         min-height: 100vh;
         padding-bottom: 100px;
@@ -293,7 +300,6 @@
 @media(max-width:420px) {
     .contenido {
         width: 100%;
-        margin-top: 60px;
         padding: 0px;
         min-height: 100vh;
         padding-bottom: 100px;
