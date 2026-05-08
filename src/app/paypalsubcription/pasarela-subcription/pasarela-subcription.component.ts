@@ -111,7 +111,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
 
     // 3. Registrar de nuevo
     this.payPalScriptService.registerPayPalScript({
-      clientId: environment.paypalKey,
+      clientId: environment.clientSubscripcionesSandboxId,
       currency: 'USD',
       vault: 'true',
       intent: 'subscription'
@@ -149,7 +149,7 @@ export class PasarelaSubcriptionComponent implements OnInit {
 
   private initConfig(id: string): void {
     this.SubcriptionConfig = {
-      clientId: environment.paypalKey,
+      clientId: environment.clientSubscripcionesSandboxId,
       currency: 'USD',
       vault: 'true', // Obligatorio para suscripciones
       advanced: {
