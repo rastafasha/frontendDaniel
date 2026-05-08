@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
 
   public payPalConfig2?: IPayPalConfig;
   user: User;
-  profileId:string;
+  profileId: string;
 
 
   constructor(
@@ -70,8 +70,8 @@ export class CartComponent implements OnInit {
     this.closeModalUser();
   }
 
-  getProfileUser(){
-    this.profileService.getByUser(this.user.uid).subscribe((resp:any)=>{
+  getProfileUser() {
+    this.profileService.getByUser(this.user.uid).subscribe((resp: any) => {
       this.profileId = resp._id
     })
   }
@@ -85,7 +85,7 @@ export class CartComponent implements OnInit {
         intent: 'CAPTURE',
         purchase_units: [{
           // CLAVE: Aquí enviamos el ID del perfil o usuario
-          custom_id: `${this.profileId}|${this.getCartIdsString()}`, 
+          custom_id: `${this.profileId}|${this.getCartIdsString()}`,
           description: 'Compra única de artículos/servicio',
           amount: {
             currency_code: 'USD',
@@ -109,15 +109,25 @@ export class CartComponent implements OnInit {
       },
       onApprove: (data, actions) => {
         this.spinner.show();
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        actions.order.get().then((details: any) => {
-          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        console.log('ID de la orden aprobado:', data.orderID);
 
+        // Llamamos a tu backend para capturar el dinero de forma segura
+        this.paymentService.create(data.orderID).subscribe({
+          next: (res) => {
+            console.log('¡Pago capturado con éxito por el servidor!', res);
+            this.emptyCart();
+            this.spinner.hide();
+            this.router.navigate(['/user-account/', this.user.uid]);
+          },
+          error: (err) => {
+            console.error('Error al capturar:', err);
+            this.spinner.hide();
+          }
         });
 
       },
       onClientAuthorization: (data) => {
-        debugger
+
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point',
           JSON.stringify(data));
         this.openModal(
@@ -150,9 +160,9 @@ export class CartComponent implements OnInit {
     };
   }
 
-getCartIdsString(): string {
-  return this.cartItems.map(it => it.productId).join(',');
-}
+  getCartIdsString(): string {
+    return this.cartItems.map(it => it.productId).join(',');
+  }
 
   getItem(): void {
     this.messageService.getMessage().subscribe((product: Post) => {
