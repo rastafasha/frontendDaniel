@@ -25,10 +25,9 @@ export class PerfilComponent implements OnInit {
   title = 'Perfil de Usuario'
   user: User;
   profile: Profile;
-  blogs: Post;
+  blog: Post;
   blogcomprados: Post;
   favoritos: Favorito;
-  favorito: Favorito;
   pagos: Payment;
   uid: User;
   subcriptionPaypal: subcriptionPaypal;
@@ -38,6 +37,7 @@ export class PerfilComponent implements OnInit {
   isLoadingBlog = false;
   isLoadingSubs = false;
   isLoadingPagos = false;
+  esPremium = false;
   option_selectedd: number = 1;
     solicitud_selectedd: any = 1;
 
@@ -89,53 +89,13 @@ export class PerfilComponent implements OnInit {
             this.redssociales = this.profile.redssociales || [];
           }
           
-          if(this.profile.blog ){
-            this.listarBlogsUser();
-          }
-          if(this.profile.pagos ){
-            this.getUserPagos();
-          }
-          if(this.profile.subcription ){
-            this.getUserSubcription();
-          }
-          if(this.profile.favoritos ){
-            this.listarfavoritessUser();
-          }
       
         }
       );
 
   }
 
-  listarBlogsUser() {
-    this.isLoadingBlog = true;
-    this.postService.getByUser(this.user.uid).subscribe(
-      response => {
-        this.blogs = response;
-        this.isLoadingBlog = false;
-      }
-    );
-   
-  }
-   getUserPagos() {
-    this.isLoadingPagos = true;
-    this.pagoService.getPagosbyUser(this.user.uid).subscribe((data: any) => {
-      this.pagos = data;
-      this.isLoadingPagos = false;
-    });
-  }
-
-  listarfavoritessUser() {
-    this.isLoadingFavorite = true;
-    this.favoriteService.listarUsuarioFavorites(this.user.uid).subscribe(
-      response => {
-        this.favoritos = response;
-        this.isLoadingFavorite = false;
-      }
-    );
-   
-
-  }
+ 
 
   deletFavoriteItem(_id: string): void {
     this.favoriteService.deleteFavorito(_id).subscribe(
@@ -145,14 +105,6 @@ export class PerfilComponent implements OnInit {
 
       }
     );
-  }
-
-  getUserSubcription() {
-    this.isLoadingSubs = true;
-    this.subcriptionPaypalService.getByUser(this.user.uid).subscribe((data: any) => {
-      this.subcriptionPaypal = data;
-      this.isLoadingSubs = false;
-    });
   }
 
 
@@ -180,9 +132,6 @@ export class PerfilComponent implements OnInit {
         this.solicitud_selectedd = null;
       }
       if (this.option_selectedd === 5) {
-        this.solicitud_selectedd = null;
-      }
-      if (this.option_selectedd === 6) {
         this.solicitud_selectedd = null;
       }
     }

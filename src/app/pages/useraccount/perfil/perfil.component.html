@@ -22,34 +22,29 @@
                     <h3 class="btn btn-outline-info"> {{'Perfil'}}</h3>
                 </a>
             </li>
-            <li *ngIf="pagos && pagos.length > 0">
+            <li *ngIf="profile.pagos && profile.pagos.length > 0">
                 <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 2}"
                     (click)="optionSelected(2)">
                     <h3 class="btn btn-outline-info">{{'Compras'}}</h3>
                 </a>
             </li>
-            <li *ngIf="subcriptionPaypal && subcriptionPaypal.length > 0 ">
+            <li *ngIf="profile.subcription && profile.subcription.length > 0 ">
                 <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 3}"
                     (click)="optionSelected(3)">
                     <h3 class="btn btn-outline-info">{{'Subscripciones'}}</h3>
                 </a>
             </li>
-            <li *ngIf="user.role === 'EDITOR' || user.role === 'SUPERADMIN' || user.role === 'ADMIN' && blogs && blogs.length > 0 ">
+            <li
+                *ngIf="user.role === 'EDITOR' || user.role === 'SUPERADMIN' || user.role === 'ADMIN' && profile.blogs && profile.blogs.length > 0 ">
                 <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 4}"
                     (click)="optionSelected(4)">
                     <h3 class="btn btn-outline-info">{{'Blogs Creados'}}</h3>
                 </a>
             </li>
-            <li *ngIf="favoritos && favoritos.length > 0 ">
+            <li *ngIf="profile.favoritos && profile.favoritos.length > 0 ">
                 <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 5}"
                     (click)="optionSelected(5)">
                     <h3 class="btn btn-outline-info">{{'Favoritos'}}</h3>
-                </a>
-            </li>
-            <li *ngIf="blogcomprados && blogcomprados.length > 0">
-                <a href="#" onclick="return false;" [ngClass]="{'active': option_selectedd == 6}"
-                    (click)="optionSelected(6)">
-                    <h3 class="btn btn-outline-info">{{'Blogs Comprados'}}</h3>
                 </a>
             </li>
 
@@ -82,8 +77,6 @@
 
                             </div>
                         </div>
-
-
                         <div class="info">
                             <h1>{{profile.first_name}} {{profile.last_name}}</h1>
                             <p><b>Email:</b> {{user.email}}</p>
@@ -107,11 +100,14 @@
                             <p><b>Ciudad:</b> {{profile.ciudad}}</p>
                             <p><b>Estado:</b> {{profile.estado}}</p>
                             <p><b>Descripción:</b> {{profile.shortdescription}}</p>
-
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
                             <p><b>Telefono Casa:</b> {{profile.telhome}}</p>
                             <p><b>Móvil:</b> {{profile.telmovil}}</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <p><b>esPremium:</b> {{esPremium}}</p>
+                            <p><b>paypalSubscriptionId:</b> {{profile.paypalSubscriptionId}}</p>
+                            <p><b>articulosVistos:</b> {{profile.articulosVistos}}</p>
+
                         </div>
                         <div class="col-xs-12 col-sm-6" *ngIf="redssociales && redssociales.length > 0">
                             <h4>Redes sociales:</h4>
@@ -141,7 +137,7 @@
                     <h2>Mis Compras</h2>
                     <!-- whotofollow -->
                     <div class="listfavoritos">
-                        <div class="whotofollow" *ngFor="let userpayment of pagos ">
+                        <div class="whotofollow" *ngFor="let userpayment of profile.pagos ">
 
 
                             <!-- tofolow -->
@@ -198,7 +194,7 @@
                     <h2>Mis Subcripciones</h2>
                     <!-- whotofollow -->
                     <div class="listfavoritos">
-                        <div class="whotofollow" *ngFor="let userpayment of subcriptionPaypal ">
+                        <div class="whotofollow" *ngFor="let userpayment of profile.subcription ">
                             <!-- tofolow -->
                             <div class="subcriptions">
                                 <div class="info">
@@ -241,27 +237,27 @@
                 <div class="card-body">
                     <h2>Blogs Creados</h2>
                     <!-- whotofollow -->
-                     <div class="doscols">
-                        <div class="whotofollow" *ngFor="let blog of blogs ">
-                        <!-- tofolow -->
-                        <div class="tofolow">
-                            <div class="imagen">
-                                <a [routerLink]="['/blog/', blog.slug]">
-                                    <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
-                                </a>
+                    <div class="doscols">
+                        <div class="whotofollow" *ngFor="let blog of profile.blog ">
+                            <!-- tofolow -->
+                            <div class="tofolow">
+                                <div class="imagen">
+                                    <a [routerLink]="['/blog/', blog.slug]">
+                                        <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <a [routerLink]="['/blog/', blog.slug]">
+                                        <h1>{{blog.name}}</h1>
+                                    </a>
+                                    <p>{{blog.description |slice: 0:45}}...</p>
+                                </div>
                             </div>
-                            <div class="info">
-                                <a [routerLink]="['/blog/', blog.slug]">
-                                    <h1>{{blog.name}}</h1>
-                                </a>
-                                <p>{{blog.description |slice: 0:45}}...</p>
-                            </div>
+                            <!-- tofolow -->
+                            <hr>
                         </div>
-                        <!-- tofolow -->
-                        <hr>
                     </div>
-                     </div>
-                    
+
                     <!-- whotofollow -->
 
                 </div>
@@ -276,63 +272,28 @@
                 <div class="card-body ">
                     <h2>Favorites Articles</h2>
                     <div class="doscols">
-                        <div class="whotofollow " *ngFor="let favorito of favoritos ">
-                        <!-- tofolow -->
-                        <div class="tofolow">
-                            <div class="imagen">
-                                <a [routerLink]="['/blog/', favorito.blog.slug]">
-                                    <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt=""
-                                        style="width: 100%;">
-                                </a>
-                            </div>
-                            <div class="info">
-                                <a [routerLink]="['/blog/', favorito.blog.slug]">
-                                    <h1>{{favorito.blog.name}}</h1>
-                                </a>
-                                <p>{{favorito.blog.description |slice: 0:45}}...</p>
-                            </div>
-                            <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)"
-                                src="./assets/svg/icon-delete.svg" alt="delete">
-                        </div>
-                        <!-- tofolow -->
-                        <hr>
-                    </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- blogcomrados -->
-    <div *ngIf="option_selectedd == 6">
-        <app-loading *ngIf="isLoadingPagos"></app-loading>
-        <div class="blogcomrados profile" *ngIf="!isLoadingPagos">
-            <div class="card shadow">
-                <div class="card-body">
-                    <h2>Blogs Comprados</h2>
-                    <!-- whotofollow -->
-                    <div class="doscols">
-                        <div class="whotofollow" *ngFor="let blog of pagos ">
+                        <div class="whotofollow " *ngFor="let favorito of profile.favoritos ">
                             <!-- tofolow -->
                             <div class="tofolow">
                                 <div class="imagen">
-                                    <a [routerLink]="['/blog/', blog.name]">
-                                        <img [src]="blog.img | imagenPipe: 'blogs'" alt="" style="width: 100%;">
+                                    <a [routerLink]="['/blog/', favorito.blog.slug]">
+                                        <img [src]="favorito.blog.img | imagenPipe: 'blogs'" alt=""
+                                            style="width: 100%;">
                                     </a>
                                 </div>
                                 <div class="info">
-                                    <a [routerLink]="['/blog/', blog.name]">
-                                        <h1>{{blog.name}}</h1>
+                                    <a [routerLink]="['/blog/', favorito.blog.slug]">
+                                        <h1>{{favorito.blog.name}}</h1>
                                     </a>
-                                    <p>{{blog.description |slice: 0:45}}...</p>
+                                    <p>{{favorito.blog.description |slice: 0:45}}...</p>
                                 </div>
+                                <img class="cart-modal__delete" (click)="deletFavoriteItem(favorito._id)"
+                                    src="./assets/svg/icon-delete.svg" alt="delete">
                             </div>
                             <!-- tofolow -->
                             <hr>
                         </div>
                     </div>
-
-                    <!-- whotofollow -->
 
                 </div>
             </div>

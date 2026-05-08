@@ -6,7 +6,6 @@ import { PerfilComponent } from './useraccount/perfil/perfil.component';
 import { EditorComponent } from './editor/editor.component';
 import { StaffpicsComponent } from './staffpics/staffpics.component';
 import { RecommendedTopicComponent } from './recommended-topic/recommended-topic.component';
-import { SubscriptionComponent } from './subscription/subscription.component';
 import { WhotofollowComponent } from './whotofollow/whotofollow.component';
 import { ComponentsModule } from '../components/components.module';
 import { SharedModule } from '../shared/shared.module';
@@ -31,7 +30,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     EditorComponent,
     StaffpicsComponent,
     RecommendedTopicComponent,
-    SubscriptionComponent,
     WhotofollowComponent,
     CondicionesComponent,
     ByCategoryComponent,
@@ -48,7 +46,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     EditorComponent,
     StaffpicsComponent,
     RecommendedTopicComponent,
-    SubscriptionComponent,
     WhotofollowComponent,
     CondicionesComponent,
     ByCategoryComponent,
