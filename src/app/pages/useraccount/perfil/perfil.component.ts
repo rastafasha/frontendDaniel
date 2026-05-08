@@ -46,11 +46,7 @@ export class PerfilComponent implements OnInit {
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
-    private pagoService: PaymentService,
-    private postService: PostService,
     private favoriteService: FavoriteService,
-    private subcriptionPaypalService: SubcriptionPaypalService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
 
   ) { }
@@ -80,8 +76,9 @@ export class PerfilComponent implements OnInit {
 
   getProfile() {
    this.profileService.listarUsuario(this.user.uid).subscribe(
-        (resp: Profile) => {
-          this.profile = resp;
+        (resp: any) => {
+          this.profile = resp.profile;
+          this.esPremium = resp.esPremium;
           this.isLoading = false;
           if (typeof this.profile.redssociales === 'string') {
             this.redssociales = JSON.parse(this.profile.redssociales);

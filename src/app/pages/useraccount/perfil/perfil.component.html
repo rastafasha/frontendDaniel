@@ -2,7 +2,7 @@
 <div *ngIf="!profile && !isLoading">
     <div class="container">
         <app-back-button [title]="title"></app-back-button>
-        <div class="col-xs-12 col-sm-4 col-sm-push-3">
+        <div class="col-xs-12 col-sm-6">
             <h3>Completa tu perfil para Tener una mejor experiencia!</h3>
             <a [routerLink]="['/user-account/edit/', user.uid]">
                 <button class="btn btn-primary">Editar Perfil</button>
@@ -64,52 +64,59 @@
                         </a>
                     </div>
 
-                    <div class="tofolow">
-                        <div class="imagen">
-                            <!-- <img src="./assets/img/user2.jpg" alt=""> -->
-                            <div *ngIf="!profile">
-                                <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;"
-                                    class="img-circle avatar">
-                            </div>
-                            <div *ngIf="profile">
-                                <img [src]="profile.img | imagenPipe: 'profiles'" style="height: 50px; width: 50px;"
-                                    class="img-circle avatar">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="datauser">
+                                <div class="imagen">
+                                    <!-- <img src="./assets/img/user2.jpg" alt=""> -->
+                                    <div *ngIf="!profile">
+                                        <img src="./assets/img/no-image.jpg" style="height: 50px; width: 50px;"
+                                            class="img-circle avatar">
+                                    </div>
+                                    <div *ngIf="profile">
+                                        <img [src]="profile.img | imagenPipe: 'profiles'"
+                                            style="height: 50px; width: 50px;" class="img-circle avatar">
 
-                            </div>
-                        </div>
-                        <div class="info">
-                            <h1>{{profile.first_name}} {{profile.last_name}}</h1>
-                            <p><b>Email:</b> {{user.email}}</p>
-                            <p><b>Miembro desde:</b> {{user.createdAt | date: 'dd/mm/YYYY'}}</p>
-                            <p><b>Role:</b> {{user.role}}</p>
-                            <div *ngIf="
+                                    </div>
+                                </div>
+                                <div class="info">
+                                    <h3>{{profile.first_name}} {{profile.last_name}}</h3>
+                                    <p><b>Email:</b> {{user.email}}</p>
+                                    <p><b>Miembro desde:</b> {{user.createdAt | date: 'dd/mm/YYYY'}}</p>
+                                    <p><b>Role:</b> {{user.role}}</p>
+                                    <div *ngIf="
                                 user.role == 'MEMBER' ||
                                 user.role == 'EDITOR' ||
                                 user.role == 'SUPERADMIN' ||
                                 user.role == 'ADMIN'
                               ">
-                                <p *ngIf="profile.emailPaypal"><b>emailPaypal:</b> {{profile.emailPaypal}}</p>
-                                <p *ngIf="profile.nombrePaypal"><b>nombrePaypal:</b> {{profile.nombrePaypal}}</p>
+                                        <p *ngIf="profile.emailPaypal"><b>emailPaypal:</b> {{profile.emailPaypal}}</p>
+                                        <p *ngIf="profile.nombrePaypal"><b>nombrePaypal:</b> {{profile.nombrePaypal}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="otrosdatos">
+                                    <p><b>esPremium:</b> {{esPremium}}</p>
+                                    <p><b>paypalSubscriptionId:</b> {{profile.paypalSubscriptionId}}</p>
+                                    <p><b>articulosVistos:</b> {{profile.articulosVistos}}</p>
+                                </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row">
                         <div class="col-xs-12 col-sm-6">
+                            <div class="row">
+                            <div class="col-xs-12 col-sm-6">
                             <p><b>País:</b> {{profile.pais}}</p>
                             <p><b>Ciudad:</b> {{profile.ciudad}}</p>
                             <p><b>Estado:</b> {{profile.estado}}</p>
+                            
+                        </div>
+                        <div class="col-xs-12 col-sm-6" >
                             <p><b>Descripción:</b> {{profile.shortdescription}}</p>
                             <p><b>Telefono Casa:</b> {{profile.telhome}}</p>
                             <p><b>Móvil:</b> {{profile.telmovil}}</p>
                         </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <p><b>esPremium:</b> {{esPremium}}</p>
-                            <p><b>paypalSubscriptionId:</b> {{profile.paypalSubscriptionId}}</p>
-                            <p><b>articulosVistos:</b> {{profile.articulosVistos}}</p>
-
                         </div>
-                        <div class="col-xs-12 col-sm-6" *ngIf="redssociales && redssociales.length > 0">
+                        <div class="col-xs-12 " *ngIf="redssociales && redssociales.length > 0">
                             <h4>Redes sociales:</h4>
                             <ul class="footer-links social">
                                 <li *ngFor="let red of redssociales">
@@ -119,6 +126,7 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
                         </div>
                     </div>
 
@@ -193,27 +201,25 @@
                 <div class="card-body">
                     <h2>Mis Subcripciones</h2>
                     <!-- whotofollow -->
-                    <div class="listfavoritos">
-                        <div class="whotofollow" *ngFor="let userpayment of profile.subcription ">
+                    <div class="listfavoritos ">
+                        <div class="whotofollow " *ngFor="let userpayment of profile.subcription ">
                             <!-- tofolow -->
-                            <div class="subcriptions">
+                            <div class="subcriptions ">
                                 <div class="info">
                                     <h1><a
                                             [routerLink]="['/user-account/payment-detail', userpayment._id]">{{userpayment.id}}</a>
                                     </h1>
-                                    <a [routerLink]="['/pasarela-subcripcion/', userpayment.plan_id]">
-                                        <p>{{userpayment.plan_id}}</p>
-                                    </a>
-                                    <p>{{userpayment.monto | currency}}</p>
 
-                                    <p>{{userpayment.createdAt | date:'MMM d, y, h:mm:ss a'}}</p>
-                                    <p><b>Status:</b>
+                                    <p><b>Plan Id:</b>&nbsp;{{userpayment.plan_id}}</p>
+                                    <p><b>Monto Mensual:</b>&nbsp;{{userpayment.monto | currency}}</p>
+                                    <p><b>Email Pago:</b>&nbsp;{{userpayment.email }}</p>
+                                    <p><b>orderID:</b>&nbsp;{{userpayment.orderID }}</p>
+                                    <p><b>Creado:</b>&nbsp;{{userpayment.createdAt| date:'MMM d, y, h:mm:ss a'}}</p>
+                                    <p><b>Status:</b> &nbsp;
                                         <span class="badge bg-success"
-                                            *ngIf="userpayment.status === 'COMPLETED'">Completado</span>
+                                            *ngIf="userpayment.status === 'ACTIVE'">Activo</span>
                                         <span class="badge bg-primary"
-                                            *ngIf="userpayment.status === 'PENDING'">Pendiente</span>
-                                        <span class="badge bg-danger"
-                                            *ngIf="userpayment.status === 'CANCELED'">Rechazado</span>
+                                            *ngIf="userpayment.status === 'INACTIVE'">Inactivo</span>
                                     </p>
 
                                 </div>

@@ -29,7 +29,7 @@
             <div *ngIf="!usuario || usuario.role === 'undefined' || usuario.role === 'null'">
                 Registrate para comprar
             </div>
-            <div *ngIf="usuario ">
+            <div *ngIf="usuario && !esPremium">
                 <a (click)="addToCart()">
                     <button class="btn btn-outline-danger mr-1">
                         <i class="fa fa-shopping-cart"></i>

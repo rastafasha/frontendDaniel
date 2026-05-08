@@ -29,6 +29,7 @@ export class ProductItemComponent implements OnInit {
   profile: Profile;
   subcriptionPaypal!: subcriptionPaypal;
   esFavorito = false;
+  esPremium = false;
 
   imageUrl = environment.mediaUrlRemoto;
 
@@ -71,8 +72,9 @@ export class ProductItemComponent implements OnInit {
     id = this.usuario.uid
     if (!id == null || !id == undefined || id) {
       this.profileService.listarUsuario(id).subscribe(
-        response => {
-          this.profile = response;
+        (resp:any) => {
+          this.profile = resp.profile;
+          this.esPremium = resp.esPremium;
           // console.log('perfil', this.profile)
         }
       );

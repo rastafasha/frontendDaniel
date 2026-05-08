@@ -69,6 +69,11 @@ export class PaypalSubcriptionService {
     return this.http.post(url, planPaypal, this.headers);
 
   }
+  createCompra(planPaypal:any) {
+    const url = `${baseUrl}/paypal/create-payment`;
+    return this.http.post(url, planPaypal, this.headers);
+
+  }
   
 
 

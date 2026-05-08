@@ -59,10 +59,10 @@ export class ProfileService {
 
   listarUsuario(id:string):Observable<any>{
     const url = `${baseUrl}/profile/user_profile/${id}`;
-    return this.http.get<any>(url,this.headers)
-    .pipe(
-      map((resp:{ok: boolean, profile: Profile}) => resp.profile)
-    )
+    return this.http.get<any>(url,this.headers);
+    // .pipe(
+    //   map((resp:{ok: boolean, profile: Profile}) => resp.profile)
+    // )
 
   }
 
