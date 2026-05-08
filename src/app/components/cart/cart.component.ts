@@ -17,6 +17,7 @@ import { MessageService } from 'src/app/services/message.service';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
 import { ProfileService } from 'src/app/services/profile.service';
+import { PaypalSubcriptionService } from 'src/app/services/paypalSubcription.service';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class CartComponent implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private paymentService: PaymentService,
+    private paypalService: PaypalSubcriptionService,
     private fb: FormBuilder,
 
   ) {
@@ -112,7 +114,7 @@ export class CartComponent implements OnInit {
         console.log('ID de la orden aprobado:', data.orderID);
 
         // Llamamos a tu backend para capturar el dinero de forma segura
-        this.paymentService.create(data.orderID).subscribe({
+        this.paypalService.ejecutaPago(data.orderID).subscribe({
           next: (res) => {
             console.log('¡Pago capturado con éxito por el servidor!', res);
             this.emptyCart();

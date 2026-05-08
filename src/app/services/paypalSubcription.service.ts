@@ -74,6 +74,11 @@ export class PaypalSubcriptionService {
     return this.http.post(url, planPaypal, this.headers);
 
   }
+  ejecutaPago(planPaypal:any) {
+    const url = `${baseUrl}/paypal/execute-payment`;
+    return this.http.post(url, planPaypal, this.headers);
+
+  }
   
 
 
