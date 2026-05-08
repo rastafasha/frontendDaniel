@@ -16,6 +16,7 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { MessageService } from 'src/app/services/message.service';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
+import { ProfileService } from 'src/app/services/profile.service';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class CartComponent implements OnInit {
 
   public payPalConfig2?: IPayPalConfig;
   user: User;
+  profileId:string;
 
 
   constructor(
@@ -46,6 +48,7 @@ export class CartComponent implements OnInit {
     private storageService: StorageService,
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
+    private profileService: ProfileService,
     private router: Router,
     private paymentService: PaymentService,
     private fb: FormBuilder,
@@ -56,6 +59,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.getProfileUser()
     this.initConfig();//paypal
     if (this.storageService.existCart()) {
       this.cartItems = this.storageService.getCart();
@@ -64,6 +68,12 @@ export class CartComponent implements OnInit {
     this.total = this.getTotal();
     this.closeModalCart();
     this.closeModalUser();
+  }
+
+  getProfileUser(){
+    this.profileService.getByUser(this.user.uid).subscribe((resp:any)=>{
+      this.profileId = resp._id
+    })
   }
 
 
@@ -75,7 +85,7 @@ export class CartComponent implements OnInit {
         intent: 'CAPTURE',
         purchase_units: [{
           // CLAVE: Aquí enviamos el ID del perfil o usuario
-          custom_id: this.user.uid,
+          custom_id: `${this.profileId}|${this.getCartIdsString()}`, 
           description: 'Compra única de artículos/servicio',
           amount: {
             currency_code: 'USD',
@@ -112,7 +122,6 @@ export class CartComponent implements OnInit {
           JSON.stringify(data));
         this.openModal(
           data.purchase_units[0],
-          // data.purchase_units[0].payments.captures[0].id,
           data.status,
           data.payer.email_address,
           data.payer.name.surname,
@@ -120,14 +129,11 @@ export class CartComponent implements OnInit {
           data.purchase_units[0].items,
           data.purchase_units[0].amount.value,
           data.purchase_units[0],
-          // data.purchase_units[0].payments.captures[0].create_time,
-          // data.purchase_units[0].items[0]
 
         );
         this.emptyCart();
 
         this.spinner.hide();
-        // this.procesarPagoPaypal();
 
       },
       onCancel: (data, actions) => {
@@ -143,6 +149,10 @@ export class CartComponent implements OnInit {
       },
     };
   }
+
+getCartIdsString(): string {
+  return this.cartItems.map(it => it.productId).join(',');
+}
 
   getItem(): void {
     this.messageService.getMessage().subscribe((product: Post) => {

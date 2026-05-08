@@ -30,6 +30,7 @@ export class ProductItemComponent implements OnInit {
   subcriptionPaypal!: subcriptionPaypal;
   esFavorito = false;
   esPremium = false;
+  acceso = false;
 
   imageUrl = environment.mediaUrlRemoto;
 
