@@ -69,7 +69,7 @@ export class CartComponent implements OnInit {
 
     this.payPalConfig2 = {
       currency: 'USD',
-      clientId: environment.clientComprasSandboxId,
+      clientId: environment.clientSubscripcionesSandboxId,
       createOrderOnClient: (data) => < ICreateOrderRequest > {
 
 
