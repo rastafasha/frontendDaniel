@@ -303,8 +303,8 @@ listIcons:Icons;
 
   subirImagen(){
     this.fileUploadService
-    .actualizarFoto(this.imagenSubir, 'profiles', this.profile._id)
-    .then(img => { this.profile.img = img;
+    .actualizarFoto(this.imagenSubir, 'profiles', this.profileSeleccionado._id)
+    .then(img => { this.profileSeleccionado.img = img;
       this.toastr.success('Guardado', 'La imagen fue actualizada')
     }).catch(err =>{
       this.toastr.error('Error', 'No se pudo subir la imagen')
