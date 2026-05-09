@@ -334,10 +334,10 @@ listIcons:Icons;
      formData.append('emailPaypal', this.perfilForm.get('emailPaypal').value);
 
 
-    if (this.profile ) {
+    if (this.profileSeleccionado ) {
       const data = {
         ...this.perfilForm.value,
-        _id: this.profile._id,
+        _id: this.profileSeleccionado._id,
         usuario: this.user.uid,
         redssociales: this.redssociales
       }
