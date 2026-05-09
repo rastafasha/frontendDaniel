@@ -8,14 +8,13 @@ export const environment = {
    apiUrl: "http://localhost:3000/api",
   apiUrlMedia: "http://localhost:3000/api/uploads",
   mediaUrlRemoto: 'https://res.cloudinary.com/dmv6aukai/image/upload/v1741218430/articlesApp',
-  //remoto
-  // apiUrl: "https://backend-daniel-node-mongo.onrender.com/api",
-  // apiUrlMedia: "https://backend-daniel-node-mongo.onrender.com/api/uploads/",
   //paypal
     clientSubscripcionesSandboxId: 'Aebb_SJ2-L8OrgRAvAERINfyMb7eKrqZ7xPt5JreBd9eYfDjzfDildStuo5Gjcx6GNvWbTZaiwBiMeAf',
   //google
   clientGoogle: '291137676127-svvuuca518djs47q2v78se9q6iggi4nq.apps.googleusercontent.com',
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

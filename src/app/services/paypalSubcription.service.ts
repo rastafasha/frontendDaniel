@@ -75,7 +75,7 @@ export class PaypalSubcriptionService {
 
   }
  ejecutaPago(orderId: string) {
-  const url = `${baseUrl}/paypal/execute-payment`;
+  const url = `${baseUrl}/paypal/execute-payment`; 
   
   // Envolvemos el string en un objeto JSON válido
   const body = { token: orderId }; 

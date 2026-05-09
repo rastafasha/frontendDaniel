@@ -202,20 +202,20 @@ listIcons:Icons;
         res => {
           this.perfilForm.patchValue({
             _id: res._id,
-            first_name: this.profile.first_name,
-            last_name: this.profile.last_name,
-            direccion: this.profile.direccion,
-            pais: this.profile.pais,
-            estado: this.profile.estado,
-            ciudad: this.profile.ciudad,
-            telhome: this.profile.telhome,
-            telmovil: this.profile.telmovil,
-            shortdescription: this.profile.shortdescription,
-            emailPaypal: this.profile.emailPaypal,
-            nombrePaypal: this.profile.nombrePaypal,
-            redssociales: this.profile.redssociales,
+            first_name: this.profileSeleccionado.first_name,
+            last_name: this.profileSeleccionado.last_name,
+            direccion: this.profileSeleccionado.direccion,
+            pais: this.profileSeleccionado.pais,
+            estado: this.profileSeleccionado.estado,
+            ciudad: this.profileSeleccionado.ciudad,
+            telhome: this.profileSeleccionado.telhome,
+            telmovil: this.profileSeleccionado.telmovil,
+            shortdescription: this.profileSeleccionado.shortdescription,
+            emailPaypal: this.profileSeleccionado.emailPaypal,
+            nombrePaypal: this.profileSeleccionado.nombrePaypal,
+            redssociales: this.profileSeleccionado.redssociales,
             usuario: this.user.uid,
-            img: this.profile.img
+            img: this.profileSeleccionado.img
           });
           this.profileSeleccionado = res;
           console.log('profileSeleccionado',this.profileSeleccionado);

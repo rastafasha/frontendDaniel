@@ -9,3 +9,4 @@ export const environment = {
   //google
   clientGoogle: '291137676127-svvuuca518djs47q2v78se9q6iggi4nq.apps.googleusercontent.com',
 };
+

@@ -179,95 +179,6 @@ export class PasarelaSubcriptionComponent implements OnInit {
   }
 
 
-
-  guardarEnBaseDeDatos(idSuscripcion: string) {
-    if (idSuscripcion) {
-      this.profileService.saveSubscriptionId(this.user.uid, idSuscripcion).subscribe({
-        next: () => {
-          console.log('Suscripción asociada correctamente');
-          this.router.navigateByUrl(`/checkout/gracias`);
-        },
-        error: (err) => console.error('Error al guardar en base de datos:', err)
-      });
-    }
-  }
-
-  // private initConfig(id): void {
-  //   const plan_id = id;
-  //   console.log('ID que PayPal va a procesar:', id); // DEBE EMPEZAR CON P-
-  //   this.SubcriptionConfig = {
-  //     clientId: environment.paypalKey,
-  //     currency: 'USD',
-  //     // vault: "true",
-  //     createSubscription: (data: any) => {
-  //       return {
-  //         plan_id: id,
-  //         application_context: {
-  //           user_action: 'SUBSCRIBE_NOW'
-  //         }
-  //       } as any;
-  //     },
-  //     advanced: {
-  //       commit: 'true'
-  //     },
-  //     style: {
-  //       label: 'paypal',
-  //       layout: 'vertical'
-  //     },
-  //     onApprove: (data: any, actions: any) => {
-  //       console.log('Data recibida en Approve:', data);
-
-  //       // Intentamos sacar el ID de donde sea que esté
-  //       const subId = data.subscriptionID || data.subscriptionId || data.id;
-
-  //       if (subId && subId.startsWith('I-')) {
-  //         this.guardarEnBaseDeDatos(subId);
-  //       } else {
-  //         // Si data no lo trae, se lo pedimos a actions. Es la última opción.
-  //         actions.subscription.get().then((details: any) => {
-  //           console.log('ID recuperado por actions:', details.id);
-  //           this.guardarEnBaseDeDatos(details.id);
-  //         }).catch(err => {
-  //           console.error('No se pudo recuperar ID de suscripción:', err);
-  //         });
-  //       }
-  //     },
-  //     onClientAuthorization: (data) => {
-  //       console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-  //       // this.showSuccess = true;
-  //       this.openModal(
-  //         data.id,
-  //         data.status,
-  //         data.payer.email_address,
-  //         data.payer.payer_id,
-  //         data.purchase_units[0].amount.value,
-  //         this.paypalplanId
-  //       );
-  //       setTimeout(() => {
-  //         this.router.navigateByUrl(`/checkout/gracias`);
-  //       }, 500);
-
-  //     },
-  //     onCancel: (data, actions) => {
-  //       console.log('OnCancel', data, actions);
-  //       setTimeout(() => {
-  //         this.router.navigateByUrl(`/checkout/cancel-payment`);
-  //       }, 500);
-  //     },
-  //     onError: err => {
-  //       console.log('OnError', err);
-  //       setTimeout(() => {
-  //         this.router.navigateByUrl(`/checkout/fallo`);
-  //       }, 500);
-  //     },
-  //     onClick: (data, actions) => {
-  //       console.log('onClick', data, actions);
-  //     },
-  //   };
-  // }
-
-
-
   paypalplanId(id: string, status: string, email_address: string, payer_id: string, value: string, subscriptionID: any, paypalplanId: any) {
     throw new Error('Method not implemented.');
   }
@@ -276,14 +187,5 @@ export class PasarelaSubcriptionComponent implements OnInit {
     this.closeModal.emit();
   }
 
-  openModal(orderID, status, email, payerID, amount, paypalplanId): void {
-    const modalRef: BsModalRef = this.modalService.show(ModalsubcripcionComponent);
-    modalRef.content.orderID = orderID;
-    modalRef.content.status = status;
-    modalRef.content.email = email;
-    modalRef.content.payerID = payerID;
-    modalRef.content.amount = amount;
-    modalRef.content.paypalplanId = this.planpaypal.id;
-  }
 
 }
