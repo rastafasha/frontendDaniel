@@ -199,26 +199,25 @@ listIcons:Icons;
   iniciarFormularioPerfil(id:string){
     if (!id == null || !id == undefined || id) {
       this.profileService.getByUser(id).subscribe(
-        res => {
+        (res:any) => {
           this.perfilForm.patchValue({
             _id: res._id,
-            first_name: this.profileSeleccionado.first_name,
-            last_name: this.profileSeleccionado.last_name,
-            direccion: this.profileSeleccionado.direccion,
-            pais: this.profileSeleccionado.pais,
-            estado: this.profileSeleccionado.estado,
-            ciudad: this.profileSeleccionado.ciudad,
-            telhome: this.profileSeleccionado.telhome,
-            telmovil: this.profileSeleccionado.telmovil,
-            shortdescription: this.profileSeleccionado.shortdescription,
-            emailPaypal: this.profileSeleccionado.emailPaypal,
-            nombrePaypal: this.profileSeleccionado.nombrePaypal,
-            redssociales: this.profileSeleccionado.redssociales,
+            first_name: res.first_name,
+            last_name: res.last_name,
+            direccion: res.direccion,
+            pais: res.pais,
+            estado: res.estado,
+            ciudad: res.ciudad,
+            telhome: res.telhome,
+            telmovil: res.telmovil,
+            shortdescription: res.shortdescription,
+            emailPaypal: res.emailPaypal,
+            nombrePaypal: res.nombrePaypal,
+            redssociales: res.redssociales,
             usuario: this.user.uid,
-            img: this.profileSeleccionado.img
+            img: res.img
           });
           this.profileSeleccionado = res;
-          console.log('profileSeleccionado',this.profileSeleccionado);
 
         }
 
